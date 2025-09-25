@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "label_beritas",
+  "info": {
+    "singularName": "label-berita",
+    "pluralName": "label-beritas",
+    "displayName": "Label Berita"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nama": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "beritas": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::berita.berita",
+      "mappedBy": "label_berita"
+    }
+  }
+}
