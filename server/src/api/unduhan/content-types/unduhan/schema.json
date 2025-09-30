@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "unduhans",
+  "info": {
+    "singularName": "unduhan",
+    "pluralName": "unduhans",
+    "displayName": "Unduhan"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "files": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "tanggal_waktu": {
+      "type": "datetime"
+    },
+    "total_diunduh": {
+      "type": "integer",
+      "default": 0
+    }
+  }
+}

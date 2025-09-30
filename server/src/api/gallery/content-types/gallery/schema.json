@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "galleries",
+  "info": {
+    "singularName": "gallery",
+    "pluralName": "galleries",
+    "displayName": "Gallery"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "judul": {
+      "type": "string"
+    },
+    "images": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "tanggal": {
+      "type": "date"
+    },
+    "label_gallery": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::label-gallery.label-gallery",
+      "inversedBy": "galleries"
+    }
+  }
+}
