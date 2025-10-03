@@ -484,6 +484,72 @@ export interface ApiGalleryGallery extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiGuruSekolahGuruSekolah extends Struct.CollectionTypeSchema {
+  collectionName: 'guru_sekolahs';
+  info: {
+    displayName: 'Tenaga Sekolah';
+    pluralName: 'guru-sekolahs';
+    singularName: 'guru-sekolah';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    foto: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    jabatan: Schema.Attribute.Enumeration<
+      ['Wakil Kepala Sekolah', 'Guru Kelas', 'Staf TU', 'Guru Agama', 'Caraka']
+    > &
+      Schema.Attribute.Required;
+    kelas: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::guru-sekolah.guru-sekolah'
+    > &
+      Schema.Attribute.Private;
+    nama: Schema.Attribute.String & Schema.Attribute.Required;
+    pengalaman: Schema.Attribute.RichText;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiKepalaSekolahKepalaSekolah extends Struct.SingleTypeSchema {
+  collectionName: 'kepala_sekolahs';
+  info: {
+    displayName: 'Kepala Sekolah';
+    pluralName: 'kepala-sekolahs';
+    singularName: 'kepala-sekolah';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::kepala-sekolah.kepala-sekolah'
+    > &
+      Schema.Attribute.Private;
+    nama: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    sambutan: Schema.Attribute.RichText;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiLabelBeritaLabelBerita extends Struct.CollectionTypeSchema {
   collectionName: 'label_beritas';
   info: {
@@ -540,6 +606,34 @@ export interface ApiLabelGalleryLabelGallery
     nama: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiPortalPortal extends Struct.CollectionTypeSchema {
+  collectionName: 'portals';
+  info: {
+    displayName: 'Portal';
+    pluralName: 'portals';
+    singularName: 'portal';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    link: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::portal.portal'
+    > &
+      Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -713,6 +807,47 @@ export interface PluginI18NLocale extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+  };
+}
+
+export interface PluginRecordLockingOpenEntity
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'open-entity';
+  info: {
+    description: 'List of open entities for record locking plugin.';
+    displayName: 'Open Entity';
+    pluralName: 'open-entities';
+    singularName: 'open-entity';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: true;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
+  attributes: {
+    connectionId: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    entityDocumentId: Schema.Attribute.String;
+    entityId: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'plugin::record-locking.open-entity'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    user: Schema.Attribute.String;
   };
 }
 
@@ -1089,12 +1224,16 @@ declare module '@strapi/strapi' {
       'api::berita.berita': ApiBeritaBerita;
       'api::faq.faq': ApiFaqFaq;
       'api::gallery.gallery': ApiGalleryGallery;
+      'api::guru-sekolah.guru-sekolah': ApiGuruSekolahGuruSekolah;
+      'api::kepala-sekolah.kepala-sekolah': ApiKepalaSekolahKepalaSekolah;
       'api::label-berita.label-berita': ApiLabelBeritaLabelBerita;
       'api::label-gallery.label-gallery': ApiLabelGalleryLabelGallery;
+      'api::portal.portal': ApiPortalPortal;
       'api::unduhan.unduhan': ApiUnduhanUnduhan;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;
+      'plugin::record-locking.open-entity': PluginRecordLockingOpenEntity;
       'plugin::review-workflows.workflow': PluginReviewWorkflowsWorkflow;
       'plugin::review-workflows.workflow-stage': PluginReviewWorkflowsWorkflowStage;
       'plugin::upload.file': PluginUploadFile;

@@ -14,8 +14,12 @@
     "upgrade": "npx @strapi/upgrade latest",
     "upgrade:dry": "npx @strapi/upgrade latest --dry"
   },
+  "resolutions": {
+    "@types/minimatch": "5.1.2"
+  },
   "dependencies": {
     "@_sh/strapi-plugin-ckeditor": "^6.0.3",
+    "@notum-cz/strapi-plugin-record-locking": "^2.0.0",
     "@strapi/plugin-cloud": "5.23.6",
     "@strapi/plugin-users-permissions": "5.23.6",
     "@strapi/strapi": "5.23.6",

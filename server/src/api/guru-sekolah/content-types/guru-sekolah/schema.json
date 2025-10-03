@@ -1,0 +1,58 @@
+{
+  "kind": "collectionType",
+  "collectionName": "guru_sekolahs",
+  "info": {
+    "singularName": "guru-sekolah",
+    "pluralName": "guru-sekolahs",
+    "displayName": "Tenaga Sekolah"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nama": {
+      "type": "string",
+      "required": true
+    },
+    "foto": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "jabatan": {
+      "type": "enumeration",
+      "required": true,
+      "enum": [
+        "Wakil Kepala Sekolah",
+        "Guru Kelas",
+        "Staf TU",
+        "Guru Agama",
+        "Caraka"
+      ]
+    },
+    "kelas": {
+      "type": "string",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "jabatan"
+            },
+            "Guru Kelas"
+          ]
+        }
+      },
+      "required": true,
+      "unique": true
+    },
+    "pengalaman": {
+      "type": "richtext"
+    }
+  }
+}

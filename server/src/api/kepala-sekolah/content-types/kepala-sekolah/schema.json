@@ -1,0 +1,21 @@
+{
+  "kind": "singleType",
+  "collectionName": "kepala_sekolahs",
+  "info": {
+    "singularName": "kepala-sekolah",
+    "pluralName": "kepala-sekolahs",
+    "displayName": "Kepala Sekolah"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nama": {
+      "type": "string"
+    },
+    "sambutan": {
+      "type": "richtext"
+    }
+  }
+}
