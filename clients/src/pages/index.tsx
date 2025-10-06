@@ -1,9 +1,37 @@
-import { Carousel, Image } from "antd";
+import { Button, Carousel, Image } from "antd";
 import { Navbar } from "../components";
 import { useState } from "react";
+import { MoveRight } from "lucide-react";
 
 const Home = () => {
   const [random] = useState<number>(Date.now());
+
+  const facilities = [
+    {
+      label: "LAPANGAN",
+      url: `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?${random}`,
+    },
+    {
+      label: "KANTIN",
+      url: `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?${random}`,
+    },
+    {
+      label: "RUANG LAB",
+      url: `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?${random}`,
+    },
+    {
+      label: "UKS",
+      url: `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?${random}`,
+    },
+    {
+      label: "PERPUSTAKAAN",
+      url: `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?${random}`,
+    },
+    {
+      label: "TAMAN",
+      url: `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?${random}`,
+    },
+  ];
 
   const news = [
     {
@@ -51,7 +79,7 @@ const Home = () => {
   ];
 
   return (
-    <>
+    <div className="min-h-screen">
       <Navbar />
       <Carousel
         arrows
@@ -59,7 +87,7 @@ const Home = () => {
         className="[&_.slick-arrow]:text-black!"
       >
         {news.map((item, idx) => (
-          <div className="relative h-164" key={`hero-${idx}`}>
+          <div className="relative h-132" key={`hero-${idx}`}>
             <Image
               width="100%"
               src={item.image}
@@ -78,24 +106,27 @@ const Home = () => {
                   <h1 className="text-4xl font-bold">{item.title}</h1>
                   <p className="text-lg line-clamp-5">{item.description}</p>
                 </div>
-                <button className="bg-teal-700 w-[100px] h-[50px] transition-all hover:scale-up-center relative cursor-pointer">
-                  <div className="absolute top-0 z-[1] w-full h-full flex flex-col justify-center peer text-white">
-                    Daftar
-                  </div>
-                  <div className="transition-all w-0 peer-hover:w-full h-full bg-black absolute z-0 top-0 ease-out pointer-events-none"></div>
-                </button>
+                <Button type="primary" size="large">
+                  Daftar
+                </Button>
               </div>
             </div>
           </div>
         ))}
       </Carousel>
+
+      {/* ---------------------------------------- */}
+
       <div className="flex gap-14 pt-16 px-32">
-        <div className="flex flex-col gap-4 w-6/8">
+        <div className="flex flex-col gap-4 flex-1">
           <div className="flex justify-between items-center">
             <h2 className="text-2xl font-bold">PENGUMUMAN</h2>
-            <p className="text-sm text-gray-500">Selengkapnya</p>
+            <div className="flex gap-2 items-center text-gray-500 border-b border-b-transparent hover:text-black hover:border-b hover:border-b-black cursor-pointer">
+              <p className="text-sm">Selengkapnya</p>
+              <MoveRight className="w-4" />
+            </div>
           </div>
-          <div className="grid grid-cols-4 gap-4">
+          <div className="grid grid-cols-3 gap-8">
             {news.map((item, idx) => (
               <div className="flex flex-col gap-3" key={`news-${idx}`}>
                 <Image
@@ -115,21 +146,24 @@ const Home = () => {
                     {new Date(item.created_at).toDateString()}
                   </p>
                   <h4 className="font-bold line-clamp-2">{item.title}</h4>
-                  <p className="line-clamp-2 text-sm">{item.description}</p>
+                  <p className="line-clamp-3 text-sm">{item.description}</p>
                 </div>
               </div>
             ))}
           </div>
         </div>
-        <div className="flex flex-col gap-4 w-2/8">
+        <div className="flex flex-col gap-4 w-2/7">
           <div className="flex justify-between items-center">
             <h2 className="text-2xl font-bold">PRESTASI</h2>
-            <p className="text-sm text-gray-500">Selengkapnya</p>
+            <div className="flex gap-2 items-center text-gray-500 border-b border-b-transparent hover:text-black hover:border-b hover:border-b-black cursor-pointer">
+              <p className="text-sm">Selengkapnya</p>
+              <MoveRight className="w-4" />
+            </div>
           </div>
           <div className="flex flex-col gap-4">
             {news.map((item) => (
               <div className="flex gap-4">
-                <div className="w-320">
+                <div className="w-480">
                   <Image
                     width="100%"
                     src={item.image}
@@ -147,26 +181,30 @@ const Home = () => {
                   <p className="text-xs text-gray-500">
                     {new Date(item.created_at).toDateString()}
                   </p>
-                  <h4 className="font-bold text-sm line-clamp-2">
+                  <h4 className="font-bold text-md line-clamp-2">
                     {item.title}
                   </h4>
-                  <p className="line-clamp-2 text-xs">{item.description}</p>
+                  <p className="line-clamp-2 text-sm">{item.description}</p>
                 </div>
               </div>
             ))}
           </div>
         </div>
       </div>
+
+      {/* ---------------------------------------- */}
+
       <div className="w-64 h-1 bg-black my-24 mx-auto" />
-      <div className="flex flex-col gap-6 items-center justify-center">
-        <h2 className="text-4xl font-bold text-center">
-          Video Profil
-          <br />
-          SDN SUMUR BATU 14
-        </h2>
+      <div className="px-32 pb-32 flex flex-col gap-14 items-center justify-center">
+        <div className="flex flex-col gap-6 items-center justify-center">
+          <h2 className="text-5xl font-bold text-center">Video Profil</h2>
+          <h2 className="text-5xl font-bold text-center">SDN SUMUR BATU 14</h2>
+        </div>
 
         <iframe
           width="100%"
+          height="480"
+          className="rounded-2xl"
           src="https://www.youtube-nocookie.com/embed/ipLV8vb0DK8?si=ikr8gKyzkRau1B0e&amp;controls=0"
           title="YouTube video player"
           frameBorder="0"
@@ -175,7 +213,34 @@ const Home = () => {
           allowFullScreen
         ></iframe>
       </div>
-    </>
+
+      {/* ---------------------------------------- */}
+
+      <div className="grid grid-cols-3">
+        {facilities.map((item) => (
+          <div className="relative">
+            <p className="absolute top-1/2 left-1/2 -translate-1/2 z-20 text-2xl text-white font-bold">
+              {item.label}
+            </p>
+            <div className="absolute z-10 top-0 left-0 w-full h-full bg-black opacity-70" />
+            <Image
+              width="100%"
+              height="100%"
+              src={item.url}
+              preview={false}
+              placeholder={
+                <Image
+                  preview={false}
+                  src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?x-oss-process=image/blur,r_50,s_50/quality,q_1/resize,m_mfit,h_200,w_200"
+                  width="100%"
+                  height="100%"
+                />
+              }
+            />
+          </div>
+        ))}
+      </div>
+    </div>
   );
 };
 
