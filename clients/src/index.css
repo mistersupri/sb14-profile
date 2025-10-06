@@ -1,0 +1,11 @@
+@import url("https://use.typekit.net/men4pbu.css");
+@import "tailwindcss";
+
+* {
+    font-family: "Poppins", sans-serif; 
+}
+
+::selection {
+    background-color: #1B6B58;
+    color: white;
+}

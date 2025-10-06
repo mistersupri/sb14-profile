@@ -1,0 +1,48 @@
+import { useNavigate } from "react-router";
+import { IMGJayaRaya } from "../../../assets";
+
+const Navbar = () => {
+  const navigate = useNavigate();
+
+  const navList = [
+    { label: "BERANDA", url: "/" },
+    { label: "TENTANG SEKOLAH", url: "/tentang_sekolah" },
+    { label: "PENGUMUMAN", url: "/pengumuman" },
+    { label: "GALERI", url: "/galeri" },
+    { label: "UNDUHAN", url: "/unduhan" },
+    { label: "PORTAL", url: "/portal" },
+    { label: "FAQ", url: "/faq" },
+    { label: "KOTAK SARAN", url: "/kotak_saran" },
+  ];
+
+  return (
+    <div className="fixed z-50 w-screen px-10 py-4 backdrop-blur-sm bg-white/80">
+      <div className="flex justify-between">
+        <div className="flex items-center justify-center gap-4">
+          <img src={IMGJayaRaya} className="w-8" />
+          <p className="font-bold text-lg">SDN Sumur Batu 14</p>
+        </div>
+        <div>
+          <ul className="flex gap-4 text-sm">
+            {navList.map((item, idx) => (
+              <li key={`navitem-${idx}`}>
+                <a
+                  href={item.url}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigate(item.url);
+                  }}
+                  className="w-full h-full py-2 px-4 flex items-center justify-center hover:bg-slate-700 hover:text-white"
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Navbar;
