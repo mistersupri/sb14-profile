@@ -400,6 +400,10 @@ export interface ApiBeritaBerita extends Struct.CollectionTypeSchema {
       'manyToOne',
       'api::label-berita.label-berita'
     >;
+    label_unduhan: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::label-unduhan.label-unduhan'
+    >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -550,6 +554,36 @@ export interface ApiKepalaSekolahKepalaSekolah extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiKotakSaranKotakSaran extends Struct.CollectionTypeSchema {
+  collectionName: 'kotak_sarans';
+  info: {
+    displayName: 'Kotak Saran';
+    pluralName: 'kotak-sarans';
+    singularName: 'kotak-saran';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::kotak-saran.kotak-saran'
+    > &
+      Schema.Attribute.Private;
+    nama: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    saran: Schema.Attribute.Text;
+    tujuan: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiLabelBeritaLabelBerita extends Struct.CollectionTypeSchema {
   collectionName: 'label_beritas';
   info: {
@@ -606,6 +640,36 @@ export interface ApiLabelGalleryLabelGallery
     nama: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiLabelUnduhanLabelUnduhan
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'label_unduhans';
+  info: {
+    displayName: 'Label Unduhan';
+    pluralName: 'label-unduhans';
+    singularName: 'label-unduhan';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    beritas: Schema.Attribute.Relation<'oneToMany', 'api::berita.berita'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::label-unduhan.label-unduhan'
+    > &
+      Schema.Attribute.Private;
+    nama: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -1226,8 +1290,10 @@ declare module '@strapi/strapi' {
       'api::gallery.gallery': ApiGalleryGallery;
       'api::guru-sekolah.guru-sekolah': ApiGuruSekolahGuruSekolah;
       'api::kepala-sekolah.kepala-sekolah': ApiKepalaSekolahKepalaSekolah;
+      'api::kotak-saran.kotak-saran': ApiKotakSaranKotakSaran;
       'api::label-berita.label-berita': ApiLabelBeritaLabelBerita;
       'api::label-gallery.label-gallery': ApiLabelGalleryLabelGallery;
+      'api::label-unduhan.label-unduhan': ApiLabelUnduhanLabelUnduhan;
       'api::portal.portal': ApiPortalPortal;
       'api::unduhan.unduhan': ApiUnduhanUnduhan;
       'plugin::content-releases.release': PluginContentReleasesRelease;
