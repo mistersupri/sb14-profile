@@ -1,5 +1,5 @@
 import { Button, Carousel, Image } from "antd";
-import { Navbar } from "../components";
+import { Footer, Navbar } from "../components";
 import { useState } from "react";
 import { MoveRight } from "lucide-react";
 
@@ -240,6 +240,7 @@ const Home = () => {
           </div>
         ))}
       </div>
+      <Footer />
     </div>
   );
 };
