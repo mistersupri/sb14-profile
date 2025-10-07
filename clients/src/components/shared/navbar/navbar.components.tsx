@@ -7,14 +7,14 @@ const Navbar = () => {
   const { pathname } = useLocation();
 
   const navList = [
-    { label: "BERANDA", url: "/" },
-    { label: "TENTANG SEKOLAH", url: "/tentang_sekolah" },
-    { label: "PENGUMUMAN", url: "/pengumuman" },
-    { label: "GALERI", url: "/galeri" },
-    { label: "UNDUHAN", url: "/unduhan" },
-    { label: "PORTAL", url: "/portal" },
+    { label: "Beranda", url: "/" },
+    { label: "Tentang Sekolah", url: "/tentang-sekolah" },
+    { label: "Pengumuman", url: "/pengumuman" },
+    { label: "Galeri", url: "/galeri" },
+    { label: "Unduhan", url: "/unduhan" },
+    { label: "Portal", url: "/portal" },
     { label: "FAQ", url: "/faq" },
-    { label: "KOTAK SARAN", url: "/kotak_saran" },
+    { label: "Kotak Saran", url: "/kotak-saran" },
   ];
 
   return (
@@ -41,8 +41,11 @@ const Navbar = () => {
                     navigate(item.url);
                   }}
                   className={classNames([
-                    "w-full h-full py-2 px-4 rounded-full flex items-center justify-center font-bold hover:bg-gray-200 transition-all",
-                    pathname === item.url && "bg-black text-white",
+                    "w-full h-full py-2 px-4 rounded-full flex items-center justify-center font-bold transition-all",
+                    (item.url === "/" && pathname === item.url) ||
+                    (item.url !== "/" && pathname.includes(item.url))
+                      ? "bg-black text-white"
+                      : "hover:bg-gray-200",
                   ])}
                 >
                   {item.label}
