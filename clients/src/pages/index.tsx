@@ -1,4 +1,4 @@
-import { Button, Carousel, Image } from "antd";
+import { Button, Carousel, Image, Tag } from "antd";
 import { Footer, Navbar } from "../components";
 import { useState } from "react";
 import { MoveRight } from "lucide-react";
@@ -87,7 +87,7 @@ const Home = () => {
         className="[&_.slick-arrow]:text-black!"
       >
         {news.map((item, idx) => (
-          <div className="relative h-132" key={`hero-${idx}`}>
+          <div className="relative h-164" key={`hero-${idx}`}>
             <Image
               width="100%"
               src={item.image}
@@ -121,49 +121,18 @@ const Home = () => {
         <div className="flex flex-col gap-4 flex-1">
           <div className="flex justify-between items-center">
             <h2 className="text-2xl font-bold">PENGUMUMAN</h2>
-            <div className="flex gap-2 items-center text-gray-500 border-b border-b-transparent hover:text-black hover:border-b hover:border-b-black cursor-pointer">
+            <div className="flex gap-2 items-center text-gray-500 border-b border-b-transparent hover:text-black hover:border-b hover:border-b-black cursor-pointer transition-all">
               <p className="text-sm">Selengkapnya</p>
               <MoveRight className="w-4" />
             </div>
           </div>
-          <div className="grid grid-cols-3 gap-8">
+          <div className="grid grid-cols-3 gap-4">
             {news.map((item, idx) => (
-              <div className="flex flex-col gap-3" key={`news-${idx}`}>
-                <Image
-                  width="100%"
-                  src={item.image}
-                  preview={false}
-                  placeholder={
-                    <Image
-                      preview={false}
-                      src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?x-oss-process=image/blur,r_50,s_50/quality,q_1/resize,m_mfit,h_200,w_200"
-                      width="100%"
-                    />
-                  }
-                />
-                <div className="flex flex-col">
-                  <p className="text-xs text-gray-500">
-                    {new Date(item.created_at).toDateString()}
-                  </p>
-                  <h4 className="font-bold line-clamp-2">{item.title}</h4>
-                  <p className="line-clamp-3 text-sm">{item.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="flex flex-col gap-4 w-2/7">
-          <div className="flex justify-between items-center">
-            <h2 className="text-2xl font-bold">PRESTASI</h2>
-            <div className="flex gap-2 items-center text-gray-500 border-b border-b-transparent hover:text-black hover:border-b hover:border-b-black cursor-pointer">
-              <p className="text-sm">Selengkapnya</p>
-              <MoveRight className="w-4" />
-            </div>
-          </div>
-          <div className="flex flex-col gap-4">
-            {news.map((item) => (
-              <div className="flex gap-4">
-                <div className="w-480">
+              <div
+                className="flex flex-col overflow-hidden rounded border border-gray-100 hover:border-black cursor-pointer transition-all"
+                key={`news-${idx}`}
+              >
+                <div className="w-full h-32 overflow-hidden">
                   <Image
                     width="100%"
                     src={item.image}
@@ -177,14 +146,57 @@ const Home = () => {
                     }
                   />
                 </div>
-                <div className="flex flex-col">
+                <div className="flex flex-col items-start gap-1 p-4">
+                  <div className="w-full flex justify-between items-center">
+                    <Tag color="magenta" className="text-xs!">
+                      ANBK
+                    </Tag>
+                    <p className="text-xs text-gray-500">
+                      {new Date(item.created_at).toDateString()}
+                    </p>
+                  </div>
+                  <h4 className="font-bold line-clamp-2">{item.title}</h4>
+                  <p className="line-clamp-3 text-sm">{item.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="flex flex-col gap-4 w-2/7">
+          <div className="flex justify-between items-center">
+            <h2 className="text-2xl font-bold">PRESTASI</h2>
+            <div className="flex gap-2 items-center text-gray-500 border-b border-b-transparent hover:text-black hover:border-b hover:border-b-black cursor-pointer transition-all">
+              <p className="text-sm">Selengkapnya</p>
+              <MoveRight className="w-4" />
+            </div>
+          </div>
+          <div className="flex flex-col gap-4">
+            {news.map((item) => (
+              <div className="flex overflow-hidden rounded border border-gray-100 hover:border-black cursor-pointer transition-all">
+                <div className="w-16">
+                  <Image
+                    height="100%"
+                    className="object-cover"
+                    src={item.image}
+                    preview={false}
+                    placeholder={
+                      <Image
+                        height="100%"
+                        className="object-cover"
+                        preview={false}
+                        src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?x-oss-process=image/blur,r_50,s_50/quality,q_1/resize,m_mfit,h_200,w_200"
+                      />
+                    }
+                  />
+                </div>
+                <div className="flex-1 flex flex-col px-4 py-2">
                   <p className="text-xs text-gray-500">
                     {new Date(item.created_at).toDateString()}
                   </p>
-                  <h4 className="font-bold text-md line-clamp-2">
+                  <h4 className="font-bold text-sm line-clamp-2">
                     {item.title}
                   </h4>
-                  <p className="line-clamp-2 text-sm">{item.description}</p>
+                  <p className="line-clamp-2 text-xs">{item.description}</p>
                 </div>
               </div>
             ))}

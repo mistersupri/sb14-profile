@@ -1,8 +1,10 @@
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { IMGJayaRaya } from "../../../assets";
+import classNames from "classnames";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   const navList = [
     { label: "BERANDA", url: "/" },
@@ -16,14 +18,20 @@ const Navbar = () => {
   ];
 
   return (
-    <div className="fixed z-50 left-0 right-0 px-10 py-4 mx-8 mt-2 border border-slate-100 rounded-full backdrop-blur-sm bg-white/80">
+    <div
+      className={classNames([
+        "fixed z-50 left-0 right-0 px-10 py-4",
+        "backdrop-blur-sm bg-white/80",
+        "mx-8 mt-2 border border-slate-100 rounded-full",
+      ])}
+    >
       <div className="flex justify-between">
         <div className="flex items-center justify-center gap-4">
           <img src={IMGJayaRaya} className="w-8" />
           <p className="font-bold text-lg">SDN Sumur Batu 14</p>
         </div>
         <div>
-          <ul className="flex gap-2 text-xs">
+          <ul className="flex gap-2 text-sm">
             {navList.map((item, idx) => (
               <li key={`navitem-${idx}`}>
                 <a
@@ -32,7 +40,10 @@ const Navbar = () => {
                     e.preventDefault();
                     navigate(item.url);
                   }}
-                  className="w-full h-full py-2 px-4 rounded-full flex items-center justify-center font-bold hover:bg-black hover:text-white transition-all"
+                  className={classNames([
+                    "w-full h-full py-2 px-4 rounded-full flex items-center justify-center font-bold hover:bg-gray-200 transition-all",
+                    pathname === item.url && "bg-black text-white",
+                  ])}
                 >
                   {item.label}
                 </a>
