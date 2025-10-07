@@ -1,7 +1,7 @@
-import { MainLayout } from "@/layouts";
+import { BigTitleLayout } from "@/layouts";
 
 const FAQPage = () => {
-  return <MainLayout></MainLayout>;
+  return <BigTitleLayout title="FAQ"></BigTitleLayout>;
 };
 
 export default FAQPage;

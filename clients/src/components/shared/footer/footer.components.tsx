@@ -10,14 +10,14 @@ const Footer = () => {
             <a
               href="https://instagram.com"
               target="_blank"
-              className="cursor-pointer hover:bg-white hover:text-black rounded p-2 transition-all"
+              className="cursor-pointer hover:bg-white hover:text-black rounded-xl p-2 transition-all"
             >
               <Instagram />
             </a>
             <a
               href="https://youtube.com"
               target="_blank"
-              className="cursor-pointer hover:bg-white hover:text-black rounded p-2 transition-all"
+              className="cursor-pointer hover:bg-white hover:text-black rounded-xl p-2 transition-all"
             >
               <Youtube />
             </a>

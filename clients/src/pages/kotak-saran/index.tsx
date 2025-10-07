@@ -1,7 +1,7 @@
-import { MainLayout } from "@/layouts";
+import { BigTitleLayout } from "@/layouts";
 
 const KotakSaranPage = () => {
-  return <MainLayout></MainLayout>;
+  return <BigTitleLayout title="KOTAK SARAN"></BigTitleLayout>;
 };
 
 export default KotakSaranPage;

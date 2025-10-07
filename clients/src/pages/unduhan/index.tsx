@@ -1,7 +1,7 @@
-import { MainLayout } from "@/layouts";
+import { BigTitleLayout } from "@/layouts";
 
 const UnduhanPage = () => {
-  return <MainLayout></MainLayout>;
+  return <BigTitleLayout title="UNDUHAN"></BigTitleLayout>;
 };
 
 export default UnduhanPage;
