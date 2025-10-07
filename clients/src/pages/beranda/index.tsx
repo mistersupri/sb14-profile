@@ -101,7 +101,7 @@ const BerandaPage = () => {
               />
               <div className="bg-linear-to-b from-white/80 to-white absolute top-0 left-0 w-full h-full" />
               <div className="absolute w-full h-full z-10 top-0 left-0">
-                <div className="xl:w-480 m-auto pt-18 px-32 h-full flex flex-col justify-center items-start gap-8">
+                <div className="xl:max-w-380 m-auto pt-18 px-32 h-full flex flex-col justify-center items-start gap-8">
                   <div className="w-full xl:w-1/2 flex flex-col gap-6">
                     <h1 className="text-4xl font-bold">{item.title}</h1>
                     <p className="text-lg line-clamp-5">{item.description}</p>
@@ -117,7 +117,7 @@ const BerandaPage = () => {
 
         {/* ---------------------------------------- */}
 
-        <div className="flex gap-14 pt-16 px-32">
+        <div className="flex gap-14 pt-16 px-32 xl:max-w-380 m-auto">
           <div className="flex flex-col gap-4 flex-1">
             <div className="flex justify-between items-center">
               <h2 className="text-2xl font-bold">PENGUMUMAN</h2>
@@ -207,7 +207,7 @@ const BerandaPage = () => {
         {/* ---------------------------------------- */}
 
         <div className="w-64 h-1 bg-black my-24 mx-auto" />
-        <div className="px-32 pb-32 flex flex-col gap-14 items-center justify-center">
+        <div className="xl:max-w-380 m-auto px-32 pb-32 flex flex-col gap-14 items-center justify-center">
           <div className="flex flex-col gap-6 items-center justify-center">
             <h2 className="text-5xl font-bold text-center">Video Profil</h2>
             <h2 className="text-5xl font-bold text-center">
@@ -230,7 +230,7 @@ const BerandaPage = () => {
 
         {/* ---------------------------------------- */}
 
-        <div className="grid grid-cols-3">
+        <div className="grid grid-cols-3 xl:max-w-380 m-auto">
           {facilities.map((item) => (
             <div className="relative">
               <p className="absolute top-1/2 left-1/2 -translate-1/2 z-20 text-2xl text-white font-bold">

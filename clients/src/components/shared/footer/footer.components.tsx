@@ -3,7 +3,7 @@ import { Instagram, Mail, MapPin, Phone, Youtube } from "lucide-react";
 const Footer = () => {
   return (
     <div className="bg-black text-white">
-      <div className="py-16 px-32 grid grid-cols-3 gap-12">
+      <div className="py-16 px-32 xl:max-w-380 m-auto grid grid-cols-3 gap-12">
         <div className="flex flex-col gap-4">
           <p>SDN Sumur Batu 14</p>
           <div className="flex gap-2">
