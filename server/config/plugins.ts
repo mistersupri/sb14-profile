@@ -5,4 +5,10 @@ export default () => ({
       transports: ["websocket"],
     },
   },
+  "strapi-csv-import-export": {
+    config: {
+      authorizedExports: ["api::berita.berita"],
+      authorizedImports: ["api::berita.berita"],
+    },
+  },
 });
