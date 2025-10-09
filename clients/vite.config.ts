@@ -31,4 +31,7 @@ export default defineConfig({
       aliases.compilerOptions.paths
     ),
   },
+  server: {
+    allowedHosts: ["code-5173.sup.web.id"],
+  },
 });

@@ -122,7 +122,9 @@ const BerandaPage = () => {
             <div className="flex justify-between items-center">
               <h2 className="text-2xl font-bold">PENGUMUMAN</h2>
               <div className="flex gap-2 items-center text-gray-500 border-b border-b-transparent hover:text-black hover:border-b hover:border-b-black cursor-pointer transition-all">
-                <p className="text-sm">Selengkapnya</p>
+                <a href="/pengumuman" className="text-sm">
+                  Selengkapnya
+                </a>
                 <MoveRight className="w-4" />
               </div>
             </div>
@@ -142,6 +144,7 @@ const BerandaPage = () => {
                           preview={false}
                           src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?x-oss-process=image/blur,r_50,s_50/quality,q_1/resize,m_mfit,h_200,w_200"
                           width="100%"
+                          height="100%"
                         />
                       }
                     />

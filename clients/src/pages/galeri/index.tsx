@@ -1,5 +1,5 @@
 import { BigTitleLayout } from "@/layouts";
-import { Image } from "antd";
+import { Image, Pagination } from "antd";
 import classNames from "classnames";
 
 const random = Date.now();
@@ -29,24 +29,27 @@ const GaleriPage = () => {
   return (
     <BigTitleLayout title="Galeri">
       <div className="xl:max-w-380 m-auto pb-32 px-4 md:px-8 lg:px-32 flex gap-8">
-        <div className="flex-1 grid grid-cols-3 gap-2 flex-wrap">
-          {imageList.map((item) => (
-            <Image
-              className="object-cover rounded-xl"
-              height={164}
-              width="100%"
-              src={item.url}
-              placeholder={
-                <Image
-                  className="object-cover rounded-xl"
-                  height={164}
-                  width="100%"
-                  preview={false}
-                  src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?x-oss-process=image/blur,r_50,s_50/quality,q_1/resize,m_mfit,h_200,w_200"
-                />
-              }
-            />
-          ))}
+        <div className="flex-1 flex flex-col gap-8">
+          <div className="grid grid-cols-3 gap-2">
+            {imageList.map((item) => (
+              <Image
+                className="object-cover rounded-xl"
+                height={164}
+                width="100%"
+                src={item.url}
+                placeholder={
+                  <Image
+                    className="object-cover rounded-xl"
+                    height={164}
+                    width="100%"
+                    preview={false}
+                    src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?x-oss-process=image/blur,r_50,s_50/quality,q_1/resize,m_mfit,h_200,w_200"
+                  />
+                }
+              />
+            ))}
+          </div>
+          <Pagination align="center" defaultCurrent={1} total={50} />
         </div>
         <div className="flex flex-col gap-4 w-2/7">
           <h2 className="text-xl font-bold">Label</h2>
