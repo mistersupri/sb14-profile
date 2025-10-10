@@ -3,9 +3,14 @@ import { Instagram, Mail, MapPin, Phone, Youtube } from "lucide-react";
 const Footer = () => {
   return (
     <div className="bg-black text-white">
-      <div className="py-16 px-32 xl:max-w-380 m-auto grid grid-cols-3 gap-12">
+      <div className="py-16 px-8 lg:px-32 xl:max-w-380 m-auto grid lg:grid-cols-3 gap-12">
         <div className="flex flex-col gap-4">
-          <p>SDN Sumur Batu 14</p>
+          <div className="flex items-center gap-4">
+            <div className="min-w-12 flex justify-center">
+              <img src="/logo.png" className="w-8" />
+            </div>
+            <p className="font-bold text-lg lg:text-xl">SDN Sumur Batu 14</p>
+          </div>
           <div className="flex gap-2">
             <a
               href="https://instagram.com"
@@ -25,8 +30,8 @@ const Footer = () => {
         </div>
         <div className="flex flex-col gap-4">
           <div className="flex gap-1">
-            <div className="min-w-14 flex justify-center">
-              <MapPin className="w-12" />
+            <div className="min-w-8 flex justify-center">
+              <MapPin className="w-8" />
             </div>
             <p>
               Jl. Nilam Raya No.6, RT.2/RW.2, Sumur Batu, Kec. Kemayoran, Kota
@@ -34,8 +39,8 @@ const Footer = () => {
             </p>
           </div>
           <div className="flex gap-1">
-            <div className="min-w-14 flex justify-center">
-              <Mail className="w-12" />
+            <div className="min-w-8 flex justify-center">
+              <Mail className="w-8" />
             </div>
             <a
               href="mailto:sb14pagi.jakpus@gmail.com"
@@ -45,8 +50,8 @@ const Footer = () => {
             </a>
           </div>
           <div className="flex gap-1">
-            <div className="min-w-14 flex justify-center">
-              <Phone className="w-12" />
+            <div className="min-w-8 flex justify-center">
+              <Phone className="w-8" />
             </div>
             <a
               href="https://wa.me/6285156116391"
