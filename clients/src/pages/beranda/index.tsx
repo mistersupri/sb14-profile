@@ -87,7 +87,7 @@ const BerandaPage = () => {
           className="[&_.slick-arrow]:text-black!"
         >
           {news.map((item, idx) => (
-            <div className="relative h-164" key={`hero-${idx}`}>
+            <div className="relative h-128 lg:h-154" key={`hero-${idx}`}>
               <Image
                 width="100%"
                 src={item.image}
@@ -101,14 +101,18 @@ const BerandaPage = () => {
               />
               <div className="bg-linear-to-b from-white/80 to-white absolute top-0 left-0 w-full h-full" />
               <div className="absolute w-full h-full z-10 top-0 left-0">
-                <div className="xl:max-w-380 m-auto pt-18 px-32 h-full flex flex-col justify-center items-start gap-8">
+                <div className="max-w-164 xl:max-w-380 pt-18 px-16 lg:px-32 h-full flex flex-col justify-center items-start gap-8">
                   <div className="w-full xl:w-1/2 flex flex-col gap-6">
-                    <h1 className="text-4xl font-bold">{item.title}</h1>
-                    <p className="text-lg line-clamp-5">{item.description}</p>
+                    <h1 className="text-2xl lg:text-4xl font-bold">
+                      {item.title}
+                    </h1>
+                    <p className="text-md lg:text-lg line-clamp-5">
+                      {item.description}
+                    </p>
                   </div>
-                  <Button type="primary" size="large">
+                  <button className="bg-teal-700 px-8 py-2 lg:text-lg text-white rounded-xl hover:bg-black cursor-pointer">
                     Daftar
-                  </Button>
+                  </button>
                 </div>
               </div>
             </div>
@@ -117,18 +121,18 @@ const BerandaPage = () => {
 
         {/* ---------------------------------------- */}
 
-        <div className="flex gap-14 pt-16 px-32 xl:max-w-380 m-auto">
+        <div className="flex flex-col lg:flex-row gap-14 pt-16 px-8 lg:px-32 xl:max-w-380 m-auto">
           <div className="flex flex-col gap-4 flex-1">
             <div className="flex justify-between items-center">
-              <h2 className="text-2xl font-bold">PENGUMUMAN</h2>
+              <h2 className="text:xl lg:text-2xl font-bold">PENGUMUMAN</h2>
               <div className="flex gap-2 items-center text-gray-500 border-b border-b-transparent hover:text-black hover:border-b hover:border-b-black cursor-pointer transition-all">
-                <a href="/pengumuman" className="text-sm">
+                <a href="/pengumuman" className="text-xs lg:text-sm">
                   Selengkapnya
                 </a>
-                <MoveRight className="w-4" />
+                <MoveRight className="w-3 lg:w-4" />
               </div>
             </div>
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {news.map((item, idx) => (
                 <div
                   className="flex flex-col overflow-hidden rounded border border-gray-100 hover:border-black cursor-pointer transition-all"
@@ -158,14 +162,18 @@ const BerandaPage = () => {
                         {new Date(item.created_at).toDateString()}
                       </p>
                     </div>
-                    <h4 className="font-bold line-clamp-2">{item.title}</h4>
-                    <p className="line-clamp-3 text-sm">{item.description}</p>
+                    <h4 className="font-bold line-clamp-2 text-sm lg:text-base">
+                      {item.title}
+                    </h4>
+                    <p className="line-clamp-3 text-xs lg:text-sm">
+                      {item.description}
+                    </p>
                   </div>
                 </div>
               ))}
             </div>
           </div>
-          <div className="flex flex-col gap-4 w-2/7">
+          <div className="flex flex-col gap-4 lg:w-2/7">
             <div className="flex justify-between items-center">
               <h2 className="text-2xl font-bold">PRESTASI</h2>
               <div className="flex gap-2 items-center text-gray-500 border-b border-b-transparent hover:text-black hover:border-b hover:border-b-black cursor-pointer transition-all">
@@ -176,7 +184,7 @@ const BerandaPage = () => {
             <div className="flex flex-col gap-4">
               {news.map((item) => (
                 <div className="flex overflow-hidden rounded border border-gray-100 hover:border-black cursor-pointer transition-all">
-                  <div className="w-16">
+                  <div className="w-24 lg:w-16">
                     <Image
                       height="100%"
                       className="object-cover"
@@ -210,18 +218,17 @@ const BerandaPage = () => {
         {/* ---------------------------------------- */}
 
         <div className="w-64 h-1 bg-black my-24 mx-auto" />
-        <div className="xl:max-w-380 m-auto px-32 pb-32 flex flex-col gap-14 items-center justify-center">
+        <div className="xl:max-w-380 m-auto px-8 lg:px-32 pb-32 flex flex-col gap-14 items-center justify-center">
           <div className="flex flex-col gap-6 items-center justify-center">
-            <h2 className="text-5xl font-bold text-center">Video Profil</h2>
-            <h2 className="text-5xl font-bold text-center">
+            <h2 className="text-3xl lg:text-5xl font-bold text-center">
+              Video Profil <br />
               SDN SUMUR BATU 14
             </h2>
           </div>
 
           <iframe
             width="100%"
-            height="480"
-            className="rounded-2xl"
+            className="h-64 sm:h-92 lg:h-128 rounded-2xl"
             src="https://www.youtube-nocookie.com/embed/ipLV8vb0DK8?si=ikr8gKyzkRau1B0e&amp;controls=0"
             title="YouTube video player"
             frameBorder="0"
@@ -236,7 +243,7 @@ const BerandaPage = () => {
         <div className="grid grid-cols-3 xl:max-w-380 m-auto">
           {facilities.map((item) => (
             <div className="relative">
-              <p className="absolute top-1/2 left-1/2 -translate-1/2 z-20 text-2xl text-white font-bold">
+              <p className="absolute top-1/2 left-1/2 -translate-1/2 z-20 md:text-xl lg:text-2xl text-center text-white font-bold">
                 {item.label}
               </p>
               <div className="absolute z-10 top-0 left-0 w-full h-full bg-black opacity-70" />
