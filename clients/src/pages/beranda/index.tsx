@@ -1,4 +1,4 @@
-import { Button, Carousel, Image, Tag } from "antd";
+import { Carousel, Image, Tag } from "antd";
 import { useState } from "react";
 import { MoveRight } from "lucide-react";
 import { MainLayout } from "@/layouts";
