@@ -28,9 +28,9 @@ const GaleriPage = () => {
 
   return (
     <BigTitleLayout title="Galeri">
-      <div className="xl:max-w-380 m-auto pb-32 px-4 md:px-8 lg:px-32 flex gap-8">
+      <div className="xl:max-w-380 m-auto pb-32 px-4 md:px-8 lg:px-32 flex flex-col-reverse lg:flex-row gap-8">
         <div className="flex-1 flex flex-col gap-8">
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
             {imageList.map((item) => (
               <Image
                 className="object-cover rounded-xl"
@@ -51,7 +51,7 @@ const GaleriPage = () => {
           </div>
           <Pagination align="center" defaultCurrent={1} total={50} />
         </div>
-        <div className="flex flex-col gap-4 w-2/7">
+        <div className="flex flex-col gap-4 lg:w-2/7">
           <h2 className="text-xl font-bold">Label</h2>
           <div className="flex flex-wrap gap-2">
             <a
