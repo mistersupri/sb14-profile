@@ -130,7 +130,7 @@ const TentangSekolahPage = () => {
 
   return (
     <MainLayout>
-      <div className="xl:max-w-380 m-auto py-32 px-4 md:px-8 lg:px-32 grid grid-cols-2 gap-16">
+      <div className="xl:max-w-380 m-auto py-32 px-4 md:px-16 xl:px-32 flex flex-col-reverse lg:grid lg:grid-cols-2 gap-16">
         <div className="flex flex-col gap-8">
           <div className="flex flex-col gap-2">
             <h2 className="text-4xl font-bold">SDN Sumur Batu 14</h2>
@@ -145,7 +145,7 @@ const TentangSekolahPage = () => {
           </div>
           <div className="flex flex-col">
             <h4 className="text-2xl font-bold">Visi</h4>
-            <p>
+            <p className="text-justify">
               Terwujudnya murid yang cerdas, berakhlak mulia, unggul dalam
               literasi, dan peduli lingkungan melalui penerapan pembelajaran
               mendalam dalam suasana ramah anak.
@@ -153,7 +153,7 @@ const TentangSekolahPage = () => {
           </div>
           <div className="flex flex-col">
             <h4 className="text-2xl font-bold">Misi</h4>
-            <p>
+            <p className="text-justify">
               1. Menerapkan pembelajaran mendalam dengan pendekatan berbasis
               teknologi dan pengalaman langsung. 2. Melaksanakan program
               pengembangan literasi secara sistematis dan berkelanjutan.
@@ -217,8 +217,8 @@ const TentangSekolahPage = () => {
         </div>
       </div>
 
-      <div className="bg-gray-200 w-full py-32 px-4 md:px-8 lg:px-32 flex flex-col gap-16">
-        <div className="grid grid-cols-2 gap-16">
+      <div className="bg-gray-200 w-full py-32 px-4 md:px-16 lg:px-32 flex flex-col gap-16">
+        <div className="flex flex-col-reverse lg:grid lg:grid-cols-2 gap-16">
           <div className="flex flex-col gap-2">
             <h2 className="text-4xl font-bold">Sambutan Kepala Sekolah</h2>
             <div className="flex gap-2 items-center">
@@ -264,7 +264,7 @@ const TentangSekolahPage = () => {
         >
           {formattedTeacherList.map((list) => (
             <div>
-              <div className="grid grid-cols-5 gap-4">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-7 gap-4">
                 {list.map((item) => (
                   <div className="flex flex-col gap-4">
                     <div
@@ -302,7 +302,7 @@ const TentangSekolahPage = () => {
         </Carousel>
       </div>
 
-      <div className="xl:max-w-380 m-auto py-32 px-4 md:px-8 lg:px-32 grid grid-cols-2 gap-16">
+      <div className="xl:max-w-380 m-auto py-32 px-4 md:px-16 lg:px-32 flex flex-col-reverse lg:grid lg:grid-cols-2 gap-16">
         <div className="flex flex-col gap-4">
           <h2 className="text-4xl font-bold">Sejarah SDN Sumur Batu 14</h2>
           <p className="text-justify">
