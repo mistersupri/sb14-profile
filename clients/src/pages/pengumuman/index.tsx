@@ -52,9 +52,9 @@ const PengumumanPage = () => {
 
   return (
     <BigTitleLayout title="PENGUMUMAN">
-      <div className="flex gap-8 xl:max-w-380 m-auto pb-32 px-4 md:px-8 lg:px-32">
+      <div className="flex flex-col lg:flex-row gap-8 xl:max-w-380 m-auto pb-32 px-4 md:px-8 lg:px-32">
         <div className="flex-1 flex flex-col gap-8">
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {news.map((item, idx) => (
               <div
                 className="flex flex-col overflow-hidden rounded border border-gray-100 hover:border-black cursor-pointer transition-all"
@@ -92,7 +92,7 @@ const PengumumanPage = () => {
           <Pagination align="center" defaultCurrent={1} total={50} />
         </div>
 
-        <div className="flex flex-col gap-8 w-2/7">
+        <div className="flex flex-col gap-8 lg:w-2/7">
           <Input.Search
             placeholder="Cari pengumuman di sini..."
             enterButton="Search"
