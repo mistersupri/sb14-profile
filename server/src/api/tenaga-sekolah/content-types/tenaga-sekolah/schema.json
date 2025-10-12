@@ -1,9 +1,9 @@
 {
   "kind": "collectionType",
-  "collectionName": "guru_sekolahs",
+  "collectionName": "tenaga_sekolahs",
   "info": {
-    "singularName": "guru-sekolah",
-    "pluralName": "guru-sekolahs",
+    "singularName": "tenaga-sekolah",
+    "pluralName": "tenaga-sekolahs",
     "displayName": "Tenaga Sekolah"
   },
   "options": {
@@ -17,7 +17,7 @@
     },
     "foto": {
       "type": "media",
-      "multiple": false,
+      "multiple": true,
       "allowedTypes": [
         "images",
         "files",
@@ -25,7 +25,7 @@
         "audios"
       ]
     },
-    "jabatan": {
+    "peran": {
       "type": "enumeration",
       "required": true,
       "enum": [
@@ -42,16 +42,15 @@
         "visible": {
           "==": [
             {
-              "var": "jabatan"
+              "var": "peran"
             },
             "Guru Kelas"
           ]
         }
       },
-      "required": true,
-      "unique": true
+      "required": true
     },
-    "pengalaman": {
+    "pengalamaan": {
       "type": "richtext"
     }
   }

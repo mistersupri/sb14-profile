@@ -387,6 +387,7 @@ export interface ApiBeritaBerita extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    cta: Schema.Attribute.String;
     foto_header: Schema.Attribute.Media<'images' | 'files'> &
       Schema.Attribute.Required;
     isi_berita: Schema.Attribute.RichText &
@@ -400,16 +401,14 @@ export interface ApiBeritaBerita extends Struct.CollectionTypeSchema {
       'manyToOne',
       'api::label-berita.label-berita'
     >;
-    label_unduhan: Schema.Attribute.Relation<
-      'manyToOne',
-      'api::label-unduhan.label-unduhan'
-    >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::berita.berita'
     > &
       Schema.Attribute.Private;
+    prioritas: Schema.Attribute.Boolean;
+    priority_expiration: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
     tanggal_dibuat: Schema.Attribute.Date & Schema.Attribute.Required;
     title: Schema.Attribute.String &
@@ -445,6 +444,36 @@ export interface ApiFaqFaq extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
     question: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiFasilitasSekolahFasilitasSekolah
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'fasilitas_sekolahs';
+  info: {
+    displayName: 'Fasilitas Sekolah';
+    pluralName: 'fasilitas-sekolahs';
+    singularName: 'fasilitas-sekolah';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    foto: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::fasilitas-sekolah.fasilitas-sekolah'
+    > &
+      Schema.Attribute.Private;
+    nama: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -488,43 +517,6 @@ export interface ApiGalleryGallery extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiGuruSekolahGuruSekolah extends Struct.CollectionTypeSchema {
-  collectionName: 'guru_sekolahs';
-  info: {
-    displayName: 'Tenaga Sekolah';
-    pluralName: 'guru-sekolahs';
-    singularName: 'guru-sekolah';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    foto: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    jabatan: Schema.Attribute.Enumeration<
-      ['Wakil Kepala Sekolah', 'Guru Kelas', 'Staf TU', 'Guru Agama', 'Caraka']
-    > &
-      Schema.Attribute.Required;
-    kelas: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.Unique;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::guru-sekolah.guru-sekolah'
-    > &
-      Schema.Attribute.Private;
-    nama: Schema.Attribute.String & Schema.Attribute.Required;
-    pengalaman: Schema.Attribute.RichText;
-    publishedAt: Schema.Attribute.DateTime;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
 export interface ApiKepalaSekolahKepalaSekolah extends Struct.SingleTypeSchema {
   collectionName: 'kepala_sekolahs';
   info: {
@@ -546,6 +538,7 @@ export interface ApiKepalaSekolahKepalaSekolah extends Struct.SingleTypeSchema {
     > &
       Schema.Attribute.Private;
     nama: Schema.Attribute.String;
+    photo: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     publishedAt: Schema.Attribute.DateTime;
     sambutan: Schema.Attribute.RichText;
     updatedAt: Schema.Attribute.DateTime;
@@ -659,7 +652,6 @@ export interface ApiLabelUnduhanLabelUnduhan
     draftAndPublish: true;
   };
   attributes: {
-    beritas: Schema.Attribute.Relation<'oneToMany', 'api::berita.berita'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -705,6 +697,89 @@ export interface ApiPortalPortal extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiProfilSekolahProfilSekolah extends Struct.SingleTypeSchema {
+  collectionName: 'profil_sekolahs';
+  info: {
+    displayName: 'Profil Sekolah';
+    pluralName: 'profil-sekolahs';
+    singularName: 'profil-sekolah';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    akreditasi: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.Email;
+    google_maps: Schema.Attribute.String;
+    instagram: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::profil-sekolah.profil-sekolah'
+    > &
+      Schema.Attribute.Private;
+    lokasi: Schema.Attribute.String;
+    misi: Schema.Attribute.RichText &
+      Schema.Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'defaultHtml';
+        }
+      >;
+    nama: Schema.Attribute.String;
+    npsn: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    telepon: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    visi: Schema.Attribute.Text;
+    youtube: Schema.Attribute.String;
+  };
+}
+
+export interface ApiTenagaSekolahTenagaSekolah
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'tenaga_sekolahs';
+  info: {
+    displayName: 'Tenaga Sekolah';
+    pluralName: 'tenaga-sekolahs';
+    singularName: 'tenaga-sekolah';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    foto: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
+    kelas: Schema.Attribute.String & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::tenaga-sekolah.tenaga-sekolah'
+    > &
+      Schema.Attribute.Private;
+    nama: Schema.Attribute.String & Schema.Attribute.Required;
+    pengalamaan: Schema.Attribute.RichText;
+    peran: Schema.Attribute.Enumeration<
+      ['Wakil Kepala Sekolah', 'Guru Kelas', 'Staf TU', 'Guru Agama', 'Caraka']
+    > &
+      Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiUnduhanUnduhan extends Struct.CollectionTypeSchema {
   collectionName: 'unduhans';
   info: {
@@ -732,6 +807,35 @@ export interface ApiUnduhanUnduhan extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+  };
+}
+
+export interface ApiVideoProfilSekolahVideoProfilSekolah
+  extends Struct.SingleTypeSchema {
+  collectionName: 'video_profil_sekolahs';
+  info: {
+    displayName: 'Video Profil Sekolah';
+    pluralName: 'video-profil-sekolahs';
+    singularName: 'video-profil-sekolah';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::video-profil-sekolah.video-profil-sekolah'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    url: Schema.Attribute.String;
   };
 }
 
@@ -1287,15 +1391,18 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::berita.berita': ApiBeritaBerita;
       'api::faq.faq': ApiFaqFaq;
+      'api::fasilitas-sekolah.fasilitas-sekolah': ApiFasilitasSekolahFasilitasSekolah;
       'api::gallery.gallery': ApiGalleryGallery;
-      'api::guru-sekolah.guru-sekolah': ApiGuruSekolahGuruSekolah;
       'api::kepala-sekolah.kepala-sekolah': ApiKepalaSekolahKepalaSekolah;
       'api::kotak-saran.kotak-saran': ApiKotakSaranKotakSaran;
       'api::label-berita.label-berita': ApiLabelBeritaLabelBerita;
       'api::label-gallery.label-gallery': ApiLabelGalleryLabelGallery;
       'api::label-unduhan.label-unduhan': ApiLabelUnduhanLabelUnduhan;
       'api::portal.portal': ApiPortalPortal;
+      'api::profil-sekolah.profil-sekolah': ApiProfilSekolahProfilSekolah;
+      'api::tenaga-sekolah.tenaga-sekolah': ApiTenagaSekolahTenagaSekolah;
       'api::unduhan.unduhan': ApiUnduhanUnduhan;
+      'api::video-profil-sekolah.video-profil-sekolah': ApiVideoProfilSekolahVideoProfilSekolah;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

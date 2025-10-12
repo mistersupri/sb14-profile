@@ -1,10 +1,10 @@
 {
-  "kind": "singleType",
-  "collectionName": "kepala_sekolahs",
+  "kind": "collectionType",
+  "collectionName": "fasilitas_sekolahs",
   "info": {
-    "singularName": "kepala-sekolah",
-    "pluralName": "kepala-sekolahs",
-    "displayName": "Kepala Sekolah"
+    "singularName": "fasilitas-sekolah",
+    "pluralName": "fasilitas-sekolahs",
+    "displayName": "Fasilitas Sekolah"
   },
   "options": {
     "draftAndPublish": true
@@ -14,10 +14,7 @@
     "nama": {
       "type": "string"
     },
-    "sambutan": {
-      "type": "richtext"
-    },
-    "photo": {
+    "foto": {
       "type": "media",
       "multiple": false,
       "allowedTypes": [

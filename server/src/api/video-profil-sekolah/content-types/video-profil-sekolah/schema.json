@@ -1,0 +1,18 @@
+{
+  "kind": "singleType",
+  "collectionName": "video_profil_sekolahs",
+  "info": {
+    "singularName": "video-profil-sekolah",
+    "pluralName": "video-profil-sekolahs",
+    "displayName": "Video Profil Sekolah"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "url": {
+      "type": "string"
+    }
+  }
+}

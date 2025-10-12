@@ -13,12 +13,6 @@
   "attributes": {
     "nama": {
       "type": "string"
-    },
-    "beritas": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::berita.berita",
-      "mappedBy": "label_unduhan"
     }
   }
 }

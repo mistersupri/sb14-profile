@@ -1,0 +1,52 @@
+{
+  "kind": "singleType",
+  "collectionName": "profil_sekolahs",
+  "info": {
+    "singularName": "profil-sekolah",
+    "pluralName": "profil-sekolahs",
+    "displayName": "Profil Sekolah"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nama": {
+      "type": "string"
+    },
+    "visi": {
+      "type": "text"
+    },
+    "akreditasi": {
+      "type": "string"
+    },
+    "npsn": {
+      "type": "string"
+    },
+    "misi": {
+      "type": "customField",
+      "customField": "plugin::ckeditor5.CKEditor",
+      "options": {
+        "preset": "defaultHtml"
+      }
+    },
+    "lokasi": {
+      "type": "string"
+    },
+    "google_maps": {
+      "type": "string"
+    },
+    "telepon": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email"
+    },
+    "instagram": {
+      "type": "string"
+    },
+    "youtube": {
+      "type": "string"
+    }
+  }
+}

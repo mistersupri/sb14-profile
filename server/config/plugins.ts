@@ -11,4 +11,16 @@ export default () => ({
       authorizedImports: ["api::berita.berita"],
     },
   },
+  upload: {
+    config: {
+      provider: "local",
+      providerOptions: {
+        sizeLimit: 10000000, // 10MB
+        localServer: {
+          maxage: 300000,
+        },
+        path: "./public/uploads",
+      },
+    },
+  },
 });

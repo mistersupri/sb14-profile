@@ -48,11 +48,24 @@
         "preset": "defaultHtml"
       }
     },
-    "label_unduhan": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::label-unduhan.label-unduhan",
-      "inversedBy": "beritas"
+    "cta": {
+      "type": "string"
+    },
+    "prioritas": {
+      "type": "boolean"
+    },
+    "priority_expiration": {
+      "type": "datetime",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "prioritas"
+            },
+            true
+          ]
+        }
+      }
     }
   }
 }
