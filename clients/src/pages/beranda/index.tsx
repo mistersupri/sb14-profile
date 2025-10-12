@@ -2,9 +2,33 @@ import { Carousel, Image, Tag } from "antd";
 import { useState } from "react";
 import { MoveRight } from "lucide-react";
 import { MainLayout } from "@/layouts";
+import { useQuery } from "@tanstack/react-query";
+import { Services } from "@/services";
 
 const BerandaPage = () => {
   const [random] = useState<number>(Date.now());
+
+  const { data: facilitiesData } = useQuery({
+    queryKey: ["FACILITIES"],
+    queryFn: () => Services.getFasilitasSekolah(),
+  });
+
+  const { data: newsData } = useQuery({
+    queryKey: ["NEWS"],
+    queryFn: () => Services.getBeritaBerandaList(),
+  });
+
+  const { data: prestasiData } = useQuery({
+    queryKey: ["PRESTASI"],
+    queryFn: () => Services.getBeritaPrestasi(),
+  });
+
+  const { data: videoProfilSekolahData } = useQuery({
+    queryKey: ["VIDEO_PROFIL_SEKOLAH"],
+    queryFn: () => Services.getVideoProfilSekolah(),
+  });
+
+  console.log(facilitiesData);
 
   const facilities = [
     {
