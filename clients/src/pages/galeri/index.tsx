@@ -1,37 +1,65 @@
+import { getEnv } from "@/config/env.config";
 import { BigTitleLayout } from "@/layouts";
+import { Services } from "@/services";
+import { useQuery } from "@tanstack/react-query";
 import { Image, Pagination } from "antd";
 import classNames from "classnames";
+import queryString from "query-string";
+import { useMemo } from "react";
+import { useLocation, useNavigate, useSearchParams } from "react-router";
 
 const random = Date.now();
 
 const GaleriPage = () => {
-  const imageList = [
-    {
-      url: `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?${random}`,
-    },
-    {
-      url: `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?${random}`,
-    },
-    {
-      url: `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?${random}`,
-    },
-    {
-      url: `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?${random}`,
-    },
-    {
-      url: `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?${random}`,
-    },
-    {
-      url: `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?${random}`,
-    },
-  ];
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const { pathname, search } = useLocation();
+  const parsedQuery = queryString.parse(search);
+  const label = searchParams.get("label");
+  const keyword = searchParams.get("keyword");
+  const page = searchParams.get("page");
+
+  const { data: galleryLabelsData } = useQuery({
+    queryKey: ["GALLERY_LABELS", pathname],
+    queryFn: () => Services.getLabelGalleryList(),
+  });
+
+  const galleryLabels = useMemo(
+    () =>
+      galleryLabelsData?.data?.map((item: Record<string, any>) => item.nama) ??
+      [],
+    [galleryLabelsData]
+  );
+
+  const { data: galleryData } = useQuery({
+    queryKey: ["GALLERY", label, keyword, page],
+    queryFn: () =>
+      Services.getGalleryList({
+        label,
+      }),
+  });
+
+  const imageList = useMemo(
+    () =>
+      galleryData?.data
+        ?.map((item: Record<string, any>) =>
+          item.images.map((image: Record<string, any>) => ({
+            url: `${getEnv().BASE_API_URL}${image.url}`,
+            hash: `${getEnv().BASE_API_URL}${image.formats.thumbnail.url}`,
+          }))
+        )
+        .flat() ?? [],
+    [galleryData]
+  );
+
+  console.log(galleryLabels);
 
   return (
     <BigTitleLayout title="Galeri">
       <div className="xl:max-w-380 m-auto pb-32 px-4 md:px-8 lg:px-32 flex flex-col-reverse lg:flex-row gap-8">
         <div className="flex-1 flex flex-col gap-8">
           <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-            {imageList.map((item) => (
+            {imageList.map((item: any) => (
               <Image
                 className="object-cover rounded-xl"
                 height={164}
@@ -43,31 +71,70 @@ const GaleriPage = () => {
                     height={164}
                     width="100%"
                     preview={false}
-                    src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?x-oss-process=image/blur,r_50,s_50/quality,q_1/resize,m_mfit,h_200,w_200"
+                    src={item.hash}
                   />
                 }
               />
             ))}
           </div>
-          <Pagination align="center" defaultCurrent={1} total={50} />
+          <Pagination
+            align="center"
+            defaultCurrent={1}
+            total={galleryData?.meta.pagination.total}
+            onChange={(page) =>
+              setSearchParams({ ...parsedQuery, page: String(page) })
+            }
+          />
         </div>
         <div className="flex flex-col gap-4 lg:w-2/7">
           <h2 className="text-xl font-bold">Label</h2>
           <div className="flex flex-wrap gap-2">
             <a
+              href={`${pathname}?${queryString.stringify({
+                ...parsedQuery,
+                page: "1",
+                label: undefined,
+              })}`}
+              onClick={(e) => {
+                e.preventDefault();
+                navigate(
+                  `${pathname}?${queryString.stringify({
+                    ...parsedQuery,
+                    page: "1",
+                    label: undefined,
+                  })}`
+                );
+              }}
               className={classNames([
                 "rounded bg-gray-200 py-2 px-4 font-bold",
-                "bg-teal-800 text-white",
+                !searchParams.get("label")
+                  ? "bg-teal-800 text-white"
+                  : "hover:bg-black hover:text-white cursor-pointer",
               ])}
             >
               SEMUA
             </a>
-            <a className="rounded bg-gray-200 py-2 px-4 font-bold hover:bg-black hover:text-white cursor-pointer">
-              #ANBK
-            </a>
-            <a className="rounded bg-gray-200 py-2 px-4 font-bold hover:bg-black hover:text-white cursor-pointer">
-              #KJP
-            </a>
+            {galleryLabels.map((label: string) => (
+              <a
+                href={`${pathname}?${queryString.stringify({
+                  ...parsedQuery,
+                  page: "1",
+                  label,
+                })}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setSearchParams({ ...parsedQuery, page: "1", label });
+                }}
+                className={classNames([
+                  "rounded bg-gray-200 py-2 px-4 font-bold",
+                  searchParams.get("label") === label
+                    ? "bg-teal-800 text-white"
+                    : "hover:bg-black hover:text-white cursor-pointer",
+                ])}
+              >
+                #{label}
+              </a>
+            ))}
           </div>
         </div>
       </div>
