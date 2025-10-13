@@ -1,5 +1,5 @@
 import { Carousel, Empty, Image, Tag } from "antd";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { MoveRight } from "lucide-react";
 import { MainLayout } from "@/layouts";
 import { useQuery } from "@tanstack/react-query";
@@ -9,29 +9,32 @@ import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import "dayjs/locale/id";
+import { useLocation } from "react-router";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.locale("id");
 
 const BerandaPage = () => {
+  const { pathname } = useLocation();
+
   const { data: facilitiesData } = useQuery({
-    queryKey: ["FACILITIES"],
+    queryKey: ["FACILITIES", pathname],
     queryFn: () => Services.getFasilitasSekolah(),
   });
 
   const { data: newsData } = useQuery({
-    queryKey: ["NEWS"],
+    queryKey: ["NEWS", pathname],
     queryFn: () => Services.getBeritaBerandaList(),
   });
 
   const { data: prestasiData } = useQuery({
-    queryKey: ["PRESTASI"],
+    queryKey: ["PRESTASI", pathname],
     queryFn: () => Services.getBeritaPrestasi(),
   });
 
   const { data: videoProfilSekolahData } = useQuery({
-    queryKey: ["VIDEO_PROFIL_SEKOLAH"],
+    queryKey: ["VIDEO_PROFIL_SEKOLAH", pathname],
     queryFn: () => Services.getVideoProfilSekolah(),
   });
 
@@ -45,8 +48,6 @@ const BerandaPage = () => {
       })) ?? [],
     [facilitiesData]
   );
-
-  console.log(newsData?.data?.[0].cta_display);
 
   const news = useMemo(
     () =>
