@@ -13,6 +13,9 @@
   "attributes": {
     "url": {
       "type": "string"
+    },
+    "embed": {
+      "type": "text"
     }
   }
 }

@@ -24,10 +24,14 @@
       "type": "date",
       "required": true
     },
-    "title": {
+    "judul": {
       "type": "string",
       "required": true,
       "unique": true
+    },
+    "deskripsi": {
+      "type": "text",
+      "required": true
     },
     "users_permissions_user": {
       "type": "relation",
@@ -48,7 +52,7 @@
         "preset": "defaultHtml"
       }
     },
-    "cta": {
+    "cta_url": {
       "type": "string"
     },
     "prioritas": {
@@ -66,6 +70,9 @@
           ]
         }
       }
+    },
+    "cta_display": {
+      "type": "string"
     }
   }
 }

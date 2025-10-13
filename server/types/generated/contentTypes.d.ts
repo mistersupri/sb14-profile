@@ -387,7 +387,9 @@ export interface ApiBeritaBerita extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    cta: Schema.Attribute.String;
+    cta_display: Schema.Attribute.String;
+    cta_url: Schema.Attribute.String;
+    deskripsi: Schema.Attribute.Text & Schema.Attribute.Required;
     foto_header: Schema.Attribute.Media<'images' | 'files'> &
       Schema.Attribute.Required;
     isi_berita: Schema.Attribute.RichText &
@@ -397,6 +399,9 @@ export interface ApiBeritaBerita extends Struct.CollectionTypeSchema {
           preset: 'defaultHtml';
         }
       >;
+    judul: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
     label_berita: Schema.Attribute.Relation<
       'manyToOne',
       'api::label-berita.label-berita'
@@ -411,9 +416,6 @@ export interface ApiBeritaBerita extends Struct.CollectionTypeSchema {
     priority_expiration: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
     tanggal_dibuat: Schema.Attribute.Date & Schema.Attribute.Required;
-    title: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.Unique;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -690,6 +692,7 @@ export interface ApiPortalPortal extends Struct.CollectionTypeSchema {
       'api::portal.portal'
     > &
       Schema.Attribute.Private;
+    nama: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -825,6 +828,7 @@ export interface ApiVideoProfilSekolahVideoProfilSekolah
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    embed: Schema.Attribute.Text;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',

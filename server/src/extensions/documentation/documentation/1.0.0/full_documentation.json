@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2025-10-12T12:22:34.725Z"
+    "x-generation-date": "2025-10-13T04:24:59.665Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -8035,7 +8035,8 @@
             "required": [
               "foto_header",
               "tanggal_dibuat",
-              "title"
+              "judul",
+              "deskripsi"
             ],
             "type": "object",
             "properties": {
@@ -8054,7 +8055,10 @@
                 "type": "string",
                 "format": "date"
               },
-              "title": {
+              "judul": {
+                "type": "string"
+              },
+              "deskripsi": {
                 "type": "string"
               },
               "users_permissions_user": {
@@ -8082,7 +8086,7 @@
               "isi_berita": {
                 "type": "string"
               },
-              "cta": {
+              "cta_url": {
                 "type": "string"
               },
               "prioritas": {
@@ -8091,6 +8095,9 @@
               "priority_expiration": {
                 "type": "string",
                 "format": "date-time"
+              },
+              "cta_display": {
+                "type": "string"
               },
               "locale": {
                 "type": "string"
@@ -8153,7 +8160,8 @@
         "required": [
           "foto_header",
           "tanggal_dibuat",
-          "title"
+          "judul",
+          "deskripsi"
         ],
         "properties": {
           "id": {
@@ -8764,7 +8772,10 @@
             "type": "string",
             "format": "date"
           },
-          "title": {
+          "judul": {
+            "type": "string"
+          },
+          "deskripsi": {
             "type": "string"
           },
           "users_permissions_user": {
@@ -9106,7 +9117,10 @@
                       "type": "string",
                       "format": "date"
                     },
-                    "title": {
+                    "judul": {
+                      "type": "string"
+                    },
+                    "deskripsi": {
                       "type": "string"
                     },
                     "users_permissions_user": {
@@ -9202,7 +9216,7 @@
                     "isi_berita": {
                       "type": "string"
                     },
-                    "cta": {
+                    "cta_url": {
                       "type": "string"
                     },
                     "prioritas": {
@@ -9211,6 +9225,9 @@
                     "priority_expiration": {
                       "type": "string",
                       "format": "date-time"
+                    },
+                    "cta_display": {
+                      "type": "string"
                     },
                     "createdAt": {
                       "type": "string",
@@ -9333,7 +9350,7 @@
           "isi_berita": {
             "type": "string"
           },
-          "cta": {
+          "cta_url": {
             "type": "string"
           },
           "prioritas": {
@@ -9342,6 +9359,9 @@
           "priority_expiration": {
             "type": "string",
             "format": "date-time"
+          },
+          "cta_display": {
+            "type": "string"
           },
           "createdAt": {
             "type": "string",
@@ -13986,7 +14006,10 @@
                   "type": "string",
                   "format": "date"
                 },
-                "title": {
+                "judul": {
+                  "type": "string"
+                },
+                "deskripsi": {
                   "type": "string"
                 },
                 "users_permissions_user": {
@@ -14333,7 +14356,7 @@
                 "isi_berita": {
                   "type": "string"
                 },
-                "cta": {
+                "cta_url": {
                   "type": "string"
                 },
                 "prioritas": {
@@ -14342,6 +14365,9 @@
                 "priority_expiration": {
                   "type": "string",
                   "format": "date-time"
+                },
+                "cta_display": {
+                  "type": "string"
                 },
                 "createdAt": {
                   "type": "string",
@@ -15836,6 +15862,9 @@
           "data": {
             "type": "object",
             "properties": {
+              "nama": {
+                "type": "string"
+              },
               "link": {
                 "type": "string"
               },
@@ -15902,6 +15931,9 @@
             "type": "number"
           },
           "documentId": {
+            "type": "string"
+          },
+          "nama": {
             "type": "string"
           },
           "link": {
@@ -16205,6 +16237,9 @@
                   "type": "number"
                 },
                 "documentId": {
+                  "type": "string"
+                },
+                "nama": {
                   "type": "string"
                 },
                 "link": {
@@ -18783,6 +18818,9 @@
               "url": {
                 "type": "string"
               },
+              "embed": {
+                "type": "string"
+              },
               "locale": {
                 "type": "string"
               },
@@ -18849,6 +18887,9 @@
             "type": "string"
           },
           "url": {
+            "type": "string"
+          },
+          "embed": {
             "type": "string"
           },
           "createdAt": {
@@ -19152,6 +19193,9 @@
                   "type": "string"
                 },
                 "url": {
+                  "type": "string"
+                },
+                "embed": {
                   "type": "string"
                 },
                 "createdAt": {
