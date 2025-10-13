@@ -1,21 +1,30 @@
 import { BigTitleLayout } from "@/layouts";
+import { Services } from "@/services";
+import { useQuery } from "@tanstack/react-query";
 import { Link2 } from "lucide-react";
+import { useMemo } from "react";
 
 const PortalPage = () => {
-  const portalList = [
-    { label: "Jakarta Edu", url: "" },
-    { label: "Siera", url: "" },
-    { label: "Sireina", url: "" },
-    { label: "E-Rapor", url: "" },
-    { label: "Absensi Mobile", url: "" },
-    { label: "Jak Aset Inventarisasi", url: "" },
-    { label: "ANBK", url: "" },
-  ];
+  const { data: portalData } = useQuery({
+    queryKey: ["PORTAL"],
+    queryFn: () => Services.getPortalList(),
+  });
+
+  console.log(portalData);
+
+  const portalList = useMemo(
+    () =>
+      portalData?.data?.map((item: Record<string, any>) => ({
+        label: item.nama,
+        url: item.link,
+      })) ?? [],
+    [portalData]
+  );
 
   return (
     <BigTitleLayout title="PORTAL">
       <div className="xl:max-w-380 m-auto pb-32 px-4 md:px-8 lg:px-32 grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {portalList.map((item) => (
+        {portalList.map((item: any) => (
           <a
             href={item.url}
             target="_blank"

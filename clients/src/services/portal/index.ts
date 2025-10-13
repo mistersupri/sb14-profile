@@ -2,5 +2,5 @@ import { httpClient } from "../services.config";
 
 export const portalService = {
   getPortalList: () =>
-    httpClient.get("/galleries?populate=*").then(({ data }) => data),
+    httpClient.get("/portals?populate=*").then(({ data }) => data),
 };
