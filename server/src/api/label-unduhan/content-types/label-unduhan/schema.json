@@ -13,6 +13,12 @@
   "attributes": {
     "nama": {
       "type": "string"
+    },
+    "unduhans": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::unduhan.unduhan",
+      "mappedBy": "label_unduhan"
     }
   }
 }

@@ -7,8 +7,14 @@ export default () => ({
   },
   "strapi-csv-import-export": {
     config: {
-      authorizedExports: ["api::berita.berita"],
-      authorizedImports: ["api::berita.berita"],
+      authorizedExports: [
+        "api::berita.berita",
+        "api::tenaga-sekolah.tenaga-sekolah",
+      ],
+      authorizedImports: [
+        "api::berita.berita",
+        "api::tenaga-sekolah.tenaga-sekolah",
+      ],
     },
   },
   upload: {

@@ -33,6 +33,12 @@
     "total_diunduh": {
       "type": "integer",
       "default": 0
+    },
+    "label_unduhan": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::label-unduhan.label-unduhan",
+      "inversedBy": "unduhans"
     }
   }
 }

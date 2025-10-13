@@ -15,7 +15,13 @@
       "type": "string"
     },
     "tujuan": {
-      "type": "string"
+      "type": "enumeration",
+      "enum": [
+        "Guru",
+        "Staf Tata Usaha",
+        "Caraka",
+        "Sekolah"
+      ]
     },
     "saran": {
       "type": "text"

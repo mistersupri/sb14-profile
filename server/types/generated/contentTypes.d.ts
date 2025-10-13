@@ -572,7 +572,9 @@ export interface ApiKotakSaranKotakSaran extends Struct.CollectionTypeSchema {
     nama: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     saran: Schema.Attribute.Text;
-    tujuan: Schema.Attribute.String;
+    tujuan: Schema.Attribute.Enumeration<
+      ['Guru', 'Staf Tata Usaha', 'Caraka', 'Sekolah']
+    >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -665,6 +667,7 @@ export interface ApiLabelUnduhanLabelUnduhan
       Schema.Attribute.Private;
     nama: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
+    unduhans: Schema.Attribute.Relation<'oneToMany', 'api::unduhan.unduhan'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -802,6 +805,10 @@ export interface ApiUnduhanUnduhan extends Struct.CollectionTypeSchema {
       true
     > &
       Schema.Attribute.Required;
+    label_unduhan: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::label-unduhan.label-unduhan'
+    >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
