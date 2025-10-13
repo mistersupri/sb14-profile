@@ -1,13 +1,20 @@
-import { Carousel, Image, Tag } from "antd";
-import { useState } from "react";
+import { Carousel, Empty, Image, Tag } from "antd";
+import { useMemo, useState } from "react";
 import { MoveRight } from "lucide-react";
 import { MainLayout } from "@/layouts";
 import { useQuery } from "@tanstack/react-query";
 import { Services } from "@/services";
+import { getEnv } from "@/config/env.config";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+import "dayjs/locale/id";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.locale("id");
 
 const BerandaPage = () => {
-  const [random] = useState<number>(Date.now());
-
   const { data: facilitiesData } = useQuery({
     queryKey: ["FACILITIES"],
     queryFn: () => Services.getFasilitasSekolah(),
@@ -28,79 +35,50 @@ const BerandaPage = () => {
     queryFn: () => Services.getVideoProfilSekolah(),
   });
 
-  console.log(facilitiesData);
+  const videoProfilSekolah = videoProfilSekolahData?.data?.embed;
 
-  const facilities = [
-    {
-      label: "LAPANGAN",
-      url: `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?${random}`,
-    },
-    {
-      label: "KANTIN",
-      url: `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?${random}`,
-    },
-    {
-      label: "RUANG LAB",
-      url: `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?${random}`,
-    },
-    {
-      label: "UKS",
-      url: `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?${random}`,
-    },
-    {
-      label: "PERPUSTAKAAN",
-      url: `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?${random}`,
-    },
-    {
-      label: "TAMAN",
-      url: `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?${random}`,
-    },
-  ];
+  const facilities = useMemo(
+    () =>
+      facilitiesData?.data?.map((item: Record<string, any>) => ({
+        label: item.nama,
+        image: `${getEnv().BASE_API_URL}${item.foto.formats.medium.url}`,
+      })) ?? [],
+    [facilitiesData]
+  );
 
-  const news = [
-    {
-      image: `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?${random}`,
-      title: "Pendaftaran KJP Dimulai",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam aliquam ut tortor non efficitur. Nunc interdum velit vel turpis rutrum, quis pulvinar nisl blandit. Vivamus non odio ac massa porta blandit. Cras imperdiet interdum sapien eu tempus. In hac habitasse platea dictumst. Nulla gravida, nulla eget posuere faucibus, eros ante ultricies lacus, quis luctus magna velit id dolor. Phasellus in rutrum nisi, id pellentesque turpis. In volutpat lacus enim, quis finibus lorem convallis in. Nullam lobortis, sapien vel fringilla varius, mi mauris porta diam, nec venenatis urna lacus id odio. Maecenas placerat, mauris ac iaculis volutpat, nisl purus lacinia risus, id placerat orci risus eget dui.",
-      created_at: 1759538088605,
-    },
-    {
-      image: `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?${random}`,
-      title: "Pendaftaran KJP Dimulai",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam aliquam ut tortor non efficitur. Nunc interdum velit vel turpis rutrum, quis pulvinar nisl blandit. Vivamus non odio ac massa porta blandit. Cras imperdiet interdum sapien eu tempus. In hac habitasse platea dictumst. Nulla gravida, nulla eget posuere faucibus, eros ante ultricies lacus, quis luctus magna velit id dolor. Phasellus in rutrum nisi, id pellentesque turpis. In volutpat lacus enim, quis finibus lorem convallis in. Nullam lobortis, sapien vel fringilla varius, mi mauris porta diam, nec venenatis urna lacus id odio. Maecenas placerat, mauris ac iaculis volutpat, nisl purus lacinia risus, id placerat orci risus eget dui.",
-      created_at: 1759538088605,
-    },
-    {
-      image: `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?${random}`,
-      title: "Pendaftaran KJP Dimulai",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam aliquam ut tortor non efficitur. Nunc interdum velit vel turpis rutrum, quis pulvinar nisl blandit. Vivamus non odio ac massa porta blandit. Cras imperdiet interdum sapien eu tempus. In hac habitasse platea dictumst. Nulla gravida, nulla eget posuere faucibus, eros ante ultricies lacus, quis luctus magna velit id dolor. Phasellus in rutrum nisi, id pellentesque turpis. In volutpat lacus enim, quis finibus lorem convallis in. Nullam lobortis, sapien vel fringilla varius, mi mauris porta diam, nec venenatis urna lacus id odio. Maecenas placerat, mauris ac iaculis volutpat, nisl purus lacinia risus, id placerat orci risus eget dui.",
-      created_at: 1759538088605,
-    },
-    {
-      image: `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?${random}`,
-      title: "Pendaftaran KJP Dimulai",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam aliquam ut tortor non efficitur. Nunc interdum velit vel turpis rutrum, quis pulvinar nisl blandit. Vivamus non odio ac massa porta blandit. Cras imperdiet interdum sapien eu tempus. In hac habitasse platea dictumst. Nulla gravida, nulla eget posuere faucibus, eros ante ultricies lacus, quis luctus magna velit id dolor. Phasellus in rutrum nisi, id pellentesque turpis. In volutpat lacus enim, quis finibus lorem convallis in. Nullam lobortis, sapien vel fringilla varius, mi mauris porta diam, nec venenatis urna lacus id odio. Maecenas placerat, mauris ac iaculis volutpat, nisl purus lacinia risus, id placerat orci risus eget dui.",
-      created_at: 1759538088605,
-    },
-    {
-      image: `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?${random}`,
-      title: "Pendaftaran KJP Dimulai",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam aliquam ut tortor non efficitur. Nunc interdum velit vel turpis rutrum, quis pulvinar nisl blandit. Vivamus non odio ac massa porta blandit. Cras imperdiet interdum sapien eu tempus. In hac habitasse platea dictumst. Nulla gravida, nulla eget posuere faucibus, eros ante ultricies lacus, quis luctus magna velit id dolor. Phasellus in rutrum nisi, id pellentesque turpis. In volutpat lacus enim, quis finibus lorem convallis in. Nullam lobortis, sapien vel fringilla varius, mi mauris porta diam, nec venenatis urna lacus id odio. Maecenas placerat, mauris ac iaculis volutpat, nisl purus lacinia risus, id placerat orci risus eget dui.",
-      created_at: 1759538088605,
-    },
-    {
-      image: `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?${random}`,
-      title: "Pendaftaran KJP Dimulai",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam aliquam ut tortor non efficitur. Nunc interdum velit vel turpis rutrum, quis pulvinar nisl blandit. Vivamus non odio ac massa porta blandit. Cras imperdiet interdum sapien eu tempus. In hac habitasse platea dictumst. Nulla gravida, nulla eget posuere faucibus, eros ante ultricies lacus, quis luctus magna velit id dolor. Phasellus in rutrum nisi, id pellentesque turpis. In volutpat lacus enim, quis finibus lorem convallis in. Nullam lobortis, sapien vel fringilla varius, mi mauris porta diam, nec venenatis urna lacus id odio. Maecenas placerat, mauris ac iaculis volutpat, nisl purus lacinia risus, id placerat orci risus eget dui.",
-      created_at: 1759538088605,
-    },
-  ];
+  console.log(newsData?.data?.[0].cta_display);
+
+  const news = useMemo(
+    () =>
+      newsData?.data?.map((item: any) => ({
+        image: `${getEnv().BASE_API_URL}${item.foto_header.formats.medium.url}`,
+        title: item.judul,
+        description: item.deskripsi,
+        created_at: item.tanggal_dibuat
+          ? dayjs(new Date(item.tanggal_dibuat)).format("DD MMM YYYY")
+          : "",
+        labelBerita: item.label_berita?.nama,
+        ctaDisplay: item.cta_display,
+        ctaUrl: item.cta_url,
+      })) ?? [],
+    [newsData]
+  );
+
+  const prestasiNews = useMemo(
+    () =>
+      prestasiData?.data?.map((item: any) => ({
+        image: `${getEnv().BASE_API_URL}${item.foto_header.formats.medium.url}`,
+        title: item.judul,
+        description: item.deskripsi,
+        created_at: item.tanggal_dibuat
+          ? dayjs(new Date(item.tanggal_dibuat)).format("DD MMM YYYY")
+          : "",
+        labelBerita: item.label_berita?.nama,
+        ctaDisplay: item.cta_display,
+        ctaUrl: item.cta_url,
+      })) ?? [],
+    [prestasiData]
+  );
 
   return (
     <MainLayout>
@@ -110,7 +88,7 @@ const BerandaPage = () => {
           autoplay={{ dotDuration: true }}
           className="[&_.slick-arrow]:text-black!"
         >
-          {news.map((item, idx) => (
+          {news.map((item: any, idx: number) => (
             <div className="relative h-128 lg:h-154" key={`hero-${idx}`}>
               <Image
                 width="100%"
@@ -126,7 +104,7 @@ const BerandaPage = () => {
               <div className="bg-linear-to-b from-white/80 to-white absolute top-0 left-0 w-full h-full" />
               <div className="absolute w-full h-full z-10 top-0 left-0">
                 <div className="max-w-164 xl:max-w-380 pt-18 px-16 lg:px-32 h-full flex flex-col justify-center items-start gap-8">
-                  <div className="w-full xl:w-1/2 flex flex-col gap-6">
+                  <div className="w-full xl:w-3/4 flex flex-col gap-6">
                     <h1 className="text-2xl lg:text-4xl font-bold">
                       {item.title}
                     </h1>
@@ -134,9 +112,11 @@ const BerandaPage = () => {
                       {item.description}
                     </p>
                   </div>
-                  <button className="bg-teal-700 px-8 py-2 lg:text-lg text-white rounded-xl hover:bg-black cursor-pointer">
-                    Daftar
-                  </button>
+                  <a href={item.ctaUrl}>
+                    <button className="bg-teal-700 px-8 py-2 lg:text-lg text-white rounded-xl hover:bg-black cursor-pointer">
+                      {item.ctaDisplay}
+                    </button>
+                  </a>
                 </div>
               </div>
             </div>
@@ -157,84 +137,96 @@ const BerandaPage = () => {
               </div>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-              {news.map((item, idx) => (
-                <div
-                  className="flex flex-col overflow-hidden rounded border border-gray-100 hover:border-black cursor-pointer transition-all"
-                  key={`news-${idx}`}
-                >
-                  <div className="w-full h-32 overflow-hidden">
-                    <Image
-                      width="100%"
-                      src={item.image}
-                      preview={false}
-                      placeholder={
-                        <Image
-                          preview={false}
-                          src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?x-oss-process=image/blur,r_50,s_50/quality,q_1/resize,m_mfit,h_200,w_200"
-                          width="100%"
-                          height="100%"
-                        />
-                      }
-                    />
-                  </div>
-                  <div className="flex flex-col items-start gap-1 p-4">
-                    <div className="w-full flex justify-between items-center">
-                      <Tag color="magenta" className="text-xs!">
-                        ANBK
-                      </Tag>
-                      <p className="text-xs text-gray-500">
-                        {new Date(item.created_at).toDateString()}
+              {news.length ? (
+                news.map((item: any, idx: number) => (
+                  <div
+                    className="flex flex-col overflow-hidden rounded border border-gray-100 hover:border-black cursor-pointer transition-all"
+                    key={`news-${idx}`}
+                  >
+                    <div className="w-full h-32 overflow-hidden">
+                      <Image
+                        width="100%"
+                        src={item.image}
+                        preview={false}
+                        placeholder={
+                          <Image
+                            preview={false}
+                            src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?x-oss-process=image/blur,r_50,s_50/quality,q_1/resize,m_mfit,h_200,w_200"
+                            width="100%"
+                            height="100%"
+                          />
+                        }
+                      />
+                    </div>
+                    <div className="flex flex-col items-start gap-1 p-4">
+                      <div className="w-full flex justify-between items-center">
+                        <Tag color="magenta" className="text-xs!">
+                          {item.labelBerita}
+                        </Tag>
+                        <p className="text-xs text-gray-500">
+                          {item.created_at}
+                        </p>
+                      </div>
+                      <h4 className="font-bold line-clamp-2 text-sm lg:text-base">
+                        {item.title}
+                      </h4>
+                      <p className="line-clamp-3 text-xs lg:text-sm">
+                        {item.description}
                       </p>
                     </div>
-                    <h4 className="font-bold line-clamp-2 text-sm lg:text-base">
-                      {item.title}
-                    </h4>
-                    <p className="line-clamp-3 text-xs lg:text-sm">
-                      {item.description}
-                    </p>
                   </div>
-                </div>
-              ))}
+                ))
+              ) : (
+                <Empty />
+              )}
             </div>
           </div>
+
           <div className="flex flex-col gap-4 lg:w-2/7">
             <div className="flex justify-between items-center">
               <h2 className="text-2xl font-bold">PRESTASI</h2>
               <div className="flex gap-2 items-center text-gray-500 border-b border-b-transparent hover:text-black hover:border-b hover:border-b-black cursor-pointer transition-all">
-                <p className="text-sm">Selengkapnya</p>
+                <a
+                  href="/pengumuman?label=PRESTASI"
+                  className="text-xs lg:text-sm"
+                >
+                  Selengkapnya
+                </a>
                 <MoveRight className="w-4" />
               </div>
             </div>
             <div className="flex flex-col gap-4">
-              {news.map((item) => (
-                <div className="flex overflow-hidden rounded border border-gray-100 hover:border-black cursor-pointer transition-all">
-                  <div className="w-24 lg:w-16">
-                    <Image
-                      height="100%"
-                      className="object-cover"
-                      src={item.image}
-                      preview={false}
-                      placeholder={
-                        <Image
-                          height="100%"
-                          className="object-cover"
-                          preview={false}
-                          src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?x-oss-process=image/blur,r_50,s_50/quality,q_1/resize,m_mfit,h_200,w_200"
-                        />
-                      }
-                    />
+              {prestasiNews.length ? (
+                prestasiNews.map((item: any) => (
+                  <div className="flex overflow-hidden rounded border border-gray-100 hover:border-black cursor-pointer transition-all">
+                    <div className="w-24 lg:w-16">
+                      <Image
+                        height="100%"
+                        className="object-cover"
+                        src={item.image}
+                        preview={false}
+                        placeholder={
+                          <Image
+                            height="100%"
+                            className="object-cover"
+                            preview={false}
+                            src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?x-oss-process=image/blur,r_50,s_50/quality,q_1/resize,m_mfit,h_200,w_200"
+                          />
+                        }
+                      />
+                    </div>
+                    <div className="flex-1 flex flex-col px-4 py-2">
+                      <p className="text-xs text-gray-500">{item.created_at}</p>
+                      <h4 className="font-bold text-sm line-clamp-2">
+                        {item.title}
+                      </h4>
+                      <p className="line-clamp-2 text-xs">{item.description}</p>
+                    </div>
                   </div>
-                  <div className="flex-1 flex flex-col px-4 py-2">
-                    <p className="text-xs text-gray-500">
-                      {new Date(item.created_at).toDateString()}
-                    </p>
-                    <h4 className="font-bold text-sm line-clamp-2">
-                      {item.title}
-                    </h4>
-                    <p className="line-clamp-2 text-xs">{item.description}</p>
-                  </div>
-                </div>
-              ))}
+                ))
+              ) : (
+                <Empty />
+              )}
             </div>
           </div>
         </div>
@@ -250,22 +242,16 @@ const BerandaPage = () => {
             </h2>
           </div>
 
-          <iframe
-            width="100%"
-            className="h-64 sm:h-92 lg:h-128 rounded-2xl"
-            src="https://www.youtube-nocookie.com/embed/ipLV8vb0DK8?si=ikr8gKyzkRau1B0e&amp;controls=0"
-            title="YouTube video player"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerPolicy="strict-origin-when-cross-origin"
-            allowFullScreen
-          ></iframe>
+          <div
+            className="[&_iframe]:h-64 [&_iframe]:w-128 [&_iframe]:sm:h-92 [&_iframe]:sm:w-184 [&_iframe]:lg:h-128 [&_iframe]:lg:w-256 [&_iframe]:rounded-2xl"
+            dangerouslySetInnerHTML={{ __html: videoProfilSekolah }}
+          />
         </div>
 
         {/* ---------------------------------------- */}
 
         <div className="grid grid-cols-3 xl:max-w-380 m-auto">
-          {facilities.map((item) => (
+          {facilities.map((item: any) => (
             <div className="relative">
               <p className="absolute top-1/2 left-1/2 -translate-1/2 z-20 md:text-xl lg:text-2xl text-center text-white font-bold">
                 {item.label}
@@ -274,7 +260,7 @@ const BerandaPage = () => {
               <Image
                 width="100%"
                 height="100%"
-                src={item.url}
+                src={item.image}
                 preview={false}
                 placeholder={
                   <Image
