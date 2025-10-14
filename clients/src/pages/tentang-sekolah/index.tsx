@@ -1,191 +1,112 @@
+import { IMGSekolah } from "@/assets";
+import { getEnv } from "@/config/env.config";
 import { MainLayout } from "@/layouts";
+import { Services } from "@/services";
+import { useQuery } from "@tanstack/react-query";
 import { Carousel, Image } from "antd";
 import classNames from "classnames";
 import { useMemo, useState } from "react";
+import { useLocation } from "react-router";
 
 const TentangSekolahPage = () => {
+  const { pathname } = useLocation();
   const [selectedImage, setSelectedImage] = useState(0);
 
-  const imageList = [
-    `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?${Date.now()}`,
-    `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?${Date.now()}`,
-    `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?${Date.now()}`,
-    `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?${Date.now()}`,
-    `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?${Date.now()}`,
-    `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?${Date.now()}`,
-    `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?${Date.now()}`,
-    `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?${Date.now()}`,
-  ];
+  const { data: profilSekolahResData } = useQuery({
+    queryKey: ["PROFIL_SEKOLAH", pathname],
+    queryFn: () => Services.getProfilSekolah(),
+  });
 
-  const facilities = [
-    {
-      label: "LAPANGAN",
-      url: `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?${Date.now()}`,
-    },
-    {
-      label: "KANTIN",
-      url: `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?${Date.now()}`,
-    },
-    {
-      label: "RUANG LAB",
-      url: `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?${Date.now()}`,
-    },
-    {
-      label: "UKS",
-      url: `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?${Date.now()}`,
-    },
-    {
-      label: "PERPUSTAKAAN",
-      url: `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?${Date.now()}`,
-    },
-    {
-      label: "TAMAN",
-      url: `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?${Date.now()}`,
-    },
-  ];
+  const profilSekolahData = profilSekolahResData?.data;
 
-  const teacherList = useMemo(
-    () => [
-      {
-        nama: "test",
-        peran: "guru",
-        url: `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?${Date.now()}`,
-      },
-      {
-        nama: "test",
-        peran: "guru",
-        url: `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?${Date.now()}`,
-      },
-      {
-        nama: "test",
-        peran: "guru",
-        url: `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?${Date.now()}`,
-      },
-      {
-        nama: "test",
-        peran: "guru",
-        url: `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?${Date.now()}`,
-      },
-      {
-        nama: "test",
-        peran: "guru",
-        url: `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?${Date.now()}`,
-      },
-      {
-        nama: "test",
-        peran: "guru",
-        url: `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?${Date.now()}`,
-      },
-      {
-        nama: "test",
-        peran: "guru",
-        url: `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?${Date.now()}`,
-      },
-      {
-        nama: "test",
-        peran: "guru",
-        url: `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?${Date.now()}`,
-      },
-      {
-        nama: "test",
-        peran: "guru",
-        url: `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?${Date.now()}`,
-      },
-      {
-        nama: "test",
-        peran: "guru",
-        url: `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?${Date.now()}`,
-      },
-      {
-        nama: "test",
-        peran: "guru",
-        url: `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?${Date.now()}`,
-      },
-      {
-        nama: "test",
-        peran: "guru",
-        url: `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?${Date.now()}`,
-      },
-      {
-        nama: "test",
-        peran: "guru",
-        url: `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?${Date.now()}`,
-      },
-      {
-        nama: "test",
-        peran: "guru",
-        url: `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?${Date.now()}`,
-      },
-    ],
-    []
+  const { data: kepalaSekolahResData } = useQuery({
+    queryKey: ["KEPALA_SEKOLAH", pathname],
+    queryFn: () => Services.getKepalaSekolah(),
+  });
+
+  const kepalaSekolahData = kepalaSekolahResData?.data;
+
+  const { data: facilitiesData } = useQuery({
+    queryKey: ["FACILITIES", pathname],
+    queryFn: () => Services.getFasilitasSekolah(),
+  });
+
+  const facilities = useMemo(
+    () =>
+      facilitiesData?.data?.map((item: Record<string, any>) => ({
+        label: item.nama,
+        image: `${getEnv().BASE_API_URL}${item.foto.formats.medium.url}`,
+      })) ?? [],
+    [facilitiesData]
   );
 
-  const formattedTeacherList = useMemo(() => {
+  const { data: tenagaSekolahResData } = useQuery({
+    queryKey: ["TENAGA_SEKOLAH", pathname],
+    queryFn: () => Services.getTenagaSekolahList(),
+  });
+
+  const tenagaSekolahData = tenagaSekolahResData?.data;
+
+  const imageList = profilSekolahData?.foto?.map(
+    (item: Record<string, any>) => `${getEnv().BASE_API_URL}${item.url}`
+  );
+
+  const tenagaSekolahList = useMemo(
+    () =>
+      tenagaSekolahData?.map((item: Record<string, any>) => ({
+        nama: item.nama,
+        peran: item.peran,
+        foto: `${getEnv().BASE_API_URL}${item.foto.url}`,
+      })) ?? [],
+    [tenagaSekolahData]
+  );
+
+  const formattedTenagaSekolahList = useMemo(() => {
     const result = [];
-    for (let i = 0; i < teacherList.length; i += 10) {
-      result.push(teacherList.slice(i, i + 10));
+    for (let i = 0; i < tenagaSekolahList.length; i += 10) {
+      result.push(tenagaSekolahList.slice(i, i + 10));
     }
     return result;
-  }, [teacherList]);
+  }, [tenagaSekolahList]);
 
   return (
     <MainLayout>
       <div className="xl:max-w-380 m-auto py-32 px-4 md:px-16 xl:px-32 flex flex-col-reverse lg:grid lg:grid-cols-2 gap-16">
         <div className="flex flex-col gap-8">
           <div className="flex flex-col gap-2">
-            <h2 className="text-4xl font-bold">SDN Sumur Batu 14</h2>
+            <h2 className="text-4xl font-bold">{profilSekolahData?.nama}</h2>
             <div className="flex gap-2 items-center">
-              <p className="italic">NPSN : 20104695</p>
+              <p className="italic">NPSN : {profilSekolahData?.npsn}</p>
               <p>-</p>
               <p>Akreditasi</p>
               <div className="w-6 h-6 rounded bg-green-500 flex items-center justify-center font-bold">
-                A
+                {profilSekolahData?.akreditasi}
               </div>
             </div>
           </div>
           <div className="flex flex-col">
             <h4 className="text-2xl font-bold">Visi</h4>
-            <p className="text-justify">
-              Terwujudnya murid yang cerdas, berakhlak mulia, unggul dalam
-              literasi, dan peduli lingkungan melalui penerapan pembelajaran
-              mendalam dalam suasana ramah anak.
-            </p>
+            <p className="text-justify">{profilSekolahData?.visi}</p>
           </div>
           <div className="flex flex-col">
             <h4 className="text-2xl font-bold">Misi</h4>
-            <p className="text-justify">
-              1. Menerapkan pembelajaran mendalam dengan pendekatan berbasis
-              teknologi dan pengalaman langsung. 2. Melaksanakan program
-              pengembangan literasi secara sistematis dan berkelanjutan.
-              Membentuk peserta didik berakhlak mulia dan berbudi pekerti luhur
-              melalui pembelajaran dan pembiasaan di sekolah. Menanamkan sikap
-              gotong royong dan kepedulian terhadap lingkungan. Mengembangkan
-              kemandirian, bernalar kritis, dan kreativitas peserta didik.
-              Menciptakan lingkungan belajar yang aman, nyaman, dan mendukung
-              tumbuh kembang optimal peserta didik. Menumbuhkan sikap kompetitif
-              dalam meraih prestasi akademik maupun non-akademik.
-            </p>
+            <div
+              dangerouslySetInnerHTML={{ __html: profilSekolahData?.misi }}
+            />
           </div>
         </div>
         <div className="flex flex-col gap-2">
-          <Image
-            height={320}
-            className="object-cover rounded-xl"
-            width="100%"
-            src={imageList[selectedImage]}
-            placeholder={
-              <Image
-                preview={false}
-                src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?x-oss-process=image/blur,r_50,s_50/quality,q_1/resize,m_mfit,h_200,w_200"
-                width="100%"
-                height={320}
-                className="object-cover rounded-xl"
-              />
-            }
-          />
+          {imageList?.length && imageList[selectedImage] && (
+            <Image
+              height={320}
+              className="object-cover rounded-xl"
+              width="100%"
+              src={imageList[selectedImage]}
+            />
+          )}
           <div className="w-full overflow-x-auto">
             <div className="flex gap-2">
-              {imageList.map((item, index) => (
+              {imageList?.map((item: any, index: number) => (
                 <div
                   className={classNames([
                     "rounded-xl min-w-24 h-24 overflow-hidden cursor-pointer relative",
@@ -200,15 +121,6 @@ const TentangSekolahPage = () => {
                     className="object-cover"
                     width="100%"
                     src={item}
-                    placeholder={
-                      <Image
-                        preview={false}
-                        src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?x-oss-process=image/blur,r_50,s_50/quality,q_1/resize,m_mfit,h_200,w_200"
-                        width="100%"
-                        height="100%"
-                        className="object-cover"
-                      />
-                    }
                   />
                 </div>
               ))}
@@ -222,20 +134,9 @@ const TentangSekolahPage = () => {
           <div className="flex flex-col gap-2">
             <h2 className="text-4xl font-bold">Sambutan Kepala Sekolah</h2>
             <div className="flex gap-2 items-center">
-              <p className="italic">Kuswinarti, M.Pd.</p>
+              <p className="italic">{kepalaSekolahData?.nama}</p>
             </div>
-            <p>
-              Assalamu’alaikum warahmatullahi wabarakatuh, Selamat datang di
-              website resmi sekolah kami. Kehadiran website ini merupakan
-              langkah nyata dalam memanfaatkan teknologi informasi sebagai
-              sarana komunikasi dan informasi bagi seluruh warga sekolah, orang
-              tua, maupun masyarakat luas. Melalui website ini, kami berharap
-              seluruh kegiatan, prestasi, pengumuman, dan program sekolah dapat
-              tersampaikan dengan cepat, transparan, serta dapat diakses kapan
-              saja. Semoga website ini menjadi media yang bermanfaat dalam
-              mendukung proses pendidikan dan mempererat hubungan antara sekolah
-              dan masyarakat. Wassalamu’alaikum warahmatullahi wabarakatuh.
-            </p>
+            <p className="text-justify">{kepalaSekolahData?.sambutan}</p>
           </div>
 
           <div>
@@ -243,16 +144,8 @@ const TentangSekolahPage = () => {
               height={320}
               className="object-cover rounded-xl"
               width="100%"
-              src={imageList[selectedImage]}
-              placeholder={
-                <Image
-                  preview={false}
-                  src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?x-oss-process=image/blur,r_50,s_50/quality,q_1/resize,m_mfit,h_200,w_200"
-                  width="100%"
-                  height={320}
-                  className="object-cover rounded-xl"
-                />
-              }
+              preview={false}
+              src={kepalaSekolahData?.foto}
             />
           </div>
         </div>
@@ -262,10 +155,10 @@ const TentangSekolahPage = () => {
           autoplay={{ dotDuration: true }}
           className="[&_.slick-arrow]:opacity-100! [&_.slick-arrow]:shadow-lg! [&_.slick-arrow]:text-black! [&_.slick-arrow]:bg-white! [&_.slick-arrow]:w-8! [&_.slick-arrow]:h-8! [&_.slick-arrow]:rounded-full [&_.slick-arrow]:flex! [&_.slick-arrow]:items-center! [&_.slick-arrow]:justify-center! [&_.slick-arrow]:after:static! [&_.slick-arrow.slick-next]:after:-ml-1 [&_.slick-arrow.slick-prev]:after:-mr-1"
         >
-          {formattedTeacherList.map((list) => (
+          {formattedTenagaSekolahList.map((list) => (
             <div>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-7 gap-4">
-                {list.map((item) => (
+                {list.map((item: any) => (
                   <div className="flex flex-col gap-4">
                     <div
                       className={classNames([
@@ -278,21 +171,12 @@ const TentangSekolahPage = () => {
                         preview={false}
                         className="object-cover"
                         width="100%"
-                        src={item.url}
-                        placeholder={
-                          <Image
-                            preview={false}
-                            src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?x-oss-process=image/blur,r_50,s_50/quality,q_1/resize,m_mfit,h_200,w_200"
-                            width="100%"
-                            height="100%"
-                            className="object-cover"
-                          />
-                        }
+                        src={item.foto}
                       />
                     </div>
                     <div>
-                      <p>Wakil Kepala Sekolah</p>
-                      <p className="font-bold">Susilowati, S.Pd.</p>
+                      <p>{item.peran}</p>
+                      <p className="font-bold">{item.nama}</p>
                     </div>
                   </div>
                 ))}
@@ -321,21 +205,12 @@ const TentangSekolahPage = () => {
           className="object-cover rounded-xl"
           width="100%"
           preview={false}
-          src={imageList[selectedImage]}
-          placeholder={
-            <Image
-              preview={false}
-              src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?x-oss-process=image/blur,r_50,s_50/quality,q_1/resize,m_mfit,h_200,w_200"
-              width="100%"
-              height={320}
-              className="object-cover rounded-xl"
-            />
-          }
+          src={IMGSekolah}
         />
       </div>
 
       <div className="grid grid-cols-3 xl:max-w-380 m-auto">
-        {facilities.map((item) => (
+        {facilities.map((item: any) => (
           <div className="relative">
             <p className="absolute top-1/2 left-1/2 -translate-1/2 z-20 md:text-xl lg:text-2xl text-center text-white font-bold">
               {item.label}
@@ -344,16 +219,8 @@ const TentangSekolahPage = () => {
             <Image
               width="100%"
               height="100%"
-              src={item.url}
+              src={item.image}
               preview={false}
-              placeholder={
-                <Image
-                  preview={false}
-                  src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?x-oss-process=image/blur,r_50,s_50/quality,q_1/resize,m_mfit,h_200,w_200"
-                  width="100%"
-                  height="100%"
-                />
-              }
             />
           </div>
         ))}
