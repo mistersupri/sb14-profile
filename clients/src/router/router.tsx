@@ -6,6 +6,7 @@ import UnduhanPage from "@/pages/unduhan";
 import PortalPage from "@/pages/portal";
 import FAQPage from "@/pages/faq";
 import KotakSaranPage from "@/pages/kotak-saran";
+import DetailPengumumanPage from "@/pages/pengumuman/detail";
 
 const routers = [
   {
@@ -19,6 +20,10 @@ const routers = [
   {
     path: "/pengumuman",
     element: <PengumumanPage />,
+  },
+  {
+    path: "/pengumuman/:id/:date/:title",
+    element: <DetailPengumumanPage />,
   },
   {
     path: "/galeri",

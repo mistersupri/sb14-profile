@@ -31,7 +31,13 @@ const PengumumanPage = () => {
       Services.getBeritaList({
         label,
         keyword,
+        page,
       }),
+  });
+
+  const { data: latestNewsData } = useQuery({
+    queryKey: ["LATEST_NEWS"],
+    queryFn: () => Services.getBeritaTerbaruList(),
   });
 
   const { data: newsLabelsData } = useQuery({
@@ -47,6 +53,7 @@ const PengumumanPage = () => {
   const paginatedNews = useMemo(
     () =>
       newsData?.data?.map((item: any) => ({
+        id: item.documentId,
         image: `${getEnv().BASE_API_URL}${item.foto_header.url}`,
         hashImage: `${getEnv().BASE_API_URL}${
           item.foto_header.formats.thumbnail.url
@@ -57,13 +64,15 @@ const PengumumanPage = () => {
         created_at: item.tanggal_dibuat
           ? dayjs(new Date(item.tanggal_dibuat)).format("DD MMM YYYY")
           : "",
+        tanggalDibuat: item.tanggal_dibuat,
       })) ?? [],
     [newsData]
   );
 
   const latestNews = useMemo(
     () =>
-      newsData?.data?.map((item: any) => ({
+      latestNewsData?.data?.map((item: any) => ({
+        id: item.documentId,
         image: `${getEnv().BASE_API_URL}${item.foto_header.url}`,
         hashImage: `${getEnv().BASE_API_URL}${
           item.foto_header.formats.thumbnail.url
@@ -74,8 +83,9 @@ const PengumumanPage = () => {
         created_at: item.tanggal_dibuat
           ? dayjs(new Date(item.tanggal_dibuat)).format("DD MMM YYYY")
           : "",
+        tanggalDibuat: item.tanggal_dibuat,
       })) ?? [],
-    [newsData]
+    [latestNewsData]
   );
 
   return (
@@ -84,35 +94,49 @@ const PengumumanPage = () => {
         <div className="flex-1 flex flex-col gap-8">
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {paginatedNews.map((item: any, idx: number) => (
-              <div
-                className="flex flex-col overflow-hidden rounded border border-gray-100 hover:border-black cursor-pointer transition-all"
+              <a
+                href={`/pengumuman/${item.id}/${item.tanggalDibuat}/${item.title
+                  .trim()
+                  .toLowerCase()
+                  .replaceAll(" ", "-")}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate(
+                    `/pengumuman/${item.id}/${item.tanggalDibuat}/${item.title
+                      .trim()
+                      .toLowerCase()
+                      .replaceAll(" ", "-")}`
+                  );
+                }}
                 key={`news-${idx}`}
               >
-                <div className="w-full h-32 overflow-hidden">
-                  <Image
-                    width="100%"
-                    src={item.image}
-                    preview={false}
-                    placeholder={
-                      <Image
-                        preview={false}
-                        src={item.hashImage}
-                        width="100%"
-                      />
-                    }
-                  />
-                </div>
-                <div className="flex flex-col items-start gap-1 p-4">
-                  <div className="w-full flex justify-between items-center">
-                    <Tag color="magenta" className="text-xs!">
-                      {item.labelBerita}
-                    </Tag>
-                    <p className="text-xs text-gray-500">{item.created_at}</p>
+                <div className="flex flex-col overflow-hidden rounded border border-gray-100 hover:border-black cursor-pointer transition-all">
+                  <div className="w-full h-32 overflow-hidden">
+                    <Image
+                      width="100%"
+                      src={item.image}
+                      preview={false}
+                      placeholder={
+                        <Image
+                          preview={false}
+                          src={item.hashImage}
+                          width="100%"
+                        />
+                      }
+                    />
                   </div>
-                  <h4 className="font-bold line-clamp-2">{item.title}</h4>
-                  <p className="line-clamp-3 text-sm">{item.description}</p>
+                  <div className="flex flex-col items-start gap-1 p-4">
+                    <div className="w-full flex justify-between items-center">
+                      <Tag color="magenta" className="text-xs!">
+                        {item.labelBerita}
+                      </Tag>
+                      <p className="text-xs text-gray-500">{item.created_at}</p>
+                    </div>
+                    <h4 className="font-bold line-clamp-2">{item.title}</h4>
+                    <p className="line-clamp-3 text-sm">{item.description}</p>
+                  </div>
                 </div>
-              </div>
+              </a>
             ))}
           </div>
           <Pagination
@@ -190,32 +214,48 @@ const PengumumanPage = () => {
               <h2 className="text-2xl font-bold">TERBARU</h2>
             </div>
             <div className="flex flex-col gap-4">
-              {latestNews.map((item: any) => (
-                <div className="flex overflow-hidden rounded border border-gray-100 hover:border-black cursor-pointer transition-all">
-                  <div className="w-16">
-                    <Image
-                      height="100%"
-                      className="object-cover"
-                      src={item.image}
-                      preview={false}
-                      placeholder={
-                        <Image
-                          height="100%"
-                          className="object-cover"
-                          preview={false}
-                          src={item.hashImage}
-                        />
-                      }
-                    />
+              {latestNews.map((item: any, idx: number) => (
+                <a
+                  href={`/pengumuman/${item.id}/${
+                    item.tanggalDibuat
+                  }/${item.title.trim().toLowerCase().replaceAll(" ", "-")}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigate(
+                      `/pengumuman/${item.id}/${item.tanggalDibuat}/${item.title
+                        .trim()
+                        .toLowerCase()
+                        .replaceAll(" ", "-")}`
+                    );
+                  }}
+                  key={`news-${idx}`}
+                >
+                  <div className="flex overflow-hidden rounded border border-gray-100 hover:border-black cursor-pointer transition-all">
+                    <div className="w-16">
+                      <Image
+                        height="100%"
+                        className="object-cover"
+                        src={item.image}
+                        preview={false}
+                        placeholder={
+                          <Image
+                            height="100%"
+                            className="object-cover"
+                            preview={false}
+                            src={item.hashImage}
+                          />
+                        }
+                      />
+                    </div>
+                    <div className="flex-1 flex flex-col px-4 py-2">
+                      <p className="text-xs text-gray-500">{item.created_at}</p>
+                      <h4 className="font-bold text-sm line-clamp-2">
+                        {item.title}
+                      </h4>
+                      <p className="line-clamp-2 text-xs">{item.description}</p>
+                    </div>
                   </div>
-                  <div className="flex-1 flex flex-col px-4 py-2">
-                    <p className="text-xs text-gray-500">{item.created_at}</p>
-                    <h4 className="font-bold text-sm line-clamp-2">
-                      {item.title}
-                    </h4>
-                    <p className="line-clamp-2 text-xs">{item.description}</p>
-                  </div>
-                </div>
+                </a>
               ))}
             </div>
           </div>

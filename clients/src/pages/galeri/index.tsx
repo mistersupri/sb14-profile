@@ -8,8 +8,6 @@ import queryString from "query-string";
 import { useMemo } from "react";
 import { useLocation, useNavigate, useSearchParams } from "react-router";
 
-const random = Date.now();
-
 const GaleriPage = () => {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -20,7 +18,7 @@ const GaleriPage = () => {
   const page = searchParams.get("page");
 
   const { data: galleryLabelsData } = useQuery({
-    queryKey: ["GALLERY_LABELS", pathname],
+    queryKey: ["GALLERY_LABELS", pathname, page],
     queryFn: () => Services.getLabelGalleryList(),
   });
 
@@ -36,6 +34,7 @@ const GaleriPage = () => {
     queryFn: () =>
       Services.getGalleryList({
         label,
+        page,
       }),
   });
 
