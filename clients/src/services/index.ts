@@ -3,6 +3,7 @@ import { faqService } from "./faq";
 import { fasilitasSekolahService } from "./fasilitas-sekolah";
 import { galleryService } from "./gallery";
 import { kepalaSekolahService } from "./kepala-sekolah";
+import { kotakSaranService } from "./kotak-saran";
 import { portalService } from "./portal";
 import { profilSekolahService } from "./profil-sekolah";
 import { tenagaSekolahService } from "./tenaga-sekolah";
@@ -18,4 +19,5 @@ export const Services = {
   ...profilSekolahService,
   ...tenagaSekolahService,
   ...unduhanService,
+  ...kotakSaranService,
 };
