@@ -9,13 +9,14 @@ import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import "dayjs/locale/id";
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.locale("id");
 
 const BerandaPage = () => {
+  const navigate = useNavigate();
   const { pathname } = useLocation();
 
   const { data: facilitiesData } = useQuery({
@@ -140,42 +141,60 @@ const BerandaPage = () => {
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {news.length ? (
                 news.map((item: any, idx: number) => (
-                  <div
-                    className="flex flex-col overflow-hidden rounded border border-gray-100 hover:border-black cursor-pointer transition-all"
+                  <a
+                    href={`/pengumuman/${item.id}/${
+                      item.tanggalDibuat
+                    }/${item.title.trim().toLowerCase().replaceAll(" ", "-")}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigate(
+                        `/pengumuman/${item.id}/${
+                          item.tanggalDibuat
+                        }/${item.title
+                          .trim()
+                          .toLowerCase()
+                          .replaceAll(" ", "-")}`
+                      );
+                    }}
                     key={`news-${idx}`}
                   >
-                    <div className="w-full h-32 overflow-hidden">
-                      <Image
-                        width="100%"
-                        src={item.image}
-                        preview={false}
-                        placeholder={
-                          <Image
-                            preview={false}
-                            src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?x-oss-process=image/blur,r_50,s_50/quality,q_1/resize,m_mfit,h_200,w_200"
-                            width="100%"
-                            height="100%"
-                          />
-                        }
-                      />
-                    </div>
-                    <div className="flex flex-col items-start gap-1 p-4">
-                      <div className="w-full flex justify-between items-center">
-                        <Tag color="magenta" className="text-xs!">
-                          {item.labelBerita}
-                        </Tag>
-                        <p className="text-xs text-gray-500">
-                          {item.created_at}
+                    <div
+                      className="flex flex-col overflow-hidden rounded border border-gray-100 hover:border-black cursor-pointer transition-all"
+                      key={`news-${idx}`}
+                    >
+                      <div className="w-full h-32 overflow-hidden">
+                        <Image
+                          width="100%"
+                          src={item.image}
+                          preview={false}
+                          placeholder={
+                            <Image
+                              preview={false}
+                              src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?x-oss-process=image/blur,r_50,s_50/quality,q_1/resize,m_mfit,h_200,w_200"
+                              width="100%"
+                              height="100%"
+                            />
+                          }
+                        />
+                      </div>
+                      <div className="flex flex-col items-start gap-1 p-4">
+                        <div className="w-full flex justify-between items-center">
+                          <Tag color="magenta" className="text-xs!">
+                            {item.labelBerita}
+                          </Tag>
+                          <p className="text-xs text-gray-500">
+                            {item.created_at}
+                          </p>
+                        </div>
+                        <h4 className="font-bold line-clamp-2 text-sm lg:text-base">
+                          {item.title}
+                        </h4>
+                        <p className="line-clamp-3 text-xs lg:text-sm">
+                          {item.description}
                         </p>
                       </div>
-                      <h4 className="font-bold line-clamp-2 text-sm lg:text-base">
-                        {item.title}
-                      </h4>
-                      <p className="line-clamp-3 text-xs lg:text-sm">
-                        {item.description}
-                      </p>
                     </div>
-                  </div>
+                  </a>
                 ))
               ) : (
                 <Empty />
@@ -198,32 +217,54 @@ const BerandaPage = () => {
             </div>
             <div className="flex flex-col gap-4">
               {prestasiNews.length ? (
-                prestasiNews.map((item: any) => (
-                  <div className="flex overflow-hidden rounded border border-gray-100 hover:border-black cursor-pointer transition-all">
-                    <div className="w-24 lg:w-16">
-                      <Image
-                        height="100%"
-                        className="object-cover"
-                        src={item.image}
-                        preview={false}
-                        placeholder={
-                          <Image
-                            height="100%"
-                            className="object-cover"
-                            preview={false}
-                            src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?x-oss-process=image/blur,r_50,s_50/quality,q_1/resize,m_mfit,h_200,w_200"
-                          />
-                        }
-                      />
+                prestasiNews.map((item: any, idx: number) => (
+                  <a
+                    href={`/pengumuman/${item.id}/${
+                      item.tanggalDibuat
+                    }/${item.title.trim().toLowerCase().replaceAll(" ", "-")}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigate(
+                        `/pengumuman/${item.id}/${
+                          item.tanggalDibuat
+                        }/${item.title
+                          .trim()
+                          .toLowerCase()
+                          .replaceAll(" ", "-")}`
+                      );
+                    }}
+                    key={`news-${idx}`}
+                  >
+                    <div className="flex overflow-hidden rounded border border-gray-100 hover:border-black cursor-pointer transition-all">
+                      <div className="w-24 lg:w-16">
+                        <Image
+                          height="100%"
+                          className="object-cover"
+                          src={item.image}
+                          preview={false}
+                          placeholder={
+                            <Image
+                              height="100%"
+                              className="object-cover"
+                              preview={false}
+                              src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?x-oss-process=image/blur,r_50,s_50/quality,q_1/resize,m_mfit,h_200,w_200"
+                            />
+                          }
+                        />
+                      </div>
+                      <div className="flex-1 flex flex-col px-4 py-2">
+                        <p className="text-xs text-gray-500">
+                          {item.created_at}
+                        </p>
+                        <h4 className="font-bold text-sm line-clamp-2">
+                          {item.title}
+                        </h4>
+                        <p className="line-clamp-2 text-xs">
+                          {item.description}
+                        </p>
+                      </div>
                     </div>
-                    <div className="flex-1 flex flex-col px-4 py-2">
-                      <p className="text-xs text-gray-500">{item.created_at}</p>
-                      <h4 className="font-bold text-sm line-clamp-2">
-                        {item.title}
-                      </h4>
-                      <p className="line-clamp-2 text-xs">{item.description}</p>
-                    </div>
-                  </div>
+                  </a>
                 ))
               ) : (
                 <Empty />

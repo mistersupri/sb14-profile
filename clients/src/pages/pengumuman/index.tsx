@@ -3,7 +3,7 @@ import { getEnv } from "@/config/env.config";
 import { BigTitleLayout } from "@/layouts";
 import { Services } from "@/services";
 import { useQuery } from "@tanstack/react-query";
-import { Image, Input, Pagination, Tag } from "antd";
+import { Empty, Image, Input, Pagination, Tag } from "antd";
 import classNames from "classnames";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
@@ -92,53 +92,58 @@ const PengumumanPage = () => {
     <BigTitleLayout title="PENGUMUMAN">
       <div className="flex flex-col lg:flex-row gap-8 xl:max-w-380 m-auto pb-32 px-4 md:px-8 lg:px-32">
         <div className="flex-1 flex flex-col gap-8">
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            {paginatedNews.map((item: any, idx: number) => (
-              <a
-                href={`/pengumuman/${item.id}/${item.tanggalDibuat}/${item.title
-                  .trim()
-                  .toLowerCase()
-                  .replaceAll(" ", "-")}`}
-                onClick={(e) => {
-                  e.preventDefault();
-                  navigate(
-                    `/pengumuman/${item.id}/${item.tanggalDibuat}/${item.title
-                      .trim()
-                      .toLowerCase()
-                      .replaceAll(" ", "-")}`
-                  );
-                }}
-                key={`news-${idx}`}
-              >
-                <div className="flex flex-col overflow-hidden rounded border border-gray-100 hover:border-black cursor-pointer transition-all">
-                  <div className="w-full h-32 overflow-hidden">
-                    <Image
-                      width="100%"
-                      src={item.image}
-                      preview={false}
-                      placeholder={
-                        <Image
-                          preview={false}
-                          src={item.hashImage}
-                          width="100%"
-                        />
-                      }
-                    />
-                  </div>
-                  <div className="flex flex-col items-start gap-1 p-4">
-                    <div className="w-full flex justify-between items-center">
-                      <Tag color="magenta" className="text-xs!">
-                        {item.labelBerita}
-                      </Tag>
-                      <p className="text-xs text-gray-500">{item.created_at}</p>
+          {paginatedNews.length ? (
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              {paginatedNews.map((item: any, idx: number) => (
+                <a
+                  href={`/pengumuman/${item.id}/${
+                    item.tanggalDibuat
+                  }/${item.title.trim().toLowerCase().replaceAll(" ", "-")}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigate(
+                      `/pengumuman/${item.id}/${item.tanggalDibuat}/${item.title
+                        .trim()
+                        .toLowerCase()
+                        .replaceAll(" ", "-")}`
+                    );
+                  }}
+                  key={`news-${idx}`}
+                >
+                  <div className="flex flex-col overflow-hidden rounded border border-gray-100 hover:border-black cursor-pointer transition-all">
+                    <div className="w-full h-32 overflow-hidden">
+                      <Image
+                        width="100%"
+                        src={item.image}
+                        preview={false}
+                        placeholder={
+                          <Image
+                            preview={false}
+                            src={item.hashImage}
+                            width="100%"
+                          />
+                        }
+                      />
                     </div>
-                    <h4 className="font-bold line-clamp-2">{item.title}</h4>
-                    <p className="line-clamp-3 text-sm">{item.description}</p>
+                    <div className="flex flex-col items-start gap-1 p-4">
+                      <div className="w-full flex justify-between items-center">
+                        <Tag color="magenta" className="text-xs!">
+                          {item.labelBerita}
+                        </Tag>
+                        <p className="text-xs text-gray-500">
+                          {item.created_at}
+                        </p>
+                      </div>
+                      <h4 className="font-bold line-clamp-2">{item.title}</h4>
+                      <p className="line-clamp-3 text-sm">{item.description}</p>
+                    </div>
                   </div>
-                </div>
-              </a>
-            ))}
-          </div>
+                </a>
+              ))}
+            </div>
+          ) : (
+            <Empty />
+          )}
           <Pagination
             align="center"
             defaultCurrent={1}
