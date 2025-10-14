@@ -11,6 +11,16 @@
   },
   "pluginOptions": {},
   "attributes": {
+    "foto": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
     "nama": {
       "type": "string"
     },
@@ -47,6 +57,9 @@
     },
     "youtube": {
       "type": "string"
+    },
+    "sejarah": {
+      "type": "richtext"
     }
   }
 }

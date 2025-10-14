@@ -719,6 +719,10 @@ export interface ApiProfilSekolahProfilSekolah extends Struct.SingleTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     email: Schema.Attribute.Email;
+    foto: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
     google_maps: Schema.Attribute.String;
     instagram: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
@@ -738,6 +742,7 @@ export interface ApiProfilSekolahProfilSekolah extends Struct.SingleTypeSchema {
     nama: Schema.Attribute.String;
     npsn: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
+    sejarah: Schema.Attribute.RichText;
     telepon: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -762,10 +767,7 @@ export interface ApiTenagaSekolahTenagaSekolah
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    foto: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios',
-      true
-    >;
+    foto: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     kelas: Schema.Attribute.String & Schema.Attribute.Required;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
