@@ -1,7 +1,6 @@
 import type React from "react";
 import { MainLayout } from "../main";
 import { Image } from "antd";
-import { useState } from "react";
 import { IMGSekolah } from "@/assets";
 
 const BigTitleLayout: React.FC<React.PropsWithChildren<{ title: string }>> = ({

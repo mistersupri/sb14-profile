@@ -1,9 +1,9 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { getEnv } from "@/config/env.config";
-import { BigTitleLayout, MainLayout } from "@/layouts";
+import { MainLayout } from "@/layouts";
 import { Services } from "@/services";
 import { useQuery } from "@tanstack/react-query";
-import { Badge, Image, Input, Pagination, Tag } from "antd";
+import { Image, Input } from "antd";
 import classNames from "classnames";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
@@ -24,7 +24,7 @@ dayjs.locale("id");
 
 const DetailPengumumanPage = () => {
   const navigate = useNavigate();
-  const { pathname, search } = useLocation();
+  const { search } = useLocation();
   const parsedQuery = queryString.parse(search);
   const [searchParams, setSearchParams] = useSearchParams();
   const params = useParams();
