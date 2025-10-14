@@ -1,43 +1,63 @@
 import { BigTitleLayout } from "@/layouts";
+import { Services } from "@/services";
+import { useQuery } from "@tanstack/react-query";
 import { Input, Pagination } from "antd";
 import classNames from "classnames";
 import { FileText } from "lucide-react";
+import queryString from "query-string";
+import { useMemo } from "react";
+import { useLocation, useNavigate, useSearchParams } from "react-router";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+import "dayjs/locale/id";
+import { getEnv } from "@/config/env.config";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.locale("id");
 
 const UnduhanPage = () => {
-  const unduhanList = [
-    {
-      label: "ANBK",
-      name: "Jakarta Edu",
-      url: "",
-      created_at: new Date().getTime(),
-    },
-    { label: "ANBK", name: "Siera", url: "", created_at: new Date().getTime() },
-    {
-      label: "ANBK",
-      name: "Sireina",
-      url: "",
-      created_at: new Date().getTime(),
-    },
-    {
-      label: "ANBK",
-      name: "E-Rapor",
-      url: "",
-      created_at: new Date().getTime(),
-    },
-    {
-      label: "ANBK",
-      name: "Absensi Mobile",
-      url: "",
-      created_at: new Date().getTime(),
-    },
-    {
-      label: "ANBK",
-      name: "Jak Aset Inventarisasi",
-      url: "",
-      created_at: new Date().getTime(),
-    },
-    { label: "ANBK", name: "ANBK", url: "", created_at: new Date().getTime() },
-  ];
+  const navigate = useNavigate();
+  const { pathname, search } = useLocation();
+  const parsedQuery = queryString.parse(search);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const label = searchParams.get("label");
+  const keyword = searchParams.get("keyword");
+  const page = searchParams.get("page");
+
+  const { data: unduhanLabelsData } = useQuery({
+    queryKey: ["UNDUHAN_LABELS", pathname],
+    queryFn: () => Services.getLabelUnduhanList(),
+  });
+
+  const unduhanLabels = useMemo(
+    () => unduhanLabelsData?.data?.map((item: any) => item.nama) ?? [],
+    [unduhanLabelsData]
+  );
+
+  const { data: unduhanData } = useQuery({
+    queryKey: ["UNDUHAN", pathname, label, keyword, page],
+    queryFn: () =>
+      Services.getUnduhanList({
+        label,
+        keyword,
+      }),
+  });
+
+  const unduhanList = useMemo(
+    () =>
+      unduhanData?.data?.map((item: any) => ({
+        name: item.nama,
+        label: item.label_unduhan.nama,
+        url: `${getEnv().BASE_API_URL}${item.file.url}`,
+        created_at: dayjs(new Date(item.tanggal_diunggah)).format(
+          "DD MMM YYYY"
+        ),
+        filename: item.file.name,
+      })) ?? [],
+    [unduhanData]
+  );
 
   return (
     <BigTitleLayout title="UNDUHAN">
@@ -47,30 +67,65 @@ const UnduhanPage = () => {
             placeholder="Cari file unduhan di sini..."
             enterButton="Search"
             size="large"
-            onSearch={() => undefined}
+            onSearch={(value) =>
+              setSearchParams({ ...parsedQuery, page: "1", keyword: value })
+            }
           />
           <div className="flex gap-2 flex-wrap">
             <a
+              href={`${pathname}?${queryString.stringify({
+                ...parsedQuery,
+                page: "1",
+                label: undefined,
+              })}`}
+              onClick={(e) => {
+                e.preventDefault();
+                navigate(
+                  `${pathname}?${queryString.stringify({
+                    ...parsedQuery,
+                    page: "1",
+                    label: undefined,
+                  })}`
+                );
+              }}
               className={classNames([
                 "rounded bg-gray-200 py-2 px-4 font-bold",
-                "bg-teal-800 text-white",
+                !searchParams.get("label")
+                  ? "bg-teal-800 text-white"
+                  : "hover:bg-black hover:text-white cursor-pointer",
               ])}
             >
               SEMUA
             </a>
-            <a className="rounded bg-gray-200 py-2 px-4 font-bold hover:bg-black hover:text-white cursor-pointer">
-              #ANBK
-            </a>
-            <a className="rounded bg-gray-200 py-2 px-4 font-bold hover:bg-black hover:text-white cursor-pointer">
-              #KJP
-            </a>
+            {unduhanLabels.map((label: string) => (
+              <a
+                href={`${pathname}?${queryString.stringify({
+                  ...parsedQuery,
+                  page: "1",
+                  label,
+                })}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setSearchParams({ ...parsedQuery, page: "1", label });
+                }}
+                className={classNames([
+                  "rounded bg-gray-200 py-2 px-4 font-bold",
+                  searchParams.get("label") === label
+                    ? "bg-teal-800 text-white"
+                    : "hover:bg-black hover:text-white cursor-pointer",
+                ])}
+              >
+                #{label}
+              </a>
+            ))}
           </div>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {unduhanList.map((item) => (
+          {unduhanList.map((item: any) => (
             <a
               href={item.url}
               target="_blank"
+              download={item.filename}
               className="rounded-xl flex gap-4 p-2 border border-gray-200 hover:bg-gray-100 active:bg-gray-200 cursor-pointer transition-all"
             >
               <div className="rounded-xl bg-pink-500 w-24 h-24 flex justify-center items-center text-white">
@@ -78,13 +133,20 @@ const UnduhanPage = () => {
               </div>
               <div className="flex flex-col justify-center">
                 <p className="text-gray-500 text-sm">#{item.label}</p>
-                <p className="font-bold text-xl">{item.label}</p>
-                <p className="">{new Date(item.created_at).toDateString()}</p>
+                <p className="font-bold text-xl">{item.name}</p>
+                <p className="">{item.created_at}</p>
               </div>
             </a>
           ))}
         </div>
-        <Pagination align="center" defaultCurrent={1} total={50} />
+        <Pagination
+          align="center"
+          defaultCurrent={1}
+          total={unduhanData?.meta.pagination.total}
+          onChange={(page) =>
+            setSearchParams({ ...parsedQuery, page: String(page) })
+          }
+        />
       </div>
     </BigTitleLayout>
   );

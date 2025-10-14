@@ -155,7 +155,9 @@ const PengumumanPage = () => {
                 }}
                 className={classNames([
                   "rounded bg-gray-200 py-2 px-4 font-bold",
-                  "bg-teal-800 text-white",
+                  !searchParams.get("label")
+                    ? "bg-teal-800 text-white"
+                    : "hover:bg-black hover:text-white cursor-pointer",
                 ])}
               >
                 SEMUA
@@ -171,7 +173,12 @@ const PengumumanPage = () => {
                     e.preventDefault();
                     setSearchParams({ ...parsedQuery, page: "1", label });
                   }}
-                  className="rounded bg-gray-200 py-2 px-4 font-bold hover:bg-black hover:text-white cursor-pointer"
+                  className={classNames([
+                    "rounded bg-gray-200 py-2 px-4 font-bold",
+                    searchParams.get("label") === label
+                      ? "bg-teal-800 text-white"
+                      : "hover:bg-black hover:text-white cursor-pointer",
+                  ])}
                 >
                   #{label}
                 </a>
