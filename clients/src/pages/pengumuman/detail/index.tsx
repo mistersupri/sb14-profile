@@ -105,8 +105,13 @@ const DetailPengumumanPage = () => {
           <div className="bg-white rounded-xl p-8 border border-gray-100 shadow-md flex flex-col gap-4">
             <h1 className="font-bold text-xl">{detailNews?.judul}</h1>
             <div className="flex justify-between">
-              <div>
-                <p>Endin Supriyadi</p>
+              <div className="flex flex-col gap-2">
+                <div className="flex gap-2 justify-center items-center">
+                  <div className="bg-teal-700 text-white text-sm font-bold rounded-full pt-1 w-6 h-6 flex items-center justify-center">
+                    {detailNews?.author.nama.charAt(0)}
+                  </div>
+                  <p>{detailNews?.author.nama}</p>
+                </div>
                 <div className="rounded text-xs px-2 py-1 bg-gray-200 w-fit font-bold">
                   #{detailNews?.label_berita.nama}
                 </div>
@@ -126,7 +131,10 @@ const DetailPengumumanPage = () => {
                 </p>
               </div>
             </div>
-            <div dangerouslySetInnerHTML={{ __html: detailNews?.isi_berita }} />
+            <div
+              className="unreset"
+              dangerouslySetInnerHTML={{ __html: detailNews?.isi_berita }}
+            />
           </div>
           <div />
         </div>
