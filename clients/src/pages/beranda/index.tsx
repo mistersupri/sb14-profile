@@ -94,14 +94,9 @@ const BerandaPage = () => {
             <div className="relative h-128 lg:h-154" key={`hero-${idx}`}>
               <Image
                 width="100%"
+                height="100%"
+                className="object-cover"
                 src={item.image}
-                placeholder={
-                  <Image
-                    preview={false}
-                    src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?x-oss-process=image/blur,r_50,s_50/quality,q_1/resize,m_mfit,h_200,w_200"
-                    width="100%"
-                  />
-                }
               />
               <div className="bg-linear-to-b from-white/80 to-white absolute top-0 left-0 w-full h-full" />
               <div className="absolute w-full h-full z-10 top-0 left-0">
@@ -114,9 +109,32 @@ const BerandaPage = () => {
                       {item.description}
                     </p>
                   </div>
-                  <a href={item.ctaUrl}>
-                    <button className="bg-teal-700 px-8 py-2 lg:text-lg text-white rounded-xl hover:bg-black cursor-pointer">
-                      {item.ctaDisplay}
+                  {item.ctaUrl && (
+                    <a href={item.ctaUrl}>
+                      <button className="bg-teal-700 px-8 py-2 lg:text-lg text-white rounded-xl hover:bg-black cursor-pointer">
+                        {item.ctaDisplay || "Selengkapnya"}
+                      </button>
+                    </a>
+                  )}
+                  <a
+                    href={`/pengumuman/${item.id}/${
+                      item.tanggalDibuat
+                    }/${item.title.trim().toLowerCase().replaceAll(" ", "-")}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigate(
+                        `/pengumuman/${item.id}/${
+                          item.tanggalDibuat
+                        }/${item.title
+                          .trim()
+                          .toLowerCase()
+                          .replaceAll(" ", "-")}`
+                      );
+                    }}
+                    key={`news-${idx}`}
+                  >
+                    <button className="px-8 py-2 lg:text-lg border text-black rounded-xl hover:bg-black hover:text-white cursor-pointer">
+                      Detail
                     </button>
                   </a>
                 </div>
@@ -285,7 +303,7 @@ const BerandaPage = () => {
           </div>
 
           <div
-            className="[&_iframe]:h-64 [&_iframe]:w-128 [&_iframe]:sm:h-92 [&_iframe]:sm:w-184 [&_iframe]:lg:h-128 [&_iframe]:lg:w-256 [&_iframe]:rounded-2xl"
+            className="[&_iframe]:h-64 [&_iframe]:w-full [&_iframe]:sm:h-92 [&_iframe]:sm:w-128 [&_iframe]:lg:h-128 [&_iframe]:lg:w-256 [&_iframe]:rounded-2xl"
             dangerouslySetInnerHTML={{ __html: videoProfilSekolah }}
           />
         </div>
@@ -294,24 +312,17 @@ const BerandaPage = () => {
 
         <div className="grid grid-cols-3 xl:max-w-380 m-auto">
           {facilities.map((item: any) => (
-            <div className="relative">
+            <div className="relative h-42 lg:h-64 xl:h-96">
               <p className="absolute top-1/2 left-1/2 -translate-1/2 z-20 md:text-xl lg:text-2xl text-center text-white font-bold">
                 {item.label}
               </p>
               <div className="absolute z-10 top-0 left-0 w-full h-full bg-black opacity-70" />
               <Image
+                className="object-cover"
                 width="100%"
                 height="100%"
                 src={item.image}
                 preview={false}
-                placeholder={
-                  <Image
-                    preview={false}
-                    src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?x-oss-process=image/blur,r_50,s_50/quality,q_1/resize,m_mfit,h_200,w_200"
-                    width="100%"
-                    height="100%"
-                  />
-                }
               />
             </div>
           ))}

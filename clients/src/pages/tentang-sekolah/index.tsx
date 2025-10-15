@@ -139,13 +139,13 @@ const TentangSekolahPage = () => {
             <p className="text-justify">{kepalaSekolahData?.sambutan}</p>
           </div>
 
-          <div>
+          <div className="w-64 h-64 md:w-128 md:h-128 m-auto">
             <Image
-              height={320}
-              className="object-cover rounded-xl"
               width="100%"
+              height="100%"
+              className="object-cover rounded-xl"
               preview={false}
-              src={kepalaSekolahData?.foto}
+              src={`${getEnv().BASE_API_URL}${kepalaSekolahData?.photo.url}`}
             />
           </div>
         </div>
@@ -211,12 +211,13 @@ const TentangSekolahPage = () => {
 
       <div className="grid grid-cols-3 xl:max-w-380 m-auto">
         {facilities.map((item: any) => (
-          <div className="relative">
+          <div className="relative h-42 lg:h-64 xl:h-96">
             <p className="absolute top-1/2 left-1/2 -translate-1/2 z-20 md:text-xl lg:text-2xl text-center text-white font-bold">
               {item.label}
             </p>
             <div className="absolute z-10 top-0 left-0 w-full h-full bg-black opacity-70" />
             <Image
+              className="object-cover"
               width="100%"
               height="100%"
               src={item.image}

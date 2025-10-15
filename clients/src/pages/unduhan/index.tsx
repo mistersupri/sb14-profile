@@ -120,7 +120,7 @@ const UnduhanPage = () => {
             ))}
           </div>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
           {unduhanList.map((item: any) => (
             <a
               href={item.url}
@@ -128,13 +128,13 @@ const UnduhanPage = () => {
               download={item.filename}
               className="rounded-xl flex gap-4 p-2 border border-gray-200 hover:bg-gray-100 active:bg-gray-200 cursor-pointer transition-all"
             >
-              <div className="rounded-xl bg-pink-500 w-24 h-24 flex justify-center items-center text-white">
-                <FileText className="w-16 h-16" />
+              <div className="rounded-xl bg-pink-500 min-w-24 min-h-24 flex justify-center items-center text-white">
+                <FileText className="w-12 h-12" />
               </div>
-              <div className="flex flex-col justify-center">
-                <p className="text-gray-500 text-sm">#{item.label}</p>
-                <p className="font-bold text-xl">{item.name}</p>
-                <p className="">{item.created_at}</p>
+              <div className="flex flex-col justify-center gap-1">
+                <p className="text-gray-500 text-xs">#{item.label}</p>
+                <p className="font-bold">{item.name}</p>
+                <p className="text-xs">{item.created_at}</p>
               </div>
             </a>
           ))}

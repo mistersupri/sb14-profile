@@ -21,8 +21,6 @@ const FAQPage = () => {
     [faqData]
   );
 
-  if (!faqData || !faqList.length) return;
-
   return (
     <BigTitleLayout title="FAQ">
       <div className="xl:max-w-380 m-auto pb-32 px-4 md:px-8 lg:px-32 flex flex-col gap-4">
