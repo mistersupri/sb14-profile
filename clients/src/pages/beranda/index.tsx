@@ -53,6 +53,8 @@ const BerandaPage = () => {
   const news = useMemo(
     () =>
       newsData?.data?.map((item: any) => ({
+        id: item.documentId,
+        tanggal_dibuat: item.tanggal_dibuat,
         image: `${getEnv().BASE_API_URL}${item.foto_header.formats.medium.url}`,
         title: item.judul,
         description: item.deskripsi,
@@ -69,6 +71,8 @@ const BerandaPage = () => {
   const prestasiNews = useMemo(
     () =>
       prestasiData?.data?.map((item: any) => ({
+        id: item.documentId,
+        tanggal_dibuat: item.tanggal_dibuat,
         image: `${getEnv().BASE_API_URL}${item.foto_header.formats.medium.url}`,
         title: item.judul,
         description: item.deskripsi,
