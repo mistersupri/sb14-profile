@@ -7,15 +7,16 @@ import { Image } from "antd";
 import { useParams } from "react-router";
 
 const TenagaSekolahPage = () => {
-  const { name } = useParams();
-  const formattedName = name?.replaceAll("-", " ");
+  const { id } = useParams();
+
+  if (!id) return;
 
   const { data: tenagaSekolahResData } = useQuery({
     queryKey: [],
-    queryFn: () => Services.getTenagaSekolah({ name: formattedName }),
+    queryFn: () => Services.getTenagaSekolah({ id }),
   });
 
-  const tenagaSekolahData = tenagaSekolahResData?.data?.[0];
+  const tenagaSekolahData = tenagaSekolahResData?.data;
 
   return (
     <BigTitleLayout title="Profil Tenaga Sekolah">
