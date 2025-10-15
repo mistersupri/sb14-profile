@@ -10,16 +10,12 @@ export const galleryService = {
       : "";
     return await httpClient
       .get(
-        `/galleries?populate=*&pagination[page]=${
+        `/galleries?populate=*&pagination[pageSize]=2&pagination[page]=${
           params?.page || 1
         }${filterLabel}`
       )
       .then(({ data }) => data);
   },
-  getGalleryWithLabel: (value: string) =>
-    httpClient
-      .get(`/galleries?filters[label_gallery][nama][$eq]=${value}}&populate=*`)
-      .then(({ data }) => data),
   getLabelGalleryList: () =>
     httpClient.get("/label-galleries?populate=*").then(({ data }) => data),
 };

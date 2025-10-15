@@ -26,15 +26,15 @@ const Navbar = () => {
     <>
       <div
         className={classNames([
-          "fixed z-50 left-0 right-0 px-10 py-4",
+          "fixed z-50 left-0 right-0 px-4 py-2 lg:px-10 lg:py-4",
           "backdrop-blur-sm bg-white/80",
-          "mx-8 mt-2 border border-slate-100 rounded-full",
+          "mx-2 mt-2 border border-slate-100 rounded-full",
         ])}
       >
         <div className="flex justify-between xl:max-w-380 m-auto">
           <div className="flex items-center justify-center gap-4">
             <img src="/logo.png" className="w-8" />
-            <p className="font-bold text-md lg:text-xl">SDN Sumur Batu 14</p>
+            <p className="font-bold text-sm lg:text-xl">SDN Sumur Batu 14</p>
           </div>
           <div>
             {!matches && (
@@ -94,7 +94,13 @@ const Navbar = () => {
                     e.preventDefault();
                     navigate(item.url);
                   }}
-                  className="w-full h-full py-2 px-4 rounded-full flex items-center font-bold text-lg text-black! hover:bg-gray-100! transition-all"
+                  className={classNames([
+                    (item.url === "/" && pathname === item.url) ||
+                      (item.url !== "/" &&
+                        pathname.includes(item.url) &&
+                        "ml-2 border-b-2 border-l-2"),
+                    "w-full h-full py-2 px-4 flex items-center font-bold text-lg text-black! hover:bg-gray-100! transition-all",
+                  ])}
                 >
                   {item.label}
                 </a>

@@ -7,6 +7,7 @@ import PortalPage from "@/pages/portal";
 import FAQPage from "@/pages/faq";
 import KotakSaranPage from "@/pages/kotak-saran";
 import DetailPengumumanPage from "@/pages/pengumuman/detail";
+import TenagaSekolahPage from "@/pages/tentang-sekolah/tenaga-sekolah";
 
 const routers = [
   {
@@ -16,6 +17,10 @@ const routers = [
   {
     path: "/tentang-sekolah",
     element: <TentangSekolahPage />,
+  },
+  {
+    path: "/tentang-sekolah/tenaga-sekolah/:name",
+    element: <TenagaSekolahPage />,
   },
   {
     path: "/pengumuman",

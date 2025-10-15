@@ -1,4 +1,4 @@
-import { IMGSekolah } from "@/assets";
+import { IMGProfilePlaceholder, IMGSekolah } from "@/assets";
 import { getEnv } from "@/config/env.config";
 import { MainLayout } from "@/layouts";
 import { Services } from "@/services";
@@ -56,7 +56,9 @@ const TentangSekolahPage = () => {
       tenagaSekolahData?.map((item: Record<string, any>) => ({
         nama: item.nama,
         peran: item.peran,
-        foto: `${getEnv().BASE_API_URL}${item.foto.url}`,
+        foto: item.foto
+          ? `${getEnv().BASE_API_URL}${item.foto?.url}`
+          : IMGProfilePlaceholder,
       })) ?? [],
     [tenagaSekolahData]
   );
@@ -91,6 +93,7 @@ const TentangSekolahPage = () => {
           <div className="flex flex-col">
             <h4 className="text-2xl font-bold">Misi</h4>
             <div
+              className="[&_*]:[all:revert]"
               dangerouslySetInnerHTML={{ __html: profilSekolahData?.misi }}
             />
           </div>
@@ -136,16 +139,16 @@ const TentangSekolahPage = () => {
             <div className="flex gap-2 items-center">
               <p className="italic">{kepalaSekolahData?.nama}</p>
             </div>
-            <p className="text-justify">{kepalaSekolahData?.sambutan}</p>
+            <p className="text-justify italic">{kepalaSekolahData?.sambutan}</p>
           </div>
 
-          <div>
+          <div className="w-64 h-64 md:w-128 md:h-128 m-auto">
             <Image
-              height={320}
-              className="object-cover rounded-xl"
               width="100%"
+              height="100%"
+              className="object-cover rounded-xl"
               preview={false}
-              src={kepalaSekolahData?.foto}
+              src={`${getEnv().BASE_API_URL}${kepalaSekolahData?.photo.url}`}
             />
           </div>
         </div>
@@ -159,26 +162,29 @@ const TentangSekolahPage = () => {
             <div>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-7 gap-4">
                 {list.map((item: any) => (
-                  <div className="flex flex-col gap-4">
+                  <a
+                    href={`/tentang-sekolah/tenaga-sekolah/${item.nama}`}
+                    className="flex flex-col gap-4"
+                  >
                     <div
                       className={classNames([
-                        "rounded-xl min-w-24 h-54 overflow-hidden cursor-pointer relative",
+                        "rounded-xl w-full aspect-square overflow-hidden cursor-pointer relative",
                         "after:w-full after:h-full after:absolute after:left-0 after:top-0 hover:after:bg-black/50",
                       ])}
                     >
                       <Image
-                        height="100%"
                         preview={false}
                         className="object-cover"
                         width="100%"
+                        height="100%"
                         src={item.foto}
                       />
                     </div>
                     <div>
-                      <p>{item.peran}</p>
-                      <p className="font-bold">{item.nama}</p>
+                      <p className="text-black">{item.peran}</p>
+                      <p className="font-bold text-black">{item.nama}</p>
                     </div>
-                  </div>
+                  </a>
                 ))}
               </div>
             </div>
@@ -211,12 +217,13 @@ const TentangSekolahPage = () => {
 
       <div className="grid grid-cols-3 xl:max-w-380 m-auto">
         {facilities.map((item: any) => (
-          <div className="relative">
+          <div className="relative h-42 lg:h-64 xl:h-96">
             <p className="absolute top-1/2 left-1/2 -translate-1/2 z-20 md:text-xl lg:text-2xl text-center text-white font-bold">
               {item.label}
             </p>
             <div className="absolute z-10 top-0 left-0 w-full h-full bg-black opacity-70" />
             <Image
+              className="object-cover"
               width="100%"
               height="100%"
               src={item.image}
