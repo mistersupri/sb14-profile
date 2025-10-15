@@ -1,3 +1,4 @@
+import { IMGProfilePlaceholder } from "@/assets";
 import { getEnv } from "@/config/env.config";
 import { BigTitleLayout } from "@/layouts";
 import { Services } from "@/services";
@@ -37,9 +38,13 @@ const TenagaSekolahPage = () => {
             <Image
               width="100%"
               height="100%"
-              className="object-cover rounded-xl"
+              className="object-cover rounded-xl border border-gray-200"
               preview={false}
-              src={`${getEnv().BASE_API_URL}${tenagaSekolahData?.foto.url}`}
+              src={
+                tenagaSekolahData?.foto
+                  ? `${getEnv().BASE_API_URL}${tenagaSekolahData?.foto.url}`
+                  : IMGProfilePlaceholder
+              }
             />
           </div>
         </div>

@@ -1,4 +1,4 @@
-import { IMGSekolah } from "@/assets";
+import { IMGProfilePlaceholder, IMGSekolah } from "@/assets";
 import { getEnv } from "@/config/env.config";
 import { MainLayout } from "@/layouts";
 import { Services } from "@/services";
@@ -56,7 +56,9 @@ const TentangSekolahPage = () => {
       tenagaSekolahData?.map((item: Record<string, any>) => ({
         nama: item.nama,
         peran: item.peran,
-        foto: `${getEnv().BASE_API_URL}${item.foto.url}`,
+        foto: item.foto
+          ? `${getEnv().BASE_API_URL}${item.foto?.url}`
+          : IMGProfilePlaceholder,
       })) ?? [],
     [tenagaSekolahData]
   );
