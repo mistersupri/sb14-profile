@@ -91,6 +91,7 @@ const TentangSekolahPage = () => {
           <div className="flex flex-col">
             <h4 className="text-2xl font-bold">Misi</h4>
             <div
+              className="[&_*]:[all:revert]"
               dangerouslySetInnerHTML={{ __html: profilSekolahData?.misi }}
             />
           </div>
@@ -136,7 +137,7 @@ const TentangSekolahPage = () => {
             <div className="flex gap-2 items-center">
               <p className="italic">{kepalaSekolahData?.nama}</p>
             </div>
-            <p className="text-justify">{kepalaSekolahData?.sambutan}</p>
+            <p className="text-justify italic">{kepalaSekolahData?.sambutan}</p>
           </div>
 
           <div className="w-64 h-64 md:w-128 md:h-128 m-auto">
@@ -165,15 +166,15 @@ const TentangSekolahPage = () => {
                   >
                     <div
                       className={classNames([
-                        "rounded-xl min-w-24 h-54 overflow-hidden cursor-pointer relative",
+                        "rounded-xl w-full aspect-square overflow-hidden cursor-pointer relative",
                         "after:w-full after:h-full after:absolute after:left-0 after:top-0 hover:after:bg-black/50",
                       ])}
                     >
                       <Image
-                        height="100%"
                         preview={false}
                         className="object-cover"
                         width="100%"
+                        height="100%"
                         src={item.foto}
                       />
                     </div>
