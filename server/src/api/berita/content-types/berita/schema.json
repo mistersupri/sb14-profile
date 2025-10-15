@@ -33,12 +33,6 @@
       "type": "text",
       "required": true
     },
-    "users_permissions_user": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "beritas"
-    },
     "label_berita": {
       "type": "relation",
       "relation": "manyToOne",
@@ -73,6 +67,12 @@
     },
     "cta_display": {
       "type": "string"
+    },
+    "author": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::author.author",
+      "inversedBy": "beritas"
     }
   }
 }

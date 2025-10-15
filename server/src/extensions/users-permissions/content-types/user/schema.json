@@ -65,12 +65,6 @@
       "target": "plugin::users-permissions.role",
       "inversedBy": "users",
       "configurable": false
-    },
-    "beritas": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::berita.berita",
-      "mappedBy": "users_permissions_user"
     }
   }
 }

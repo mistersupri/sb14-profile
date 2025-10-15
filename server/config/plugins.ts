@@ -6,6 +6,7 @@ export default () => ({
     },
   },
   "strapi-csv-import-export": {
+    enabled: true,
     config: {
       authorizedExports: [
         "api::berita.berita",
