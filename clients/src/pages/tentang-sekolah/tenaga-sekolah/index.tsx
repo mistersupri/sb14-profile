@@ -8,11 +8,11 @@ import { useParams } from "react-router";
 
 const TenagaSekolahPage = () => {
   const { name } = useParams();
+  const formattedName = name?.replaceAll("-", " ");
 
   const { data: tenagaSekolahResData } = useQuery({
     queryKey: [],
-    queryFn: () =>
-      Services.getTenagaSekolah({ name: name ? decodeURI(name) : undefined }),
+    queryFn: () => Services.getTenagaSekolah({ name: formattedName }),
   });
 
   const tenagaSekolahData = tenagaSekolahResData?.data?.[0];
