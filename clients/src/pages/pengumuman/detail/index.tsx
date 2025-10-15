@@ -112,11 +112,13 @@ const DetailPengumumanPage = () => {
                 </div>
               </div>
               <div className="flex flex-col gap-2 items-end">
-                <a href={detailNews?.cta_url}>
-                  <button className="bg-teal-700 px-4 py-1 text-sm text-white rounded hover:bg-black cursor-pointer">
-                    {detailNews?.cta_display}
-                  </button>
-                </a>
+                {detailNews?.cta_url && (
+                  <a href={detailNews?.cta_url}>
+                    <button className="bg-teal-700 px-4 py-1 text-sm text-white rounded hover:bg-black cursor-pointer">
+                      {detailNews?.cta_display || "Selengkapnya"}
+                    </button>
+                  </a>
+                )}
                 <p className="text-sm text-gray-500">
                   {dayjs(new Date(detailNews?.tanggal_dibuat)).format(
                     "DD MMMM YYYY"

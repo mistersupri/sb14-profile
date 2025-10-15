@@ -159,7 +159,10 @@ const TentangSekolahPage = () => {
             <div>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-7 gap-4">
                 {list.map((item: any) => (
-                  <div className="flex flex-col gap-4">
+                  <a
+                    href={`/tentang-sekolah/tenaga-sekolah/${item.nama}`}
+                    className="flex flex-col gap-4"
+                  >
                     <div
                       className={classNames([
                         "rounded-xl min-w-24 h-54 overflow-hidden cursor-pointer relative",
@@ -175,10 +178,10 @@ const TentangSekolahPage = () => {
                       />
                     </div>
                     <div>
-                      <p>{item.peran}</p>
-                      <p className="font-bold">{item.nama}</p>
+                      <p className="text-black">{item.peran}</p>
+                      <p className="font-bold text-black">{item.nama}</p>
                     </div>
-                  </div>
+                  </a>
                 ))}
               </div>
             </div>
