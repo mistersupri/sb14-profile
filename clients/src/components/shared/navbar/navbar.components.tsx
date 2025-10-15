@@ -94,7 +94,13 @@ const Navbar = () => {
                     e.preventDefault();
                     navigate(item.url);
                   }}
-                  className="w-full h-full py-2 px-4 rounded-full flex items-center font-bold text-lg text-black! hover:bg-gray-100! transition-all"
+                  className={classNames([
+                    (item.url === "/" && pathname === item.url) ||
+                      (item.url !== "/" &&
+                        pathname.includes(item.url) &&
+                        "ml-2 border-b-2 border-l-2"),
+                    "w-full h-full py-2 px-4 flex items-center font-bold text-lg text-black! hover:bg-gray-100! transition-all",
+                  ])}
                 >
                   {item.label}
                 </a>
