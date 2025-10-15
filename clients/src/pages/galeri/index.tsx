@@ -51,8 +51,6 @@ const GaleriPage = () => {
     [galleryData]
   );
 
-  console.log(galleryLabels);
-
   return (
     <BigTitleLayout title="Galeri">
       <div className="xl:max-w-380 m-auto pb-32 px-4 md:px-8 lg:px-32 flex flex-col-reverse lg:flex-row gap-8">
@@ -80,6 +78,7 @@ const GaleriPage = () => {
             align="center"
             defaultCurrent={1}
             total={galleryData?.meta.pagination.total}
+            pageSize={galleryData?.meta.pagination.pageSize}
             onChange={(page) =>
               setSearchParams({ ...parsedQuery, page: String(page) })
             }
