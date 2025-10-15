@@ -373,6 +373,36 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiAuthorAuthor extends Struct.CollectionTypeSchema {
+  collectionName: 'authors';
+  info: {
+    displayName: 'Author';
+    pluralName: 'authors';
+    singularName: 'author';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    beritas: Schema.Attribute.Relation<'oneToMany', 'api::berita.berita'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    foto: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::author.author'
+    > &
+      Schema.Attribute.Private;
+    nama: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiBeritaBerita extends Struct.CollectionTypeSchema {
   collectionName: 'beritas';
   info: {
@@ -384,6 +414,7 @@ export interface ApiBeritaBerita extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    author: Schema.Attribute.Relation<'manyToOne', 'api::author.author'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -419,10 +450,6 @@ export interface ApiBeritaBerita extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    users_permissions_user: Schema.Attribute.Relation<
-      'manyToOne',
-      'plugin::users-permissions.user'
-    >;
   };
 }
 
@@ -778,7 +805,14 @@ export interface ApiTenagaSekolahTenagaSekolah
     nama: Schema.Attribute.String & Schema.Attribute.Required;
     pengalamaan: Schema.Attribute.RichText;
     peran: Schema.Attribute.Enumeration<
-      ['Wakil Kepala Sekolah', 'Guru Kelas', 'Staf TU', 'Guru Agama', 'Caraka']
+      [
+        'Wakil Kepala Sekolah',
+        'Guru Kelas',
+        'Staf TU',
+        'Guru Agama',
+        'Guru Olahraga',
+        'Caraka',
+      ]
     > &
       Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
@@ -1352,7 +1386,6 @@ export interface PluginUsersPermissionsUser
     draftAndPublish: false;
   };
   attributes: {
-    beritas: Schema.Attribute.Relation<'oneToMany', 'api::berita.berita'>;
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     confirmationToken: Schema.Attribute.String & Schema.Attribute.Private;
     confirmed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
@@ -1404,6 +1437,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::author.author': ApiAuthorAuthor;
       'api::berita.berita': ApiBeritaBerita;
       'api::faq.faq': ApiFaqFaq;
       'api::fasilitas-sekolah.fasilitas-sekolah': ApiFasilitasSekolahFasilitasSekolah;
