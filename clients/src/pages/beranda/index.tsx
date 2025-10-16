@@ -113,34 +113,39 @@ const BerandaPage = () => {
                       {item.description}
                     </p>
                   </div>
-                  {item.ctaUrl && (
-                    <a href={item.ctaUrl}>
-                      <button className="bg-teal-700 px-8 py-2 lg:text-lg text-white rounded-xl hover:bg-black cursor-pointer">
-                        {item.ctaDisplay || "Selengkapnya"}
+                  <div className="flex flex-row-reverse gap-2">
+                    {item.ctaUrl && (
+                      <a href={item.ctaUrl}>
+                        <button className="bg-teal-700 px-8 py-2 lg:text-lg text-white rounded-xl hover:bg-black cursor-pointer">
+                          {item.ctaDisplay || "Selengkapnya"}
+                        </button>
+                      </a>
+                    )}
+                    <a
+                      href={`/pengumuman/${item.id}/${
+                        item.tanggalDibuat
+                      }/${item.title
+                        .trim()
+                        .toLowerCase()
+                        .replaceAll(" ", "-")}`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        navigate(
+                          `/pengumuman/${item.id}/${
+                            item.tanggalDibuat
+                          }/${item.title
+                            .trim()
+                            .toLowerCase()
+                            .replaceAll(" ", "-")}`
+                        );
+                      }}
+                      key={`news-${idx}`}
+                    >
+                      <button className="px-8 py-2 lg:text-lg border text-black rounded-xl hover:bg-black hover:text-white cursor-pointer">
+                        Detail
                       </button>
                     </a>
-                  )}
-                  <a
-                    href={`/pengumuman/${item.id}/${
-                      item.tanggalDibuat
-                    }/${item.title.trim().toLowerCase().replaceAll(" ", "-")}`}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      navigate(
-                        `/pengumuman/${item.id}/${
-                          item.tanggalDibuat
-                        }/${item.title
-                          .trim()
-                          .toLowerCase()
-                          .replaceAll(" ", "-")}`
-                      );
-                    }}
-                    key={`news-${idx}`}
-                  >
-                    <button className="px-8 py-2 lg:text-lg border text-black rounded-xl hover:bg-black hover:text-white cursor-pointer">
-                      Detail
-                    </button>
-                  </a>
+                  </div>
                 </div>
               </div>
             </div>
