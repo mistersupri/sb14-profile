@@ -14,7 +14,7 @@ const Navbar = () => {
   const [isAttached, setIsAttached] = useState(true);
 
   useEventListener("scroll", (e: any) => {
-    if (e.target?.scrollingElement.scrollTop > 100) {
+    if (e.target?.scrollingElement.scrollTop > 50) {
       setIsAttached(false);
     } else {
       setIsAttached(true);

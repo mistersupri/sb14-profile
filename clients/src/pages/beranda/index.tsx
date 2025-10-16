@@ -54,7 +54,7 @@ const BerandaPage = () => {
     () =>
       newsData?.data?.map((item: any) => ({
         id: item.documentId,
-        tanggal_dibuat: item.tanggal_dibuat,
+        tanggalDibuat: item.tanggal_dibuat,
         image: `${getEnv().BASE_API_URL}${item.foto_header.formats.medium.url}`,
         title: item.judul,
         description: item.deskripsi,
@@ -72,7 +72,7 @@ const BerandaPage = () => {
     () =>
       prestasiData?.data?.map((item: any) => ({
         id: item.documentId,
-        tanggal_dibuat: item.tanggal_dibuat,
+        tanggalDibuat: item.tanggal_dibuat,
         image: `${getEnv().BASE_API_URL}${item.foto_header.formats.medium.url}`,
         title: item.judul,
         description: item.deskripsi,
