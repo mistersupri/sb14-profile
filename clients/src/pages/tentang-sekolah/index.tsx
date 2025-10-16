@@ -58,7 +58,7 @@ const TentangSekolahPage = () => {
         nama: item.nama,
         peran: item.peran,
         foto: item.foto
-          ? `${getEnv().BASE_API_URL}${item.foto?.url}`
+          ? `${getEnv().BASE_API_URL}${item.foto?.formats.small.url}`
           : IMGProfilePlaceholder,
         kelas: item.kelas,
       })) ?? [],

@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router";
 import classNames from "classnames";
-import { useMediaQuery } from "usehooks-ts";
+import { useEventListener, useMediaQuery } from "usehooks-ts";
 import { Drawer } from "antd";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
@@ -10,6 +10,16 @@ const Navbar = () => {
   const { pathname } = useLocation();
   const matches = useMediaQuery("(min-width: 1280px)");
   const [isOpen, setIsOpen] = useState(false);
+
+  const [isAttached, setIsAttached] = useState(true);
+
+  useEventListener("scroll", (e: any) => {
+    if (e.target?.scrollingElement.scrollTop > 100) {
+      setIsAttached(false);
+    } else {
+      setIsAttached(true);
+    }
+  });
 
   const navList = [
     { label: "Beranda", url: "/" },
@@ -26,9 +36,9 @@ const Navbar = () => {
     <>
       <div
         className={classNames([
-          "fixed z-50 left-0 right-0 px-4 py-2 lg:px-10 lg:py-4",
-          "backdrop-blur-sm bg-white/80",
-          "mx-2 mt-2 border border-slate-100 rounded-full",
+          "fixed z-50 left-0 right-0 px-4 py-2 lg:px-10 lg:py-4 transition-all",
+          !isAttached &&
+            "mx-2 mt-2 border border-slate-100 rounded-full backdrop-blur-sm bg-white/80",
         ])}
       >
         <div className="flex justify-between xl:max-w-380 m-auto">
