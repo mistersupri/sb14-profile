@@ -27,7 +27,7 @@ const TenagaSekolahPage = () => {
           </h1>
           <p>
             {tenagaSekolahData?.peran}
-            {tenagaSekolahData?.peran.includes("Guru") &&
+            {tenagaSekolahData?.peran === "Guru Kelas" &&
               ` ${tenagaSekolahData?.kelas}`}
           </p>
           <div
