@@ -27,10 +27,11 @@ const TenagaSekolahPage = () => {
           </h1>
           <p>
             {tenagaSekolahData?.peran}
-            {tenagaSekolahData?.peran === "Guru" &&
+            {tenagaSekolahData?.peran.includes("Guru") &&
               ` ${tenagaSekolahData?.kelas}`}
           </p>
           <div
+            className="[&_*]:[all:revert]"
             dangerouslySetInnerHTML={{ __html: tenagaSekolahData?.pengalaman }}
           />
         </div>
