@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Image, Pagination } from "antd";
 import classNames from "classnames";
 import queryString from "query-string";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useLocation, useNavigate, useSearchParams } from "react-router";
 
 const GaleriPage = () => {

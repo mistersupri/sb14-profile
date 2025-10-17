@@ -3,7 +3,7 @@ import { getEnv } from "@/config/env.config";
 import { MainLayout } from "@/layouts";
 import { Services } from "@/services";
 import { useQuery } from "@tanstack/react-query";
-import { Carousel, Image, Skeleton } from "antd";
+import { Carousel, Image } from "antd";
 import classNames from "classnames";
 import { useMemo, useState } from "react";
 import { useLocation } from "react-router";

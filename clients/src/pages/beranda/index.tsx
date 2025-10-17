@@ -1,5 +1,5 @@
 import { Carousel, Empty, Image, Tag } from "antd";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { MoveRight } from "lucide-react";
 import { MainLayout } from "@/layouts";
 import { useQuery } from "@tanstack/react-query";
