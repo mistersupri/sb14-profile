@@ -54,11 +54,13 @@ const TentangSekolahPage = () => {
   const tenagaSekolahList = useMemo(
     () =>
       tenagaSekolahData?.map((item: Record<string, any>) => ({
+        id: item.documentId,
         nama: item.nama,
         peran: item.peran,
         foto: item.foto
-          ? `${getEnv().BASE_API_URL}${item.foto?.url}`
+          ? `${getEnv().BASE_API_URL}${item.foto?.formats.small.url}`
           : IMGProfilePlaceholder,
+        kelas: item.kelas,
       })) ?? [],
     [tenagaSekolahData]
   );
@@ -163,7 +165,7 @@ const TentangSekolahPage = () => {
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-7 gap-4">
                 {list.map((item: any) => (
                   <a
-                    href={`/tentang-sekolah/tenaga-sekolah/${item.nama}`}
+                    href={`/tentang-sekolah/tenaga-sekolah/${item.id}`}
                     className="flex flex-col gap-4"
                   >
                     <div
@@ -181,7 +183,10 @@ const TentangSekolahPage = () => {
                       />
                     </div>
                     <div>
-                      <p className="text-black">{item.peran}</p>
+                      <p className="text-black">
+                        {item.peran +
+                          (item.peran === "Guru Kelas" ? ` ${item.kelas}` : "")}
+                      </p>
                       <p className="font-bold text-black">{item.nama}</p>
                     </div>
                   </a>

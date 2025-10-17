@@ -19,7 +19,7 @@ const routers = [
     element: <TentangSekolahPage />,
   },
   {
-    path: "/tentang-sekolah/tenaga-sekolah/:name",
+    path: "/tentang-sekolah/tenaga-sekolah/:id",
     element: <TenagaSekolahPage />,
   },
   {
