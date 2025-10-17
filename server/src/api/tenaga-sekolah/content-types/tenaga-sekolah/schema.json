@@ -51,8 +51,12 @@
       },
       "required": true
     },
-    "pengalamaan": {
-      "type": "richtext"
+    "pengalaman": {
+      "type": "customField",
+      "customField": "plugin::ckeditor5.CKEditor",
+      "options": {
+        "preset": "defaultHtml"
+      }
     }
   }
 }

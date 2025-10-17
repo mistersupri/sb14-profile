@@ -803,7 +803,13 @@ export interface ApiTenagaSekolahTenagaSekolah
     > &
       Schema.Attribute.Private;
     nama: Schema.Attribute.String & Schema.Attribute.Required;
-    pengalamaan: Schema.Attribute.RichText;
+    pengalaman: Schema.Attribute.RichText &
+      Schema.Attribute.CustomField<
+        'plugin::ckeditor5.CKEditor',
+        {
+          preset: 'defaultHtml';
+        }
+      >;
     peran: Schema.Attribute.Enumeration<
       [
         'Wakil Kepala Sekolah',
