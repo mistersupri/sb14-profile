@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Image, Pagination } from "antd";
 import classNames from "classnames";
 import queryString from "query-string";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useLocation, useNavigate, useSearchParams } from "react-router";
 
 const GaleriPage = () => {
@@ -17,10 +17,11 @@ const GaleriPage = () => {
   const keyword = searchParams.get("keyword");
   const page = searchParams.get("page");
 
-  const { data: galleryLabelsData } = useQuery({
-    queryKey: ["GALLERY_LABELS", pathname, page],
-    queryFn: () => Services.getLabelGalleryList(),
-  });
+  const { data: galleryLabelsData, isSuccess: isGalleryLabelsSuccess } =
+    useQuery({
+      queryKey: ["GALLERY_LABELS", pathname, page],
+      queryFn: () => Services.getLabelGalleryList(),
+    });
 
   const galleryLabels = useMemo(
     () =>
@@ -29,7 +30,7 @@ const GaleriPage = () => {
     [galleryLabelsData]
   );
 
-  const { data: galleryData } = useQuery({
+  const { data: galleryData, isSuccess: isGallerySuccess } = useQuery({
     queryKey: ["GALLERY", label, keyword, page],
     queryFn: () =>
       Services.getGalleryList({
@@ -52,7 +53,10 @@ const GaleriPage = () => {
   );
 
   return (
-    <BigTitleLayout title="Galeri">
+    <BigTitleLayout
+      title="Galeri"
+      isLoading={!isGalleryLabelsSuccess || !isGallerySuccess}
+    >
       <div className="xl:max-w-380 m-auto pb-32 px-4 md:px-8 lg:px-32 flex flex-col-reverse lg:flex-row gap-8">
         <div className="flex-1 flex flex-col gap-8">
           <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
@@ -69,6 +73,7 @@ const GaleriPage = () => {
                     width="100%"
                     preview={false}
                     src={item.hash}
+                    fetchPriority="high"
                   />
                 }
               />

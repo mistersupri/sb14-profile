@@ -3,7 +3,7 @@ import { getEnv } from "@/config/env.config";
 import { MainLayout } from "@/layouts";
 import { Services } from "@/services";
 import { useQuery } from "@tanstack/react-query";
-import { Carousel, Image } from "antd";
+import { Carousel, Image, Skeleton } from "antd";
 import classNames from "classnames";
 import { useMemo, useState } from "react";
 import { useLocation } from "react-router";
@@ -12,21 +12,23 @@ const TentangSekolahPage = () => {
   const { pathname } = useLocation();
   const [selectedImage, setSelectedImage] = useState(0);
 
-  const { data: profilSekolahResData } = useQuery({
-    queryKey: ["PROFIL_SEKOLAH", pathname],
-    queryFn: () => Services.getProfilSekolah(),
-  });
+  const { data: profilSekolahResData, isSuccess: isProfilSekolahSuccess } =
+    useQuery({
+      queryKey: ["PROFIL_SEKOLAH", pathname],
+      queryFn: () => Services.getProfilSekolah(),
+    });
 
   const profilSekolahData = profilSekolahResData?.data;
 
-  const { data: kepalaSekolahResData } = useQuery({
-    queryKey: ["KEPALA_SEKOLAH", pathname],
-    queryFn: () => Services.getKepalaSekolah(),
-  });
+  const { data: kepalaSekolahResData, isSuccess: isKepalaSekolahSuccess } =
+    useQuery({
+      queryKey: ["KEPALA_SEKOLAH", pathname],
+      queryFn: () => Services.getKepalaSekolah(),
+    });
 
   const kepalaSekolahData = kepalaSekolahResData?.data;
 
-  const { data: facilitiesData } = useQuery({
+  const { data: facilitiesData, isSuccess: isFacilitiesSuccess } = useQuery({
     queryKey: ["FACILITIES", pathname],
     queryFn: () => Services.getFasilitasSekolah(),
   });
@@ -40,10 +42,11 @@ const TentangSekolahPage = () => {
     [facilitiesData]
   );
 
-  const { data: tenagaSekolahResData } = useQuery({
-    queryKey: ["TENAGA_SEKOLAH", pathname],
-    queryFn: () => Services.getTenagaSekolahList(),
-  });
+  const { data: tenagaSekolahResData, isSuccess: isTenagaSekolahSuccess } =
+    useQuery({
+      queryKey: ["TENAGA_SEKOLAH", pathname],
+      queryFn: () => Services.getTenagaSekolahList(),
+    });
 
   const tenagaSekolahData = tenagaSekolahResData?.data;
 
@@ -74,7 +77,14 @@ const TentangSekolahPage = () => {
   }, [tenagaSekolahList]);
 
   return (
-    <MainLayout>
+    <MainLayout
+      isLoading={
+        !isProfilSekolahSuccess ||
+        !isKepalaSekolahSuccess ||
+        !isFacilitiesSuccess ||
+        !isTenagaSekolahSuccess
+      }
+    >
       <div className="xl:max-w-380 m-auto py-32 px-4 md:px-16 xl:px-32 flex flex-col-reverse lg:grid lg:grid-cols-2 gap-16">
         <div className="flex flex-col gap-8">
           <div className="flex flex-col gap-2">

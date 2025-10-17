@@ -5,12 +5,10 @@ import { Link2 } from "lucide-react";
 import { useMemo } from "react";
 
 const PortalPage = () => {
-  const { data: portalData } = useQuery({
+  const { data: portalData, isSuccess: isPortalSuccess } = useQuery({
     queryKey: ["PORTAL"],
     queryFn: () => Services.getPortalList(),
   });
-
-  console.log(portalData);
 
   const portalList = useMemo(
     () =>
@@ -22,7 +20,7 @@ const PortalPage = () => {
   );
 
   return (
-    <BigTitleLayout title="PORTAL">
+    <BigTitleLayout title="PORTAL" isLoading={!isPortalSuccess}>
       <div className="xl:max-w-380 m-auto pb-32 px-4 md:px-8 lg:px-32 grid grid-cols-1 sm:grid-cols-2 gap-4">
         {portalList.map((item: any) => (
           <a

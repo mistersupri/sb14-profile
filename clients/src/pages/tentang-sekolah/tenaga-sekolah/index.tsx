@@ -11,7 +11,7 @@ const TenagaSekolahPage = () => {
 
   if (!id) return;
 
-  const { data: tenagaSekolahResData } = useQuery({
+  const { data: tenagaSekolahResData, isSuccess } = useQuery({
     queryKey: [],
     queryFn: () => Services.getTenagaSekolah({ id }),
   });
@@ -19,7 +19,7 @@ const TenagaSekolahPage = () => {
   const tenagaSekolahData = tenagaSekolahResData?.data;
 
   return (
-    <BigTitleLayout title="Profil Tenaga Sekolah">
+    <BigTitleLayout title="Profil Tenaga Sekolah" isLoading={!isSuccess}>
       <div className="max-w-128 lg:max-w-380 m-auto pb-32 px-4 md:px-8 lg:px-32 flex flex-col-reverse lg:flex-row gap-8">
         <div className="flex-1 flex flex-col gap-2">
           <h1 className="text-2xl lg:text-4xl font-bold">

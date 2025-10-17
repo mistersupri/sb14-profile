@@ -25,7 +25,7 @@ const PengumumanPage = () => {
   const keyword = searchParams.get("keyword");
   const page = searchParams.get("page");
 
-  const { data: newsData } = useQuery({
+  const { data: newsData, isSuccess: isNewsSuccess } = useQuery({
     queryKey: ["NEWS", label, keyword, page],
     queryFn: () =>
       Services.getBeritaList({
@@ -35,12 +35,12 @@ const PengumumanPage = () => {
       }),
   });
 
-  const { data: latestNewsData } = useQuery({
+  const { data: latestNewsData, isSuccess: isLatestNewsSuccess } = useQuery({
     queryKey: ["LATEST_NEWS"],
     queryFn: () => Services.getBeritaTerbaruList(),
   });
 
-  const { data: newsLabelsData } = useQuery({
+  const { data: newsLabelsData, isSuccess: isNewsLabelsSuccess } = useQuery({
     queryKey: ["NEWS_LABELS"],
     queryFn: () => Services.getLabelBeritaList(),
   });
@@ -89,7 +89,10 @@ const PengumumanPage = () => {
   );
 
   return (
-    <BigTitleLayout title="PENGUMUMAN">
+    <BigTitleLayout
+      title="PENGUMUMAN"
+      isLoading={!isNewsSuccess || !isLatestNewsSuccess || !isNewsLabelsSuccess}
+    >
       <div className="flex flex-col lg:flex-row gap-8 xl:max-w-380 m-auto pb-32 px-4 md:px-8 lg:px-32">
         <div className="flex-1 flex flex-col gap-8">
           {paginatedNews.length ? (

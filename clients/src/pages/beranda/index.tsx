@@ -1,5 +1,5 @@
 import { Carousel, Empty, Image, Tag } from "antd";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { MoveRight } from "lucide-react";
 import { MainLayout } from "@/layouts";
 import { useQuery } from "@tanstack/react-query";
@@ -19,22 +19,25 @@ const BerandaPage = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
-  const { data: facilitiesData } = useQuery({
+  const { data: facilitiesData, isSuccess: isFacilitiesSuccess } = useQuery({
     queryKey: ["FACILITIES", pathname],
     queryFn: () => Services.getFasilitasSekolah(),
   });
 
-  const { data: newsData } = useQuery({
+  const { data: newsData, isSuccess: isNewsSuccess } = useQuery({
     queryKey: ["NEWS", pathname],
     queryFn: () => Services.getBeritaBerandaList(),
   });
 
-  const { data: prestasiData } = useQuery({
+  const { data: prestasiData, isSuccess: isPrestasiSuccess } = useQuery({
     queryKey: ["PRESTASI", pathname],
     queryFn: () => Services.getBeritaPrestasi(),
   });
 
-  const { data: videoProfilSekolahData } = useQuery({
+  const {
+    data: videoProfilSekolahData,
+    isSuccess: isVideoProfilSekolahSuccess,
+  } = useQuery({
     queryKey: ["VIDEO_PROFIL_SEKOLAH", pathname],
     queryFn: () => Services.getVideoProfilSekolah(),
   });
@@ -87,7 +90,14 @@ const BerandaPage = () => {
   );
 
   return (
-    <MainLayout>
+    <MainLayout
+      isLoading={
+        !isFacilitiesSuccess ||
+        !isNewsSuccess ||
+        !isPrestasiSuccess ||
+        !isVideoProfilSekolahSuccess
+      }
+    >
       <div className="min-h-screen">
         <Carousel
           arrows

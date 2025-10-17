@@ -169,9 +169,7 @@ const DetailPengumumanPage = () => {
                 }}
                 className={classNames([
                   "rounded bg-gray-200 py-2 px-4 font-bold",
-                  !searchParams.get("label")
-                    ? "bg-teal-800 text-white"
-                    : "hover:bg-black hover:text-white cursor-pointer",
+                  "hover:bg-black hover:text-white cursor-pointer",
                 ])}
               >
                 SEMUA
