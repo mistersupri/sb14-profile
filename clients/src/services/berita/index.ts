@@ -23,7 +23,7 @@ export const beritaService = {
   getBeritaTerbaruList: () =>
     httpClient
       .get(
-        "/beritas?filters&populate=*&pagination[pageSize]=5&sort[0]=tanggal_dibuat"
+        "/beritas?filters&populate=*&pagination[pageSize]=5&sort[0]=tanggal_dibuat:Desc&sort[1]=createdAt:Desc"
       )
       .then(({ data }) => data),
   getBerita: (id: string) =>

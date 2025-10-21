@@ -26,7 +26,7 @@ const DetailPengumumanPage = () => {
   const navigate = useNavigate();
   const { pathname, search } = useLocation();
   const parsedQuery = queryString.parse(search);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const params = useParams();
   const id = params.id;
 
@@ -150,9 +150,15 @@ const DetailPengumumanPage = () => {
             placeholder="Cari pengumuman di sini..."
             enterButton="Search"
             size="large"
-            onSearch={(value) =>
-              setSearchParams({ ...parsedQuery, page: "1", keyword: value })
-            }
+            onSearch={(value) => {
+              navigate(
+                `/pengumuman?${queryString.stringify({
+                  ...parsedQuery,
+                  page: "1",
+                  keyword: value,
+                })}`
+              );
+            }}
           />
           <div className="flex flex-col gap-2">
             <h2 className="text-xl font-bold">LABEL</h2>

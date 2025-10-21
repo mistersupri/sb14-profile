@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { getEnv } from "@/config/env.config";
 import { BigTitleLayout } from "@/layouts";
 import { Services } from "@/services";
@@ -162,9 +162,16 @@ const PengumumanPage = () => {
             placeholder="Cari pengumuman di sini..."
             enterButton="Search"
             size="large"
-            onSearch={(value) =>
-              setSearchParams({ ...parsedQuery, page: "1", keyword: value })
-            }
+            allowClear
+            onSearch={(value) => {
+              navigate(
+                `/pengumuman?${queryString.stringify({
+                  ...parsedQuery,
+                  page: "1",
+                  keyword: value || undefined,
+                })}`
+              );
+            }}
           />
           <div className="flex flex-col gap-2">
             <h2 className="text-xl font-bold">LABEL</h2>
