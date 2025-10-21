@@ -24,6 +24,12 @@ const BerandaPage = () => {
     queryFn: () => Services.getFasilitasSekolah(),
   });
 
+  const { data: priorityNewsData, isSuccess: isPriorityNewsSuccess } = useQuery(
+    {
+      queryKey: ["PRIORITY_NEWS", pathname],
+      queryFn: () => Services.getBeritaPrioritasList(),
+    }
+  );
   const { data: newsData, isSuccess: isNewsSuccess } = useQuery({
     queryKey: ["NEWS", pathname],
     queryFn: () => Services.getBeritaBerandaList(),
@@ -51,6 +57,24 @@ const BerandaPage = () => {
         image: `${getEnv().BASE_API_URL}${item.foto.formats.medium.url}`,
       })) ?? [],
     [facilitiesData]
+  );
+
+  const priorityNews = useMemo(
+    () =>
+      priorityNewsData?.data?.map((item: any) => ({
+        id: item.documentId,
+        tanggalDibuat: item.tanggal_dibuat,
+        image: `${getEnv().BASE_API_URL}${item.foto_header.formats.medium.url}`,
+        title: item.judul,
+        description: item.deskripsi,
+        created_at: item.tanggal_dibuat
+          ? dayjs(new Date(item.tanggal_dibuat)).format("DD MMM YYYY")
+          : "",
+        labelBerita: item.label_berita?.nama,
+        ctaDisplay: item.cta_display,
+        ctaUrl: item.cta_url,
+      })) ?? [],
+    [priorityNewsData]
   );
 
   const news = useMemo(
@@ -95,7 +119,8 @@ const BerandaPage = () => {
         !isFacilitiesSuccess ||
         !isNewsSuccess ||
         !isPrestasiSuccess ||
-        !isVideoProfilSekolahSuccess
+        !isVideoProfilSekolahSuccess ||
+        !isPriorityNewsSuccess
       }
     >
       <div className="min-h-screen">
@@ -104,7 +129,7 @@ const BerandaPage = () => {
           autoplay={{ dotDuration: true }}
           className="[&_.slick-arrow]:text-black!"
         >
-          {news.map((item: any, idx: number) => (
+          {priorityNews.map((item: any, idx: number) => (
             <div className="relative h-128 lg:h-154" key={`hero-${idx}`}>
               <Image
                 width="100%"
@@ -200,19 +225,7 @@ const BerandaPage = () => {
                       key={`news-${idx}`}
                     >
                       <div className="w-full h-32 overflow-hidden">
-                        <Image
-                          width="100%"
-                          src={item.image}
-                          preview={false}
-                          placeholder={
-                            <Image
-                              preview={false}
-                              src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?x-oss-process=image/blur,r_50,s_50/quality,q_1/resize,m_mfit,h_200,w_200"
-                              width="100%"
-                              height="100%"
-                            />
-                          }
-                        />
+                        <Image width="100%" src={item.image} preview={false} />
                       </div>
                       <div className="flex flex-col items-start gap-1 p-4">
                         <div className="w-full flex justify-between items-center">
@@ -279,14 +292,6 @@ const BerandaPage = () => {
                           className="object-cover"
                           src={item.image}
                           preview={false}
-                          placeholder={
-                            <Image
-                              height="100%"
-                              className="object-cover"
-                              preview={false}
-                              src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?x-oss-process=image/blur,r_50,s_50/quality,q_1/resize,m_mfit,h_200,w_200"
-                            />
-                          }
                         />
                       </div>
                       <div className="flex-1 flex flex-col px-4 py-2">

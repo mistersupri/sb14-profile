@@ -28,13 +28,19 @@ export const beritaService = {
       .then(({ data }) => data),
   getBerita: (id: string) =>
     httpClient.get(`/beritas/${id}?populate=*`).then(({ data }) => data),
-  getBeritaBerandaList: () =>
+  getBeritaPrioritasList: () =>
     httpClient
       .get("/beritas?filters[prioritas][$eq]=true&populate=*")
       .then(({ data }) => data),
+  getBeritaBerandaList: () =>
+    httpClient
+      .get(
+        "/beritas?filters[prioritas][$eq]=true&filters[label_berita][nama][$nei]=Prestasi&populate=*"
+      )
+      .then(({ data }) => data),
   getBeritaPrestasi: () =>
     httpClient
-      .get("/beritas?filters[label_berita][nama][$eq]=PRESTASI&populate=*")
+      .get("/beritas?filters[label_berita][nama][$eq]=Prestasi&populate=*")
       .then(({ data }) => data),
   getLabelBeritaList: () =>
     httpClient.get("/label-beritas?populate=*").then(({ data }) => data),
