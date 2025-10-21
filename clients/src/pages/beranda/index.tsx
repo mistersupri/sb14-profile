@@ -257,7 +257,7 @@ const BerandaPage = () => {
               <h2 className="text-2xl font-bold">PRESTASI</h2>
               <div className="flex gap-2 items-center text-gray-500 border-b border-b-transparent hover:text-black hover:border-b hover:border-b-black cursor-pointer transition-all">
                 <a
-                  href="/pengumuman?label=PRESTASI"
+                  href="/pengumuman?label=Prestasi"
                   className="text-xs lg:text-sm"
                 >
                   Selengkapnya
