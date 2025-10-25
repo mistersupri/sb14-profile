@@ -3,7 +3,7 @@ import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import tailwindcss from "@tailwindcss/vite";
 import aliases from "./tsconfig.paths.json";
-import ViteSitemap from "vite-plugin-sitemap";
+import ViteSitemap from "vite-sitemap";
 import { createHtmlPlugin } from "vite-plugin-html";
 
 function getAliasesFromPaths(
@@ -41,7 +41,8 @@ export default ({ mode }: { mode: string }) => {
       react(),
       tailwindcss(),
       ViteSitemap({
-        hostname: processEnvValues["process.env"].REACT_APP_BASE_URL,
+        base: processEnvValues["process.env"].REACT_APP_BASE_URL,
+        urls: ["tentang-sekolah", "pengumuman", "faq"],
       }),
       createHtmlPlugin({
         minify: true,
