@@ -3,6 +3,8 @@ import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import tailwindcss from "@tailwindcss/vite";
 import aliases from "./tsconfig.paths.json";
+import ViteSitemap from "vite-plugin-sitemap";
+import { createHtmlPlugin } from "vite-plugin-html";
 
 function getAliasesFromPaths(
   baseUrl: string,
@@ -31,11 +33,26 @@ export default ({ mode }: { mode: string }) => {
         ...prev,
         [key]: val,
       };
-    }, {}),
+    }, {}) as Record<string, string>,
   };
 
   return defineConfig({
-    plugins: [react(), tailwindcss()],
+    plugins: [
+      react(),
+      tailwindcss(),
+      ViteSitemap({
+        hostname: processEnvValues["process.env"].REACT_APP_BASE_URL,
+      }),
+      createHtmlPlugin({
+        minify: true,
+        inject: {
+          data: {
+            title: "Default Title",
+            description: "Default Description",
+          },
+        },
+      }),
+    ],
     resolve: {
       alias: getAliasesFromPaths(
         aliases.compilerOptions.baseUrl,
