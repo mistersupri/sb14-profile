@@ -44,7 +44,7 @@ const GaleriPage = () => {
       galleryData?.data
         ?.map((item: Record<string, any>) =>
           item.images.map((image: Record<string, any>) => ({
-            url: `${getEnv().BASE_API_URL}${image.url}`,
+            url: `${getEnv().BASE_API_URL}${image.formats.medium.url}`,
             hash: `${getEnv().BASE_API_URL}${image.formats.thumbnail.url}`,
           }))
         )
