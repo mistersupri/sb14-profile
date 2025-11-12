@@ -3,12 +3,11 @@ import { MainLayout } from "../main";
 import { Image } from "antd";
 import { IMGSekolah } from "@/assets";
 
-const BigTitleLayout: React.FC<React.PropsWithChildren<{ title: string }>> = ({
-  children,
-  title,
-}) => {
+const BigTitleLayout: React.FC<
+  React.PropsWithChildren<{ title: string; isLoading?: boolean }>
+> = ({ children, title, isLoading }) => {
   return (
-    <MainLayout>
+    <MainLayout isLoading={isLoading} title={title}>
       <div className="relative h-128 overflow-y-hidden">
         <Image
           className="max-h-128 object-cover"

@@ -26,17 +26,18 @@ const UnduhanPage = () => {
   const keyword = searchParams.get("keyword");
   const page = searchParams.get("page");
 
-  const { data: unduhanLabelsData } = useQuery({
-    queryKey: ["UNDUHAN_LABELS", pathname],
-    queryFn: () => Services.getLabelUnduhanList(),
-  });
+  const { data: unduhanLabelsData, isSuccess: isUnduhanLabelsSuccess } =
+    useQuery({
+      queryKey: ["UNDUHAN_LABELS", pathname],
+      queryFn: () => Services.getLabelUnduhanList(),
+    });
 
   const unduhanLabels = useMemo(
     () => unduhanLabelsData?.data?.map((item: any) => item.nama) ?? [],
     [unduhanLabelsData]
   );
 
-  const { data: unduhanData } = useQuery({
+  const { data: unduhanData, isSuccess: isUnduhanSuccess } = useQuery({
     queryKey: ["UNDUHAN", pathname, label, keyword, page],
     queryFn: () =>
       Services.getUnduhanList({
@@ -60,7 +61,10 @@ const UnduhanPage = () => {
   );
 
   return (
-    <BigTitleLayout title="UNDUHAN">
+    <BigTitleLayout
+      title="UNDUHAN"
+      isLoading={!isUnduhanLabelsSuccess || !isUnduhanSuccess}
+    >
       <div className="xl:max-w-380 m-auto pb-32 px-4 md:px-8 lg:px-32 flex flex-col gap-8">
         <div className="w-full lg:w-128 mx-auto flex flex-col gap-4">
           <Input.Search

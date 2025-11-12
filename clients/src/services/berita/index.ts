@@ -14,7 +14,7 @@ export const beritaService = {
       : "";
     return await httpClient
       .get(
-        `/beritas?populate=*&pagination[pageSize]=10&pagination[page]=${
+        `/beritas?populate=*&pagination[pageSize]=10&sort[0]=tanggal_dibuat:Desc&sort[1]=createdAt:Desc&pagination[page]=${
           params?.page || 1
         }${filterLabel}${filterKeyword}`
       )
@@ -23,18 +23,28 @@ export const beritaService = {
   getBeritaTerbaruList: () =>
     httpClient
       .get(
-        "/beritas?filters&populate=*&pagination[pageSize]=5&sort[0]=tanggal_dibuat"
+        "/beritas?filters&populate=*&pagination[pageSize]=5&sort[0]=tanggal_dibuat:Desc&sort[1]=createdAt:Desc"
       )
       .then(({ data }) => data),
   getBerita: (id: string) =>
     httpClient.get(`/beritas/${id}?populate=*`).then(({ data }) => data),
+  getBeritaPrioritasList: () =>
+    httpClient
+      .get(
+        "/beritas?filters[prioritas][$eq]=true&populate=*&pagination[pageSize]=5&sort[0]=tanggal_dibuat:Desc&sort[1]=createdAt:Desc"
+      )
+      .then(({ data }) => data),
   getBeritaBerandaList: () =>
     httpClient
-      .get("/beritas?filters[prioritas][$eq]=true&populate=*")
+      .get(
+        "/beritas?filters[label_berita][nama][$nei]=Prestasi&populate=*&pagination[pageSize]=5&sort[0]=tanggal_dibuat:Desc&sort[1]=createdAt:Desc"
+      )
       .then(({ data }) => data),
   getBeritaPrestasi: () =>
     httpClient
-      .get("/beritas?filters[label_berita][nama][$eq]=PRESTASI&populate=*")
+      .get(
+        "/beritas?filters[label_berita][nama][$eq]=Prestasi&populate=*&pagination[pageSize]=5&sort[0]=tanggal_dibuat:Desc&sort[1]=createdAt:Desc"
+      )
       .then(({ data }) => data),
   getLabelBeritaList: () =>
     httpClient.get("/label-beritas?populate=*").then(({ data }) => data),

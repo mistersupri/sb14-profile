@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sdnsumurbatu14.sch.id/sitemap.xml
+
+User-agent: Googlebot
+Disallow: /private

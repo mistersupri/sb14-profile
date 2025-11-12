@@ -24,27 +24,27 @@ dayjs.locale("id");
 
 const DetailPengumumanPage = () => {
   const navigate = useNavigate();
-  const { search } = useLocation();
+  const { pathname, search } = useLocation();
   const parsedQuery = queryString.parse(search);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const params = useParams();
   const id = params.id;
 
   if (!id) return;
 
-  const { data: detailNewsData } = useQuery({
-    queryKey: ["DETAIL_NEWS"],
+  const { data: detailNewsData, isSuccess: isDetailNewsSuccess } = useQuery({
+    queryKey: ["DETAIL_NEWS", pathname, search],
     queryFn: () => Services.getBerita(id),
   });
 
   const detailNews = detailNewsData?.data;
 
-  const { data: latestNewsData } = useQuery({
+  const { data: latestNewsData, isSuccess: isLatestNewsSuccess } = useQuery({
     queryKey: ["LATEST_NEWS"],
     queryFn: () => Services.getBeritaTerbaruList(),
   });
 
-  const { data: newsLabelsData } = useQuery({
+  const { data: newsLabelsData, isSuccess: isNewsLabelsSuccess } = useQuery({
     queryKey: ["NEWS_LABELS"],
     queryFn: () => Services.getLabelBeritaList(),
   });
@@ -57,6 +57,8 @@ const DetailPengumumanPage = () => {
   const latestNews = useMemo(
     () =>
       latestNewsData?.data?.map((item: any) => ({
+        id: item.documentId,
+        tanggalDibuat: item.tanggal_dibuat,
         image: `${getEnv().BASE_API_URL}${item.foto_header.url}`,
         hashImage: `${getEnv().BASE_API_URL}${
           item.foto_header.formats.thumbnail.url
@@ -72,7 +74,11 @@ const DetailPengumumanPage = () => {
   );
 
   return (
-    <MainLayout>
+    <MainLayout
+      isLoading={
+        !isDetailNewsSuccess || !isLatestNewsSuccess || !isNewsLabelsSuccess
+      }
+    >
       <div className="relative h-128 overflow-y-hidden">
         <Image
           className="max-h-128 object-cover"
@@ -144,9 +150,15 @@ const DetailPengumumanPage = () => {
             placeholder="Cari pengumuman di sini..."
             enterButton="Search"
             size="large"
-            onSearch={(value) =>
-              setSearchParams({ ...parsedQuery, page: "1", keyword: value })
-            }
+            onSearch={(value) => {
+              navigate(
+                `/pengumuman?${queryString.stringify({
+                  ...parsedQuery,
+                  page: "1",
+                  keyword: value,
+                })}`
+              );
+            }}
           />
           <div className="flex flex-col gap-2">
             <h2 className="text-xl font-bold">LABEL</h2>
@@ -169,9 +181,7 @@ const DetailPengumumanPage = () => {
                 }}
                 className={classNames([
                   "rounded bg-gray-200 py-2 px-4 font-bold",
-                  !searchParams.get("label")
-                    ? "bg-teal-800 text-white"
-                    : "hover:bg-black hover:text-white cursor-pointer",
+                  "hover:bg-black hover:text-white cursor-pointer",
                 ])}
               >
                 SEMUA
@@ -210,32 +220,48 @@ const DetailPengumumanPage = () => {
               <h2 className="text-2xl font-bold">TERBARU</h2>
             </div>
             <div className="flex flex-col gap-4">
-              {latestNews.map((item: any) => (
-                <div className="flex overflow-hidden rounded border border-gray-100 hover:border-black cursor-pointer transition-all">
-                  <div className="w-16">
-                    <Image
-                      height="100%"
-                      className="object-cover"
-                      src={item.image}
-                      preview={false}
-                      placeholder={
-                        <Image
-                          height="100%"
-                          className="object-cover"
-                          preview={false}
-                          src={item.hashImage}
-                        />
-                      }
-                    />
+              {latestNews.map((item: any, idx: number) => (
+                <a
+                  href={`/pengumuman/${item.id}/${
+                    item.tanggalDibuat
+                  }/${item.title.trim().toLowerCase().replaceAll(" ", "-")}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigate(
+                      `/pengumuman/${item.id}/${item.tanggalDibuat}/${item.title
+                        .trim()
+                        .toLowerCase()
+                        .replaceAll(" ", "-")}`
+                    );
+                  }}
+                  key={`news-${idx}`}
+                >
+                  <div className="flex overflow-hidden rounded border border-gray-100 hover:border-black cursor-pointer transition-all">
+                    <div className="w-16">
+                      <Image
+                        height="100%"
+                        className="object-cover"
+                        src={item.image}
+                        preview={false}
+                        placeholder={
+                          <Image
+                            height="100%"
+                            className="object-cover"
+                            preview={false}
+                            src={item.hashImage}
+                          />
+                        }
+                      />
+                    </div>
+                    <div className="flex-1 flex flex-col px-4 py-2">
+                      <p className="text-xs text-gray-500">{item.created_at}</p>
+                      <h4 className="font-bold text-sm line-clamp-2">
+                        {item.title}
+                      </h4>
+                      <p className="line-clamp-2 text-xs">{item.description}</p>
+                    </div>
                   </div>
-                  <div className="flex-1 flex flex-col px-4 py-2">
-                    <p className="text-xs text-gray-500">{item.created_at}</p>
-                    <h4 className="font-bold text-sm line-clamp-2">
-                      {item.title}
-                    </h4>
-                    <p className="line-clamp-2 text-xs">{item.description}</p>
-                  </div>
-                </div>
+                </a>
               ))}
             </div>
           </div>

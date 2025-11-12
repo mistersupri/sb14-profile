@@ -6,7 +6,7 @@ import { Services } from "@/services";
 import { useMemo } from "react";
 
 const FAQPage = () => {
-  const { data: faqData } = useQuery({
+  const { data: faqData, isSuccess } = useQuery({
     queryKey: ["FAQ_LIST"],
     queryFn: () => Services.getFaqList(),
   });
@@ -22,7 +22,7 @@ const FAQPage = () => {
   );
 
   return (
-    <BigTitleLayout title="FAQ">
+    <BigTitleLayout title="FAQ" isLoading={!isSuccess}>
       <div className="xl:max-w-380 m-auto pb-32 px-4 md:px-8 lg:px-32 flex flex-col gap-4">
         {faqList.map((item: any) => (
           <div
