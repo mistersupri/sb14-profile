@@ -1,0 +1,21 @@
+version: 38
+jobs:
+- name: build
+  jobExecutor: internal
+  steps:
+  - !CheckoutStep
+    name: checkout
+    cloneCredential: !DefaultCredential {}
+    withLfs: false
+    withSubmodules: false
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  - !BuildImageStep
+    name: build image
+    buildPath: server
+    output: !RegistryOutput
+      tags: '@server_host@/@project_path@:@build_number@'
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  retryCondition: never
+  maxRetries: 3
+  retryDelay: 30
+  timeout: 14400
