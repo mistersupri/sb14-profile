@@ -13,7 +13,7 @@ jobs:
     name: build image
     buildPath: server
     output: !RegistryOutput
-      tags: '@server_host@/@project_path@:@build_number@'
+      tags: butterchoco/sb14-profile:@build_number@
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   retryCondition: never
   maxRetries: 3
