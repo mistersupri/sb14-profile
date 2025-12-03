@@ -13,7 +13,7 @@ jobs:
     name: build image
     buildPath: server
     output: !RegistryOutput
-      tags: butterchoco/sb14-profile:@build_number@
+      tags: ghcr.io/mistersupri/sb14-profile:@build_number@
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   retryCondition: never
   maxRetries: 3
